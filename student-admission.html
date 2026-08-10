@@ -1,0 +1,2511 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Admission | SIMPLEXSKOLLA</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<link rel="stylesheet" href="css/dashboard.css">
+
+<link rel="stylesheet" href="css/student-admission.css">
+<style>
+    /*======================================
+STUDENT ADMISSION
+======================================*/
+
+.admission-container{
+
+display:flex;
+
+flex-direction:column;
+
+gap:30px;
+
+}
+/*======================================
+WIZARD HEADER
+======================================*/
+
+.wizard-header{
+
+background:#111C37;
+
+padding:30px;
+
+border-radius:22px;
+
+border:1px solid rgba(255,255,255,.08);
+
+}
+
+.wizard-header h2{
+
+font-size:30px;
+
+margin-bottom:10px;
+
+}
+
+.wizard-header p{
+
+color:#94A3B8;
+
+line-height:1.8;
+
+}
+
+/*======================================
+PROGRESS
+======================================*/
+
+.wizard-progress{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+gap:10px;
+
+flex-wrap:wrap;
+
+}
+
+.step{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:10px;
+
+}
+
+.circle{
+
+width:50px;
+
+height:50px;
+
+border-radius:50%;
+
+background:#1B2948;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-weight:700;
+
+color:#fff;
+
+}
+
+.step.active .circle{
+
+background:#2563EB;
+
+}
+
+.step span{
+
+font-size:14px;
+
+color:#94A3B8;
+
+}
+
+.line{
+
+flex:1;
+
+height:3px;
+
+background:#1B2948;
+
+min-width:30px;
+
+}
+
+.admission-card{
+
+background:#111C37;
+
+border-radius:22px;
+
+padding:35px;
+
+border:1px solid rgba(255,255,255,.08);
+
+}
+
+@media(max-width:768px){
+
+.wizard-progress{
+
+justify-content:center;
+
+}
+
+.line{
+
+display:none;
+
+}
+
+}
+/*======================================
+ADMISSION FORM
+======================================*/
+
+.photo-upload{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+margin-bottom:35px;
+
+}
+
+.photo-preview{
+
+width:140px;
+
+height:140px;
+
+border-radius:50%;
+
+background:#1B2948;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:48px;
+
+color:#64748B;
+
+border:4px dashed #2563EB;
+
+margin-bottom:20px;
+
+overflow:hidden;
+
+}
+
+.upload-btn{
+
+background:#2563EB;
+
+color:#fff;
+
+border:none;
+
+padding:12px 24px;
+
+border-radius:12px;
+
+cursor:pointer;
+
+font-weight:600;
+
+transition:.3s;
+
+}
+
+.upload-btn:hover{
+
+background:#1D4ED8;
+
+}
+
+.form-grid{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:24px;
+
+}
+
+.form-group{
+
+display:flex;
+
+flex-direction:column;
+
+}
+
+.form-group label{
+
+margin-bottom:10px;
+
+font-weight:600;
+
+}
+
+.form-group input,
+
+.form-group select,
+
+.form-group textarea{
+
+background:#182647;
+
+border:1px solid rgba(255,255,255,.08);
+
+color:#fff;
+
+padding:15px;
+
+border-radius:12px;
+
+font-family:Poppins,sans-serif;
+
+font-size:15px;
+
+outline:none;
+
+transition:.3s;
+
+}
+
+.form-group input:focus,
+
+.form-group select:focus,
+
+.form-group textarea:focus{
+
+border-color:#2563EB;
+
+box-shadow:0 0 0 3px rgba(37,99,235,.2);
+
+}
+
+.form-group textarea{
+
+resize:vertical;
+
+min-height:110px;
+
+}
+
+.full-width{
+
+grid-column:1 / -1;
+
+}
+
+.wizard-buttons{
+
+display:flex;
+
+justify-content:space-between;
+
+margin-top:35px;
+
+gap:15px;
+
+}
+
+.secondary-btn{
+
+background:#374151;
+
+color:#fff;
+
+border:none;
+
+padding:14px 28px;
+
+border-radius:12px;
+
+cursor:not-allowed;
+
+opacity:.7;
+
+}
+
+@media(max-width:768px){
+
+.form-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.full-width{
+
+grid-column:auto;
+
+}
+
+.wizard-buttons{
+
+flex-direction:column;
+
+}
+
+.wizard-buttons button{
+
+width:100%;
+
+}
+
+.photo-preview{
+
+width:120px;
+
+height:120px;
+
+}
+
+}
+/*======================================
+FORM STEPS
+======================================*/
+
+.form-step{
+
+display:none;
+
+animation:fadeIn .35s ease;
+
+}
+
+.active-step{
+
+display:block;
+
+}
+
+.section-title{
+
+font-size:26px;
+
+margin-bottom:30px;
+
+}
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+transform:translateX(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateX(0);
+
+}
+
+}
+/*======================================
+WIZARD PROGRESS STATES
+======================================*/
+
+.step.completed .circle{
+
+    background:#10B981;
+
+    color:#fff;
+
+}
+
+.step.completed span{
+
+    color:#10B981;
+
+}
+
+.step.active span{
+
+    color:#FFFFFF;
+
+    font-weight:600;
+
+}
+
+.step.completed + .line{
+
+    background:#10B981;
+
+}
+
+.step{
+
+    transition:.3s;
+
+}
+
+.circle{
+
+    transition:.3s;
+
+}
+/*======================================
+DOCUMENT UPLOAD
+======================================*/
+
+.step-description{
+
+    color:#94A3B8;
+
+    line-height:1.7;
+
+    margin-top:-15px;
+
+    margin-bottom:30px;
+
+}
+
+.documents-upload-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(280px,1fr));
+
+    gap:20px;
+
+}
+
+.upload-card{
+
+    display:flex;
+
+    gap:18px;
+
+    padding:22px;
+
+    background:#182647;
+
+    border:1px solid rgba(255,255,255,.07);
+
+    border-radius:18px;
+
+    transition:.3s;
+
+}
+
+.upload-card:hover{
+
+    transform:translateY(-4px);
+
+    border-color:rgba(37,99,235,.5);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.2);
+
+}
+
+.upload-card-icon{
+
+    width:55px;
+
+    height:55px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:15px;
+
+    background:linear-gradient(
+        135deg,
+        #2563EB,
+        #3B82F6
+    );
+
+    color:#fff;
+
+    font-size:22px;
+
+}
+
+.upload-card-content{
+
+    min-width:0;
+
+    flex:1;
+
+}
+
+.upload-card-content h3{
+
+    font-size:16px;
+
+    margin-bottom:5px;
+
+}
+
+.upload-card-content p{
+
+    color:#94A3B8;
+
+    font-size:13px;
+
+    margin-bottom:15px;
+
+}
+
+.file-upload{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:9px 14px;
+
+    background:#2563EB;
+
+    color:#fff;
+
+    border-radius:9px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.file-upload:hover{
+
+    background:#1D4ED8;
+
+}
+
+.file-upload input{
+
+    display:none;
+
+}
+
+.file-name{
+
+    display:block;
+
+    margin-top:10px;
+
+    color:#64748B;
+
+    font-size:12px;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+@media(max-width:600px){
+
+    .documents-upload-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .upload-card{
+
+        padding:18px;
+
+    }
+
+}
+/*======================================
+REVIEW & SUBMIT
+======================================*/
+
+.review-section{
+
+    background:#182647;
+
+    border:1px solid rgba(255,255,255,.07);
+
+    border-radius:18px;
+
+    padding:24px;
+
+    margin-bottom:20px;
+
+}
+
+.review-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    padding-bottom:20px;
+
+    margin-bottom:20px;
+
+    border-bottom:1px solid rgba(255,255,255,.07);
+
+}
+
+.review-header > div{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.review-header > div i{
+
+    width:42px;
+
+    height:42px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:rgba(37,99,235,.15);
+
+    color:#60A5FA;
+
+}
+
+.review-header h3{
+
+    font-size:17px;
+
+}
+
+.review-edit{
+
+    border:0;
+
+    background:transparent;
+
+    color:#60A5FA;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    padding:8px;
+
+}
+
+.review-edit:hover{
+
+    color:#93C5FD;
+
+}
+
+.review-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+    gap:20px;
+
+}
+
+.review-grid div{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+
+}
+
+.review-grid span{
+
+    color:#64748B;
+
+    font-size:12px;
+
+}
+
+.review-grid strong{
+
+    color:#E2E8F0;
+
+    font-size:14px;
+
+    font-weight:500;
+
+}
+
+.document-review{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+    gap:12px;
+
+}
+
+.document-status{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:14px;
+
+    background:#111C37;
+
+    border-radius:12px;
+
+}
+
+.document-status i{
+
+    color:#22C55E;
+
+}
+
+.document-status span{
+
+    flex:1;
+
+    font-size:13px;
+
+}
+
+.document-status strong{
+
+    color:#4ADE80;
+
+    font-size:12px;
+
+}
+
+.admission-confirmation{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    padding:22px;
+
+    margin-top:25px;
+
+    border-radius:18px;
+
+    border:1px solid rgba(37,99,235,.25);
+
+    background:rgba(37,99,235,.08);
+
+}
+
+.confirmation-icon{
+
+    width:52px;
+
+    height:52px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:15px;
+
+    background:#2563EB;
+
+    color:#fff;
+
+    font-size:21px;
+
+}
+
+.admission-confirmation h3{
+
+    margin-bottom:6px;
+
+}
+
+.admission-confirmation p{
+
+    color:#94A3B8;
+
+    font-size:13px;
+
+    line-height:1.7;
+
+}
+
+.complete-admission{
+
+    border:0;
+
+    padding:14px 24px;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+        135deg,
+        #2563EB,
+        #3B82F6
+    );
+
+    color:#fff;
+
+    font-family:inherit;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.complete-admission:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+
+}
+
+@media(max-width:700px){
+
+    .review-grid,
+    .document-review{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .review-header{
+
+        align-items:flex-start;
+
+    }
+
+    .admission-confirmation{
+
+        align-items:flex-start;
+
+    }
+
+    .wizard-buttons{
+
+        flex-direction:column;
+
+    }
+
+    .wizard-buttons button{
+
+        width:100%;
+
+    }
+
+}
+/*======================================
+FORM VALIDATION
+======================================*/
+
+.input-error{
+
+    border-color:#EF4444 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(239,68,68,.12) !important;
+
+}
+
+.input-error:focus{
+
+    border-color:#EF4444 !important;
+
+}
+
+.complete-admission:disabled{
+
+    cursor:not-allowed;
+
+    opacity:.8;
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<div class="overlay"></div>
+
+<aside class="sidebar">
+
+<div class="logo">
+
+<img src="assets/images/logo.png">
+
+<div>
+
+<h2>SIMPLEXSKOLLA</h2>
+
+<p>School ERP Platform</p>
+
+</div>
+
+</div>
+
+<nav class="menu">
+
+<a href="dashboard.html">
+
+<i class="fa-solid fa-house"></i>
+
+<span>Dashboard</span>
+
+</a>
+
+<a href="students.html" class="active">
+
+<i class="fa-solid fa-user-graduate"></i>
+
+<span>Students</span>
+
+</a>
+
+</nav>
+
+</aside>
+
+<main class="main">
+
+<header class="topbar">
+
+<div class="topbar-left">
+
+<button class="menu-toggle">
+
+<i class="fa-solid fa-bars"></i>
+
+</button>
+
+<div>
+
+<h1>New Student Admission</h1>
+
+<p>Register a new student into the school.</p>
+
+</div>
+
+</div>
+
+</header>
+
+<section class="admission-container">
+
+<div class="wizard-header">
+
+<h2>Student Admission Wizard</h2>
+
+<p>
+
+Complete all six steps to successfully register a new student.
+
+</p>
+
+</div>
+
+<div class="wizard-progress">
+
+<div class="step active">
+
+<div class="circle">1</div>
+
+<span>Personal</span>
+
+</div>
+
+<div class="line"></div>
+
+<div class="step">
+
+<div class="circle">2</div>
+
+<span>Guardian</span>
+
+</div>
+
+<div class="line"></div>
+
+<div class="step">
+
+<div class="circle">3</div>
+
+<span>Academic</span>
+
+</div>
+
+<div class="line"></div>
+
+<div class="step">
+
+<div class="circle">4</div>
+
+<span>Medical</span>
+
+</div>
+
+<div class="line"></div>
+
+<div class="step">
+
+<div class="circle">5</div>
+
+<span>Documents</span>
+
+</div>
+
+<div class="line"></div>
+
+<div class="step">
+
+<div class="circle">6</div>
+
+<span>Finish</span>
+
+</div>
+
+</div>
+
+<div class="admission-card">
+
+<div class="form-step active-step">
+
+<div class="photo-upload">
+
+<div class="photo-preview">
+
+<i class="fa-solid fa-camera"></i>
+
+</div>
+
+<button type="button" class="upload-btn">
+
+<i class="fa-solid fa-upload"></i>
+
+Upload Passport
+
+</button>
+
+</div>
+
+<div class="form-grid">
+
+<div class="form-group">
+
+<label for="firstName">First Name</label>
+
+<input type="text" id="firstName" name="firstName" placeholder="Enter first name" required>
+
+</div>
+
+<div class="form-group">
+
+<label for="middleName">Middle Name</label>
+
+<input type="text" id="middleName" name="middleName" placeholder="Enter middle name">
+
+</div>
+
+<div class="form-group">
+
+<label for="lastName">Last Name</label>
+
+<input type="text" id="lastName" name="lastName" placeholder="Enter last name" required>
+
+</div>
+
+<div class="form-group">
+
+<label for="gender">Gender</label>
+
+<select id="gender" name="gender" required>
+
+<option value="">Select Gender</option>
+
+<option value="Male">Male</option>
+
+<option value="Female">Female</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label for="dateOfBirth">Date of Birth</label>
+
+<input type="date" id="dateOfBirth" name="dateOfBirth" required>
+
+</div>
+
+<div class="form-group">
+
+<label for="nationality">Nationality</label>
+
+<input type="text" id="nationality" name="nationality" placeholder="Nationality" required>
+
+</div>
+
+<div class="form-group">
+
+<label for="stateOfOrigin">State of Origin</label>
+
+<input type="text" id="stateOfOrigin" name="stateOfOrigin" placeholder="State" required>
+
+</div>
+
+<div class="form-group">
+
+<label for="religion">Religion</label>
+
+<input type="text" id="religion" name="religion" placeholder="Religion">
+
+</div>
+
+<div class="form-group">
+
+<label for="bloodGroup">Blood Group</label>
+
+<select id="bloodGroup" name="bloodGroup">
+
+<option value="">Select Blood Group</option>
+
+<option value="A+">A+</option>
+
+<option value="A-">A-</option>
+
+<option value="B+">B+</option>
+
+<option value="B-">B-</option>
+
+<option value="AB+">AB+</option>
+
+<option value="AB-">AB-</option>
+
+<option value="O+">O+</option>
+
+<option value="O-">O-</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label for="phone">Phone Number</label>
+
+<input type="tel" id="phone" name="phone" required>
+
+</div>
+
+<div class="form-group full-width">
+
+<label for="email">Email Address</label>
+
+<input type="email" id="email" name="email" required>
+
+</div>
+
+<div class="form-group full-width">
+
+<label for="residentialAddress">Residential Address</label>
+
+<textarea id="residentialAddress" name="residentialAddress" rows="4" required></textarea>
+
+</div>
+
+</div>
+
+<div class="wizard-buttons">
+
+<button class="secondary-btn" disabled>
+
+Previous
+
+</button>
+
+<button class="primary-btn next-step">
+
+Next Step
+
+</button>
+
+</div>
+
+</div>
+
+<!-- STEP 2 -->
+
+<div class="form-step">
+
+<h2 class="section-title">
+
+Parent / Guardian Information
+
+</h2>
+
+<div class="form-grid">
+
+<div class="form-group">
+
+<label for="fatherName">Father's Name</label>
+
+<input type="text" id="fatherName" name="fatherName">
+
+</div>
+
+<div class="form-group">
+
+<label for="motherName">Mother's Name</label>
+
+<input type="text" id="motherName" name="motherName">
+
+</div>
+
+<div class="form-group">
+
+<label for="guardianName">Guardian Name</label>
+
+<input type="text" id="guardianName" name="guardianName" required>
+
+</div>
+
+<div class="form-group">
+
+<label for="relationship">Relationship</label>
+
+<select id="relationship" name="relationship" required>
+
+<option value="">Select Relationship</option>
+
+<option value="Father">Father</option>
+
+<option value="Mother">Mother</option>
+
+<option value="Guardian">Guardian</option>
+
+<option value="Uncle">Uncle</option>
+
+<option value="Aunt">Aunt</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label for="guardianPhone">Phone Number</label>
+
+<input type="tel" id="guardianPhone" name="guardianPhone" required>
+
+</div>
+
+<div class="form-group">
+
+<label for="alternativePhone">Alternative Phone</label>
+
+<input type="tel" id="alternativePhone" name="alternativePhone">
+
+</div>
+
+<div class="form-group">
+
+<label for="guardianEmail">Email</label>
+
+<input type="email" id="guardianEmail" name="guardianEmail">
+
+</div>
+
+<div class="form-group">
+
+<label for="occupation">Occupation</label>
+
+<input type="text" id="occupation" name="occupation">
+
+</div>
+
+<div class="form-group full-width">
+
+<label for="homeAddress">Home Address</label>
+
+<textarea id="homeAddress" name="homeAddress" rows="4" required></textarea>
+
+</div>
+
+</div>
+
+<div class="wizard-buttons">
+
+<button class="secondary-btn prev-step">
+
+Previous
+
+</button>
+
+<button class="primary-btn next-step">
+
+Next Step
+
+</button>
+
+</div>
+
+</div>
+<!-- STEP 3 -->
+
+<div class="form-step">
+
+    <h2 class="section-title">
+        Academic Information
+    </h2>
+
+    <div class="form-grid">
+
+        <div class="form-group">
+
+            <label>Academic Session</label>
+
+            <select>
+
+                <option>Select Session</option>
+                <option>2026/2027</option>
+                <option>2027/2028</option>
+                <option>2028/2029</option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Term</label>
+
+            <select>
+
+                <option>Select Term</option>
+                <option>First Term</option>
+                <option>Second Term</option>
+                <option>Third Term</option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Class</label>
+
+            <select>
+
+                <option>Select Class</option>
+                <option>JSS 1</option>
+                <option>JSS 2</option>
+                <option>JSS 3</option>
+                <option>SS 1</option>
+                <option>SS 2</option>
+                <option>SS 3</option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Department</label>
+
+            <select>
+
+                <option>Select Department</option>
+                <option>Science</option>
+                <option>Arts</option>
+                <option>Commercial</option>
+                <option>General</option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Student Type</label>
+
+            <select>
+
+                <option>Select Student Type</option>
+                <option>Day Student</option>
+                <option>Boarding Student</option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>House</label>
+
+            <select>
+
+                <option>Select House</option>
+                <option>Blue House</option>
+                <option>Red House</option>
+                <option>Green House</option>
+                <option>Yellow House</option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Admission Type</label>
+
+            <select>
+
+                <option>Select Admission Type</option>
+                <option>New Student</option>
+                <option>Transfer Student</option>
+                <option>Returning Student</option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Admission Date</label>
+
+            <input type="date">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Previous School</label>
+
+            <input
+                type="text"
+                placeholder="Enter previous school"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Previous Class</label>
+
+            <input
+                type="text"
+                placeholder="Enter previous class"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Class Teacher</label>
+
+            <select>
+
+                <option>Select Class Teacher</option>
+                <option>Mrs. Esther Okeke</option>
+                <option>Mr. Daniel Eze</option>
+                <option>Mrs. Grace Obi</option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group full-width">
+
+            <label>Academic Notes</label>
+
+            <textarea
+                rows="4"
+                placeholder="Add any relevant academic information..."
+            ></textarea>
+
+        </div>
+
+    </div>
+
+    <div class="wizard-buttons">
+
+        <button
+            type="button"
+            class="secondary-btn prev-step"
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Previous
+
+        </button>
+
+        <button
+            type="button"
+            class="primary-btn next-step"
+        >
+
+            Next Step
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </button>
+
+    </div>
+
+</div>
+<!-- STEP 4 -->
+
+<div class="form-step">
+
+    <h2 class="section-title">
+        Medical Information
+    </h2>
+
+    <div class="form-grid">
+
+        <div class="form-group">
+
+            <label for="medicalBloodGroup">Blood Group</label>
+
+            <select id="medicalBloodGroup" name="medicalBloodGroup">
+
+                <option value="">Select Blood Group</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="genotype">Genotype</label>
+
+            <select id="genotype" name="genotype">
+
+                <option value="">Select Genotype</option>
+                <option value="AA">AA</option>
+                <option value="AS">AS</option>
+                <option value="AC">AC</option>
+                <option value="SS">SS</option>
+                <option value="SC">SC</option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="medicalCondition">Medical Condition</label>
+
+            <input
+                type="text"
+                id="medicalCondition"
+                name="medicalCondition"
+                placeholder="None / specify condition"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="allergies">Allergies</label>
+
+            <input
+                type="text"
+                id="allergies"
+                name="allergies"
+                placeholder="None / specify allergies"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="disabilityOrSpecialNeeds">Disability / Special Needs</label>
+
+            <input
+                type="text"
+                id="disabilityOrSpecialNeeds"
+                name="disabilityOrSpecialNeeds"
+                placeholder="None / specify"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="medication">Medication</label>
+
+            <input
+                type="text"
+                id="medication"
+                name="medication"
+                placeholder="Current medication, if any"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="preferredHospital">Preferred Hospital</label>
+
+            <input
+                type="text"
+                id="preferredHospital"
+                name="preferredHospital"
+                placeholder="Hospital / Clinic"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="doctorOrMedicalContact">Doctor / Medical Contact</label>
+
+            <input
+                type="text"
+                id="doctorOrMedicalContact"
+                name="doctorOrMedicalContact"
+                placeholder="Doctor's name"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="emergencyContactName">Emergency Contact Name</label>
+
+            <input
+                type="text"
+                id="emergencyContactName"
+                name="emergencyContactName"
+                placeholder="Emergency contact"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="emergencyContactPhone">Emergency Contact Phone</label>
+
+            <input
+                type="tel"
+                id="emergencyContactPhone"
+                name="emergencyContactPhone"
+                placeholder="08012345678"
+            >
+
+        </div>
+
+        <div class="form-group full-width">
+
+            <label for="medicalNotes">Medical Notes</label>
+
+            <textarea
+                id="medicalNotes"
+                name="medicalNotes"
+                rows="4"
+                placeholder="Enter any additional medical information..."
+            ></textarea>
+
+        </div>
+
+    </div>
+
+    <div class="wizard-buttons">
+
+        <button
+            type="button"
+            class="secondary-btn prev-step"
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Previous
+
+        </button>
+
+        <button
+            type="button"
+            class="primary-btn next-step"
+        >
+
+            Next Step
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </button>
+
+    </div>
+
+</div>
+<!-- STEP 5 -->
+
+<div class="form-step">
+
+    <h2 class="section-title">
+        Upload Documents
+    </h2>
+
+    <p class="step-description">
+        Upload the required documents for this student's admission.
+        Supported formats include PDF, JPG and PNG.
+    </p>
+
+    <div class="documents-upload-grid">
+
+        <!-- Passport -->
+
+        <div class="upload-card">
+
+            <div class="upload-card-icon">
+                <i class="fa-solid fa-camera"></i>
+            </div>
+
+            <div class="upload-card-content">
+
+                <h3>Passport Photograph</h3>
+
+                <p>Recent passport photograph</p>
+
+                <label class="file-upload">
+
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                    Choose File
+
+                    <input
+                        type="file"
+                        accept="image/png,image/jpeg"
+                    >
+
+                </label>
+
+                <span class="file-name">
+                    No file selected
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Birth Certificate -->
+
+        <div class="upload-card">
+
+            <div class="upload-card-icon">
+                <i class="fa-solid fa-certificate"></i>
+            </div>
+
+            <div class="upload-card-content">
+
+                <h3>Birth Certificate</h3>
+
+                <p>Birth certificate or declaration</p>
+
+                <label class="file-upload">
+
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                    Choose File
+
+                    <input
+                        type="file"
+                        id="birthCertificateFile"
+                        name="birthCertificate"
+                        accept=".pdf,image/png,image/jpeg"
+                    >
+
+                </label>
+
+                <span class="file-name">
+                    No file selected
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Previous Result -->
+
+        <div class="upload-card">
+
+            <div class="upload-card-icon">
+                <i class="fa-solid fa-file-lines"></i>
+            </div>
+
+            <div class="upload-card-content">
+
+                <h3>Previous School Result</h3>
+
+                <p>Latest academic result</p>
+
+                <label class="file-upload">
+
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                    Choose File
+
+                    <input
+                        type="file"
+                        id="previousResultFile"
+                        name="previousResult"
+                        accept=".pdf,image/png,image/jpeg"
+                    >
+
+                </label>
+
+                <span class="file-name">
+                    No file selected
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Transfer Certificate -->
+
+        <div class="upload-card">
+
+            <div class="upload-card-icon">
+                <i class="fa-solid fa-file-arrow-right"></i>
+            </div>
+
+            <div class="upload-card-content">
+
+                <h3>Transfer Certificate</h3>
+
+                <p>Transfer certificate, if applicable</p>
+
+                <label class="file-upload">
+
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                    Choose File
+
+                    <input
+                        type="file"
+                        id="transferCertificateFile"
+                        name="transferCertificate"
+                        accept=".pdf,image/png,image/jpeg"
+                    >
+
+                </label>
+
+                <span class="file-name">
+                    No file selected
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Medical Report -->
+
+        <div class="upload-card">
+
+            <div class="upload-card-icon">
+                <i class="fa-solid fa-file-medical"></i>
+            </div>
+
+            <div class="upload-card-content">
+
+                <h3>Medical Report</h3>
+
+                <p>Medical report, if available</p>
+
+                <label class="file-upload">
+
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                    Choose File
+
+                    <input
+                        type="file"
+                        id="medicalReportFile"
+                        name="medicalReport"
+                        accept=".pdf,image/png,image/jpeg"
+                    >
+
+                </label>
+
+                <span class="file-name">
+                    No file selected
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Other Document -->
+
+        <div class="upload-card">
+
+            <div class="upload-card-icon">
+                <i class="fa-solid fa-folder-plus"></i>
+            </div>
+
+            <div class="upload-card-content">
+
+                <h3>Other Document</h3>
+
+                <p>Any additional admission document</p>
+
+                <label class="file-upload">
+
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                    Choose File
+
+                    <input
+                        type="file"
+                        id="otherDocumentFile"
+                        name="otherDocument"
+                        accept=".pdf,image/png,image/jpeg"
+                    >
+
+                </label>
+
+                <span class="file-name">
+                    No file selected
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="wizard-buttons">
+
+        <button
+            type="button"
+            class="secondary-btn prev-step"
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Previous
+
+        </button>
+
+        <button
+            type="button"
+            class="primary-btn next-step"
+        >
+
+            Next Step
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </button>
+
+    </div>
+
+</div>
+<!-- STEP 6 -->
+
+<div class="form-step">
+
+    <h2 class="section-title">
+        Review & Submit
+    </h2>
+
+    <p class="step-description">
+        Review the admission information carefully before completing
+        the student's registration.
+    </p>
+
+
+    <!-- Personal Information -->
+
+    <div class="review-section">
+
+        <div class="review-header">
+
+            <div>
+
+                <i class="fa-solid fa-user"></i>
+
+                <h3>Personal Information</h3>
+
+            </div>
+
+            <button
+                type="button"
+                class="review-edit"
+                data-step="0"
+            >
+
+                <i class="fa-solid fa-pen"></i>
+
+                Edit
+
+            </button>
+
+        </div>
+
+        <div class="review-grid">
+
+            <div>
+                <span>Student Name</span>
+                <strong id="reviewStudentName">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Gender</span>
+                <strong id="reviewGender">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Date of Birth</span>
+                <strong id="reviewDateOfBirth">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Nationality</span>
+                <strong id="reviewNationality">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Phone Number</span>
+                <strong id="reviewPhone">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Email Address</span>
+                <strong id="reviewEmail">Not provided</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Guardian Information -->
+
+    <div class="review-section">
+
+        <div class="review-header">
+
+            <div>
+
+                <i class="fa-solid fa-users"></i>
+
+                <h3>Parent / Guardian</h3>
+
+            </div>
+
+            <button
+                type="button"
+                class="review-edit"
+                data-step="1"
+            >
+
+                <i class="fa-solid fa-pen"></i>
+
+                Edit
+
+            </button>
+
+        </div>
+
+        <div class="review-grid">
+
+            <div>
+                <span>Father's Name</span>
+                <strong id="reviewFatherName">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Mother's Name</span>
+                <strong id="reviewMotherName">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Guardian</span>
+                <strong id="reviewGuardianName">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Relationship</span>
+                <strong id="reviewRelationship">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Phone Number</span>
+                <strong id="reviewGuardianPhone">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Email</span>
+                <strong id="reviewGuardianEmail">Not provided</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Academic Information -->
+
+    <div class="review-section">
+
+        <div class="review-header">
+
+            <div>
+
+                <i class="fa-solid fa-school"></i>
+
+                <h3>Academic Information</h3>
+
+            </div>
+
+            <button
+                type="button"
+                class="review-edit"
+                data-step="2"
+            >
+
+                <i class="fa-solid fa-pen"></i>
+
+                Edit
+
+            </button>
+
+        </div>
+
+        <div class="review-grid">
+
+            <div>
+                <span>Academic Session</span>
+                <strong id="reviewAcademicSession">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Class</span>
+                <strong id="reviewClass">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Department</span>
+                <strong id="reviewDepartment">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Student Type</span>
+                <strong id="reviewStudentType">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Admission Type</span>
+                <strong id="reviewAdmissionType">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Previous School</span>
+                <strong id="reviewPreviousSchool">Not provided</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Medical Information -->
+
+    <div class="review-section">
+
+        <div class="review-header">
+
+            <div>
+
+                <i class="fa-solid fa-heart-pulse"></i>
+
+                <h3>Medical Information</h3>
+
+            </div>
+
+            <button
+                type="button"
+                class="review-edit"
+                data-step="3"
+            >
+
+                <i class="fa-solid fa-pen"></i>
+
+                Edit
+
+            </button>
+
+        </div>
+
+        <div class="review-grid">
+
+            <div>
+                <span>Blood Group</span>
+                <strong id="reviewMedicalBloodGroup">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Genotype</span>
+                <strong id="reviewGenotype">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Allergies</span>
+                <strong id="reviewAllergies">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Medical Condition</span>
+                <strong id="reviewMedicalCondition">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Emergency Contact</span>
+                <strong id="reviewEmergencyContactName">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Emergency Phone</span>
+                <strong id="reviewEmergencyContactPhone">Not provided</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Documents -->
+
+    <div class="review-section">
+
+        <div class="review-header">
+
+            <div>
+
+                <i class="fa-solid fa-folder-open"></i>
+
+                <h3>Documents</h3>
+
+            </div>
+
+            <button
+                type="button"
+                class="review-edit"
+                data-step="4"
+            >
+
+                <i class="fa-solid fa-pen"></i>
+
+                Edit
+
+            </button>
+
+        </div>
+
+        <div class="document-review">
+
+            <div class="document-status">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <span>Passport Photograph</span>
+
+                <strong>Ready</strong>
+
+            </div>
+
+            <div class="document-status">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <span>Birth Certificate</span>
+
+                <strong>Ready</strong>
+
+            </div>
+
+            <div class="document-status">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <span>Previous School Result</span>
+
+                <strong>Ready</strong>
+
+            </div>
+
+            <div class="document-status">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <span>Medical Report</span>
+
+                <strong>Ready</strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Confirmation -->
+
+    <div class="admission-confirmation">
+
+        <div class="confirmation-icon">
+
+            <i class="fa-solid fa-shield-check"></i>
+
+        </div>
+
+        <div>
+
+            <h3>Ready to Complete Admission?</h3>
+
+            <p>
+                Please confirm that the information provided is accurate.
+                Once submitted, the student's admission record will be created.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Buttons -->
+
+    <div class="wizard-buttons">
+
+        <button
+            type="button"
+            class="secondary-btn prev-step"
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Previous
+
+        </button>
+
+        <button
+            type="button"
+            class="complete-admission"
+        >
+
+            <i class="fa-solid fa-check"></i>
+
+            Complete Admission
+
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+</main>
+
+</div>
+
+<script src="js/dashboard.js"></script>
+
+<script type="module" src="js/student-admission.js"></script>
+
+</body>
+
+</html>

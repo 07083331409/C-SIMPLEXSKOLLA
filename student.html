@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Students | SIMPLEXSKOLLA</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<link rel="stylesheet" href="css/dashboard.css">
+
+<link rel="stylesheet" href="css/students.css">
+<style>
+    /*=========================================
+SIMPLEXSKOLLA
+Student Module
+=========================================*/
+
+.students-content{
+
+    width:100%;
+
+}
+
+/*=========================================
+Student Welcome
+=========================================*/
+
+.student-banner{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    padding:30px;
+
+    margin-bottom:30px;
+
+    border-radius:22px;
+
+    background:linear-gradient(135deg,#1E3A8A,#2563EB);
+
+    color:#fff;
+
+    box-shadow:0 18px 40px rgba(0,0,0,.25);
+
+}
+
+.student-banner h2{
+
+    font-size:32px;
+
+    margin-bottom:10px;
+
+}
+
+.student-banner p{
+
+    max-width:650px;
+
+    line-height:1.8;
+
+    color:rgba(255,255,255,.90);
+
+}
+
+.student-banner .primary-btn{
+
+    background:#fff;
+
+    color:#2563EB;
+
+    font-weight:700;
+
+}
+
+.student-banner .primary-btn:hover{
+
+    background:#F8FAFC;
+
+}
+
+/*=========================================
+Student Statistics
+=========================================*/
+
+.student-stats{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+
+}
+
+.student-stat{
+
+    background:#111C37;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    padding:24px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    transition:.35s;
+
+}
+
+.student-stat:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 18px 40px rgba(0,0,0,.25);
+
+}
+
+.student-stat .icon{
+
+    width:68px;
+
+    height:68px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:28px;
+
+    color:#fff;
+
+}
+
+.bg-blue{
+
+    background:linear-gradient(135deg,#2563EB,#3B82F6);
+
+}
+
+.bg-green{
+
+    background:linear-gradient(135deg,#10B981,#22C55E);
+
+}
+
+.bg-orange{
+
+    background:linear-gradient(135deg,#F59E0B,#F97316);
+
+}
+
+.bg-purple{
+
+    background:linear-gradient(135deg,#7C3AED,#8B5CF6);
+
+}
+
+.student-stat span{
+
+    display:block;
+
+    color:#94A3B8;
+
+    margin-bottom:8px;
+
+    font-size:14px;
+
+}
+
+.student-stat h2{
+
+    font-size:34px;
+
+    margin-bottom:6px;
+
+}
+
+.student-stat small{
+
+    color:#4ADE80;
+
+}
+
+@media(max-width:768px){
+
+    .student-banner{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .student-banner h2{
+
+        font-size:26px;
+
+    }
+
+    .student-banner .primary-btn{
+
+        width:100%;
+
+    }
+
+}
+/*=========================================
+Student Directory
+=========================================*/
+
+.student-directory{
+
+margin-top:35px;
+
+background:#111C37;
+
+padding:30px;
+
+border-radius:22px;
+
+border:1px solid rgba(255,255,255,.08);
+
+}
+
+.directory-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:25px;
+
+gap:20px;
+
+flex-wrap:wrap;
+
+}
+
+.directory-header h2{
+
+font-size:28px;
+
+margin-bottom:5px;
+
+}
+
+.directory-header p{
+
+color:#94A3B8;
+
+}
+
+.directory-actions{
+
+display:flex;
+
+gap:15px;
+
+flex-wrap:wrap;
+
+}
+
+.directory-actions input,
+
+.directory-actions select{
+
+height:48px;
+
+padding:0 16px;
+
+border:none;
+
+outline:none;
+
+border-radius:12px;
+
+background:#1B2948;
+
+color:#fff;
+
+min-width:220px;
+
+}
+
+.table-container{
+
+overflow-x:auto;
+
+}
+
+.student-table{
+
+width:100%;
+
+border-collapse:collapse;
+
+min-width:900px;
+
+}
+
+.student-table th{
+
+background:#16284B;
+
+padding:18px;
+
+text-align:left;
+
+}
+
+.student-table td{
+
+padding:18px;
+
+border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.student-info{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+}
+
+.student-info img{
+
+width:55px;
+
+height:55px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+border:2px solid #2563EB;
+
+}
+
+.student-info strong{
+
+display:block;
+
+margin-bottom:4px;
+
+}
+
+.student-info small{
+
+color:#94A3B8;
+
+}
+
+.status{
+
+padding:8px 15px;
+
+border-radius:30px;
+
+font-size:13px;
+
+font-weight:600;
+
+}
+
+.status.active{
+
+background:rgba(34,197,94,.18);
+
+color:#4ADE80;
+
+}
+
+.action-btn{
+
+width:40px;
+
+height:40px;
+
+border:none;
+
+border-radius:10px;
+
+cursor:pointer;
+
+margin-right:6px;
+
+transition:.3s;
+
+color:#fff;
+
+}
+
+.view{
+
+background:#2563EB;
+
+}
+
+.edit{
+
+background:#F59E0B;
+
+}
+
+.delete{
+
+background:#EF4444;
+
+}
+
+.action-btn:hover{
+
+transform:translateY(-3px);
+
+}
+
+@media(max-width:768px){
+
+.directory-header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.directory-actions{
+
+width:100%;
+
+}
+
+.directory-actions input,
+
+.directory-actions select{
+
+width:100%;
+
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<div class="overlay"></div>
+
+<!-- Sidebar -->
+
+<aside class="sidebar">
+
+<div class="logo">
+
+<img src="assets/images/logo.png" alt="Logo">
+
+<div>
+
+<h2>SIMPLEXSKOLLA</h2>
+
+<p>School ERP Platform</p>
+
+</div>
+
+</div>
+
+<nav class="menu">
+
+<a href="dashboard.html">
+
+<i class="fa-solid fa-house"></i>
+
+<span>Dashboard</span>
+
+</a>
+
+<a href="students.html" class="active">
+
+<i class="fa-solid fa-user-graduate"></i>
+
+<span>Students</span>
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-chalkboard-user"></i>
+
+<span>Teachers</span>
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-school"></i>
+
+<span>Academics</span>
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-money-bill-wave"></i>
+
+<span>Finance</span>
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-square-poll-vertical"></i>
+
+<span>Results</span>
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-gear"></i>
+
+<span>Settings</span>
+
+</a>
+
+</nav>
+
+</aside>
+
+<main class="main">
+
+<header class="topbar">
+
+<div class="topbar-left">
+
+<button class="menu-toggle">
+
+<i class="fa-solid fa-bars"></i>
+
+</button>
+
+<div>
+
+<h1>Student Management</h1>
+
+<p>Manage admissions, student records and profiles.</p>
+
+</div>
+
+</div>
+
+<div class="topbar-right">
+
+<div class="search-box">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<input type="text" placeholder="Search students...">
+
+</div>
+
+<button class="primary-btn">
+
+<i class="fa-solid fa-user-plus"></i>
+
+New Student
+
+</button>
+
+</div>
+
+</header>
+
+<section class="students-content">
+
+    <section class="student-banner">
+
+        <div>
+
+            <h2>Student Management</h2>
+
+            <p>
+                Manage admissions, student records, class placement,
+                attendance, payments and academic history from one place.
+            </p>
+
+        </div>
+
+        <button class="primary-btn">
+
+            <i class="fa-solid fa-user-plus"></i>
+
+            Register Student
+
+        </button>
+
+    </section>
+
+    <section class="student-stats">
+
+        <div class="student-stat">
+
+            <div class="icon bg-blue">
+
+                <i class="fa-solid fa-user-graduate"></i>
+
+            </div>
+
+            <div>
+
+                <span>Total Students</span>
+
+                <h2>1,286</h2>
+
+                <small>+52 this term</small>
+
+            </div>
+
+        </div>
+
+        <div class="student-stat">
+
+            <div class="icon bg-green">
+
+                <i class="fa-solid fa-user-check"></i>
+
+            </div>
+
+            <div>
+
+                <span>Active Students</span>
+
+                <h2>1,214</h2>
+
+                <small>94.4%</small>
+
+            </div>
+
+        </div>
+
+        <div class="student-stat">
+
+            <div class="icon bg-orange">
+
+                <i class="fa-solid fa-user-plus"></i>
+
+            </div>
+
+            <div>
+
+                <span>New Admissions</span>
+
+                <h2>52</h2>
+
+                <small>This Term</small>
+
+            </div>
+
+        </div>
+
+        <div class="student-stat">
+
+            <div class="icon bg-purple">
+
+                <i class="fa-solid fa-user-graduate"></i>
+
+            </div>
+
+            <div>
+
+                <span>Graduates</span>
+
+                <h2>328</h2>
+
+                <small>Last Session</small>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</section>
+<!-- Student Directory -->
+
+<section class="student-directory">
+
+    <div class="directory-header">
+
+        <div>
+
+            <h2>Student Directory</h2>
+
+            <p>Manage all registered students from one place.</p>
+
+        </div>
+
+        <div class="directory-actions">
+
+            <input type="text" placeholder="Search student...">
+
+            <select>
+
+                <option>All Classes</option>
+
+                <option>JSS1</option>
+
+                <option>JSS2</option>
+
+                <option>JSS3</option>
+
+                <option>SS1</option>
+
+                <option>SS2</option>
+
+                <option>SS3</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+    <div class="table-container">
+
+        <table class="student-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Student</th>
+
+                    <th>Admission No.</th>
+
+                    <th>Class</th>
+
+                    <th>Gender</th>
+
+                    <th>Status</th>
+
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>
+
+                        <div class="student-info">
+
+                            <img src="assets/images/student.png">
+
+                            <div>
+
+                                <strong>Amara Johnson</strong>
+
+                                <small>amara@email.com</small>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                    <td>SK2026001</td>
+
+                    <td>SS1 Science</td>
+
+                    <td>Female</td>
+
+                    <td>
+
+                        <span class="status active">
+
+                            Active
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="action-btn view">
+
+                            <i class="fa-solid fa-eye"></i>
+
+                        </button>
+
+                        <button class="action-btn edit">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                        </button>
+
+                        <button class="action-btn delete">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <div class="student-info">
+
+                            <img src="assets/images/student.png">
+
+                            <div>
+
+                                <strong>Emeka Okafor</strong>
+
+                                <small>emeka@email.com</small>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                    <td>SK2026002</td>
+
+                    <td>JSS3 Gold</td>
+
+                    <td>Male</td>
+
+                    <td>
+
+                        <span class="status active">
+
+                            Active
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="action-btn view">
+
+                            <i class="fa-solid fa-eye"></i>
+
+                        </button>
+
+                        <button class="action-btn edit">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                        </button>
+
+                        <button class="action-btn delete">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+</main>
+
+</div>
+
+<script src="js/dashboard.js"></script>
+
+<script type="module" src="js/students.js"></script>
+
+</body>
+
+</html>

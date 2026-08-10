@@ -1,0 +1,2350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SIMPLEXSKOLLA | Administrator Dashboard</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Dashboard CSS -->
+    <link rel="stylesheet" href="css/dashboard.css">
+<style>
+  /*=========================================
+PREMIUM HEADER
+=========================================*/
+
+.topbar{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:30px;
+
+gap:20px;
+
+}
+
+.topbar-left{
+
+display:flex;
+
+align-items:center;
+
+gap:18px;
+
+flex:1;
+
+min-width:0;
+
+}
+
+.topbar-left h2{
+
+font-size:30px;
+
+font-weight:700;
+
+line-height:1.2;
+
+margin-bottom:6px;
+
+}
+
+.topbar-left p{
+
+color:#94A3B8;
+
+margin-top:5px;
+
+font-size:15px;
+
+line-height:1.6;
+
+}
+
+.topbar-right{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+flex-wrap:wrap;
+
+justify-content:flex-end;
+
+margin-left:auto;
+
+}
+
+.header-btn{
+
+position:relative;
+
+width:48px;
+
+height:48px;
+
+border:none;
+
+border-radius:14px;
+
+background:#111C37;
+
+color:#fff;
+
+cursor:pointer;
+
+transition:.35s;
+
+font-size:18px;
+
+}
+
+.header-btn:hover{
+
+background:#2563EB;
+
+transform:translateY(-3px);
+
+}
+
+.notification-dot{
+
+position:absolute;
+
+top:10px;
+
+right:10px;
+
+width:10px;
+
+height:10px;
+
+background:#EF4444;
+
+border-radius:50%;
+
+}
+
+.profile-box{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+background:#111C37;
+
+padding:8px 16px;
+
+border-radius:16px;
+
+cursor:pointer;
+
+transition:.35s;
+
+}
+
+.profile-box:hover{
+
+background:#16284b;
+
+}
+
+.profile-box img{
+
+width:48px;
+
+height:48px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+border:2px solid #2563EB;
+
+}
+
+.profile-box h4{
+
+font-size:15px;
+
+margin-bottom:2px;
+
+}
+
+.profile-box small{
+
+color:#94A3B8;
+
+}
+
+@media(max-width:768px){
+
+.topbar{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.topbar-left{
+
+width:100%;
+
+}
+
+.topbar-right{
+
+width:100%;
+
+justify-content:space-between;
+
+}
+
+.profile-box{
+
+width:100%;
+
+}
+
+}
+/*==============================
+BOTTOM GRID
+==============================*/
+
+.bottom-grid{
+
+display:grid;
+
+grid-template-columns:2fr 1fr;
+
+gap:25px;
+
+margin-top:30px;
+
+}
+
+/* Student List */
+
+.student-list{
+
+display:flex;
+
+flex-direction:column;
+
+gap:18px;
+
+}
+
+.student-item{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+padding:20px;
+
+background:#1A2743;
+
+border-radius:18px;
+
+}
+
+.avatar{
+
+width:50px;
+
+height:50px;
+
+border-radius:50%;
+
+background:linear-gradient(135deg,#2563EB,#7C3AED);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-weight:700;
+
+font-size:22px;
+
+color:#fff;
+
+}
+
+.student-item h4{
+
+margin-bottom:5px;
+
+}
+
+.student-item p{
+
+color:#9AA8BF;
+
+}
+
+.badge{
+
+padding:8px 15px;
+
+border-radius:30px;
+
+font-size:13px;
+
+font-weight:600;
+
+}
+
+.success{
+
+background:rgba(34,197,94,.18);
+
+color:#4ADE80;
+
+}
+
+.warning{
+
+background:rgba(245,158,11,.18);
+
+color:#FBBF24;
+
+}
+
+/* Events */
+
+.event{
+
+display:flex;
+
+gap:18px;
+
+align-items:center;
+
+margin-bottom:22px;
+
+}
+
+.event-date{
+
+width:78px;
+
+height:78px;
+
+border-radius:20px;
+
+background:linear-gradient(135deg,#2563EB,#38BDF8);
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+color:#fff;
+
+}
+
+.event-date h2{
+
+font-size:26px;
+
+line-height:1;
+
+}
+
+.event-date span{
+
+font-size:14px;
+
+letter-spacing:1px;
+
+}
+
+.event h4{
+
+margin-bottom:6px;
+
+}
+
+.event p{
+
+color:#A6B1C3;
+
+}
+
+/* Responsive */
+
+@media(max-width:1000px){
+
+.bottom-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.student-item{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:12px;
+
+}
+
+}
+  /*==================================================
+    SIMPLEXSKOLLA ERP
+    Enterprise Dashboard
+    Version 1.0
+==================================================*/
+
+/* Google Font */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/*==================================================
+    RESET
+==================================================*/
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:#071223;
+
+    color:#ffffff;
+
+    overflow-x:hidden;
+
+}
+
+/*==================================================
+    VARIABLES
+==================================================*/
+
+:root{
+
+    --primary:#2563EB;
+
+    --primary-dark:#1D4ED8;
+
+    --secondary:#4F46E5;
+
+    --success:#22C55E;
+
+    --warning:#F59E0B;
+
+    --danger:#EF4444;
+
+    --background:#071223;
+
+    --sidebar:#08101F;
+
+    --card:#101C35;
+
+    --card-light:#162442;
+
+    --border:rgba(255,255,255,.08);
+
+    --text:#E2E8F0;
+
+    --muted:#94A3B8;
+
+    --radius:20px;
+
+    --shadow:0 18px 45px rgba(0,0,0,.25);
+
+    --transition:.35s ease;
+
+}
+
+/*==================================================
+    APP LAYOUT
+==================================================*/
+
+.app{
+
+    display:flex;
+
+    min-height:100vh;
+
+    background:var(--background);
+
+}
+
+.main{
+
+    flex:1;
+
+    margin-left:290px;
+
+    padding:30px;
+
+    transition:var(--transition);
+
+    min-height:100vh;
+
+}
+
+.dashboard-content{
+
+    width:100%;
+
+}
+
+/*==================================================
+    SIDEBAR
+==================================================*/
+
+.sidebar{
+
+    position:fixed;
+
+    left:0;
+
+    top:0;
+
+    width:290px;
+
+    height:100vh;
+
+    background:linear-gradient(180deg,#08101F,#0B1730);
+
+    border-right:1px solid var(--border);
+
+    overflow-y:auto;
+
+    transition:var(--transition);
+
+    z-index:1000;
+
+}
+
+/*==================================================
+    LOGO
+==================================================*/
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    padding:28px;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+.logo img{
+
+    width:58px;
+
+    height:58px;
+
+    object-fit:contain;
+
+}
+
+.logo h2{
+
+    font-size:24px;
+
+    font-weight:700;
+
+}
+
+.logo p{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    margin-top:3px;
+
+}
+
+/*==================================================
+    MENU
+==================================================*/
+
+.menu{
+
+    padding:22px;
+
+}
+
+.menu a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    padding:15px 18px;
+
+    margin-bottom:10px;
+
+    text-decoration:none;
+
+    color:var(--text);
+
+    border-radius:16px;
+
+    transition:var(--transition);
+
+    font-weight:500;
+
+}
+
+.menu a i{
+
+    width:24px;
+
+    text-align:center;
+
+    font-size:18px;
+
+}
+
+.menu a:hover{
+
+    background:rgba(37,99,235,.15);
+
+    color:#ffffff;
+
+}
+
+.menu a.active{
+
+    background:linear-gradient(135deg,#2563EB,#4F46E5);
+
+    box-shadow:0 15px 35px rgba(37,99,235,.30);
+
+}
+
+/*==================================================
+    TOP BAR
+==================================================*/
+
+.topbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    margin-bottom:35px;
+
+}
+
+.top-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.top-left h1{
+
+    font-size:34px;
+
+    margin-bottom:6px;
+
+}
+
+.top-left p{
+
+    color:var(--muted);
+
+}
+
+.menu-toggle{
+
+    display:none;
+
+    width:50px;
+
+    height:50px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:var(--card);
+
+    color:#ffffff;
+
+    cursor:pointer;
+
+}
+
+.top-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+/*==================================================
+    SEARCH BOX
+==================================================*/
+
+.search-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    width:320px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:16px;
+
+    padding:0 18px;
+
+    height:52px;
+
+    transition:var(--transition);
+
+}
+
+.search-box:hover{
+
+    border-color:var(--primary);
+
+}
+
+.search-box i{
+
+    color:var(--muted);
+
+}
+
+.search-box input{
+
+    flex:1;
+
+    height:100%;
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    color:var(--text);
+
+    font-size:15px;
+
+}
+
+.search-box input::placeholder{
+
+    color:var(--muted);
+
+}
+
+/*==================================================
+    ICON BUTTONS
+==================================================*/
+
+.icon-btn{
+
+    width:50px;
+
+    height:50px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:var(--card);
+
+    color:var(--text);
+
+    cursor:pointer;
+
+    transition:var(--transition);
+
+    font-size:18px;
+
+}
+
+.icon-btn:hover{
+
+    background:var(--primary);
+
+    color:#fff;
+
+    transform:translateY(-2px);
+
+}
+
+/*==================================================
+    PROFILE IMAGE
+==================================================*/
+
+.profile{
+
+    width:52px;
+
+    height:52px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:3px solid var(--primary);
+
+    cursor:pointer;
+
+}
+
+/*==================================================
+    OVERLAY
+==================================================*/
+
+.overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.55);
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:var(--transition);
+
+    z-index:900;
+
+}
+
+.overlay.active{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+/*==================================================
+    SCROLLBAR
+==================================================*/
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#071223;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#2B4C9A;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#2563EB;
+
+}
+
+/*==================================================
+    RESPONSIVE
+==================================================*/
+
+@media(max-width:1200px){
+
+    .search-box{
+
+        width:240px;
+
+    }
+
+}
+
+@media(max-width:992px){
+
+    .sidebar{
+
+        left:-290px;
+
+    }
+
+    .sidebar.show{
+
+        left:0;
+
+    }
+
+    .main{
+
+        margin-left:0;
+
+        width:100%;
+
+        padding:22px;
+
+    }
+
+    .menu-toggle{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    width:50px;
+
+    height:50px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:var(--card);
+
+    color:#ffffff;
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    transition:var(--transition);
+
+}
+
+.menu-toggle:hover{
+
+    background:var(--primary);
+
+}
+
+}
+
+@media(max-width:768px){
+
+    .topbar{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .top-right{
+
+        width:100%;
+
+        justify-content:space-between;
+
+        flex-wrap:wrap;
+
+    }
+
+    .search-box{
+
+        width:100%;
+
+        order:3;
+
+    }
+
+    .top-left h1{
+
+        font-size:28px;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .main{
+
+        padding:15px;
+
+    }
+
+    .top-left{
+
+        gap:15px;
+
+    }
+
+    .top-left h1{
+
+        font-size:22px;
+
+    }
+
+    .logo{
+
+        padding:22px;
+
+    }
+
+    .logo img{
+
+        width:48px;
+
+        height:48px;
+
+    }
+
+    .logo h2{
+
+        font-size:20px;
+
+    }
+
+}
+/*==================================================
+    STATISTICS CARDS
+==================================================*/
+
+.stats-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    gap:24px;
+
+}
+
+.stat-card{
+
+    background:linear-gradient(180deg,#111B35,#0D1730);
+
+    border:1px solid var(--border);
+
+    border-radius:22px;
+
+    padding:24px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    transition:var(--transition);
+
+    box-shadow:var(--shadow);
+
+}
+
+.stat-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.stat-icon{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#fff;
+
+    font-size:28px;
+
+}
+
+.blue{
+
+    background:linear-gradient(135deg,#2563EB,#3B82F6);
+
+}
+
+.green{
+
+    background:linear-gradient(135deg,#10B981,#22C55E);
+
+}
+
+.orange{
+
+    background:linear-gradient(135deg,#D97706,#F59E0B);
+
+}
+
+.purple{
+
+    background:linear-gradient(135deg,#7C3AED,#8B5CF6);
+
+}
+
+.stat-details{
+
+    flex:1;
+
+}
+
+.stat-details span{
+
+    display:block;
+
+    color:var(--muted);
+
+    margin-bottom:8px;
+
+    font-size:14px;
+
+}
+
+.stat-details h2{
+
+    font-size:34px;
+
+    margin-bottom:8px;
+
+}
+
+.stat-details small{
+
+    color:#22C55E;
+
+    font-size:13px;
+
+}
+
+@media(max-width:768px){
+
+    .stat-card{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+}
+/*==================================================
+    DASHBOARD GRID
+==================================================*/
+
+.dashboard-grid{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:25px;
+
+    margin-top:30px;
+
+}
+
+.left-panel,
+.right-panel{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:25px;
+
+}
+
+.card{
+
+    background:linear-gradient(180deg,#101C35,#0C162E);
+
+    border:1px solid var(--border);
+
+    border-radius:22px;
+
+    padding:24px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.card-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+}
+
+.card-header h3{
+
+    font-size:20px;
+
+}
+
+.card-header button,
+.card-header a{
+
+    background:var(--primary);
+
+    color:#fff;
+
+    text-decoration:none;
+
+    border:none;
+
+    padding:10px 18px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+}
+
+/* Analytics */
+
+.chart-placeholder{
+
+    height:320px;
+
+    border:2px dashed rgba(255,255,255,.08);
+
+    border-radius:18px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    color:var(--muted);
+
+}
+
+.chart-placeholder i{
+
+    font-size:60px;
+
+    color:var(--primary);
+
+    margin-bottom:20px;
+
+}
+
+/* Activities */
+
+.activity-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+.activity-item{
+
+    display:flex;
+
+    gap:18px;
+
+    align-items:center;
+
+    background:rgba(255,255,255,.03);
+
+    padding:18px;
+
+    border-radius:16px;
+
+}
+
+.activity-item i{
+
+    width:50px;
+
+    height:50px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+}
+
+/* Quick Actions */
+
+.quick-actions{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:15px;
+
+}
+
+.quick-actions button{
+
+    padding:18px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#172646;
+
+    color:#fff;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.quick-actions button:hover{
+
+    background:var(--primary);
+
+}
+
+/* Events */
+
+.event-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+.event{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:16px;
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,.03);
+
+}
+
+/* Responsive */
+
+@media(max-width:992px){
+
+    .dashboard-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    .quick-actions{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+/*======================================
+PAYMENT TABLE
+======================================*/
+
+.payment-card{
+
+margin-top:30px;
+
+}
+
+.table-responsive{
+
+overflow-x:auto;
+
+}
+
+.payment-table{
+
+width:100%;
+
+border-collapse:collapse;
+
+min-width:700px;
+
+}
+
+.payment-table th{
+
+background:#16284b;
+
+padding:18px;
+
+text-align:left;
+
+font-size:15px;
+
+color:#FFFFFF;
+
+}
+
+.payment-table td{
+
+padding:18px;
+
+border-bottom:1px solid rgba(255,255,255,.08);
+
+color:#D7DFEC;
+
+}
+
+.payment-table tbody tr{
+
+transition:.3s;
+
+}
+
+.payment-table tbody tr:hover{
+
+background:#1B2A46;
+
+}
+
+.payment-table td:first-child{
+
+font-weight:600;
+
+color:#FFFFFF;
+
+}
+
+.payment-table td:nth-child(3){
+
+font-weight:700;
+
+color:#22C55E;
+
+}
+
+@media(max-width:768px){
+
+.payment-table{
+
+font-size:14px;
+
+}
+
+.payment-table th,
+
+.payment-table td{
+
+padding:14px;
+
+}
+
+}
+/*=========================================
+CHART
+=========================================*/
+
+.chart-container{
+
+position:relative;
+
+width:100%;
+
+height:340px;
+
+}
+
+.chart-container canvas{
+
+width:100% !important;
+
+height:100% !important;
+
+}
+
+@media(max-width:768px){
+
+.chart-container{
+
+height:260px;
+
+}
+
+}
+</style>
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- Mobile Overlay -->
+        <div class="overlay"></div>
+
+        <!-- ================= Sidebar ================= -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <img src="assets/images/logo.png" alt="SIMPLEXSKOLLA Logo">
+
+                <div>
+
+                    <h2>SIMPLEXSKOLLA</h2>
+
+                    <p>School ERP Platform</p>
+
+                </div>
+
+            </div>
+
+            <nav class="menu">
+
+                <a href="#" class="active">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span>Students</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                    <span>Teachers</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-school"></i>
+                    <span>Academics</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Attendance</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                    <span>Finance</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-square-poll-vertical"></i>
+                    <span>Results</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <span>CBT</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-book"></i>
+                    <span>Library</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-bed"></i>
+                    <span>Hostel</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Reports</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+
+            </nav>
+
+        </aside>
+
+        <!-- ================= Main Content ================= -->
+
+        <main class="main">
+
+            <header class="topbar">
+
+                <div class="topbar-left">
+
+                    <button class="menu-toggle">
+
+                        <i class="fa-solid fa-bars"></i>
+
+                    </button>
+
+                    <div>
+
+                        <h2>Welcome Back, Administrator 👋</h2>
+
+                        <p>Monitor your school activities, students, finance and academics in real time.</p>
+
+                    </div>
+
+                </div>
+
+                <div class="topbar-right">
+
+                    <div class="search-box">
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                        <input type="text" placeholder="Search students, teachers, payments...">
+
+                    </div>
+
+                    <button class="header-btn">
+
+                        <i class="fa-regular fa-bell"></i>
+
+                        <span class="notification-dot"></span>
+
+                    </button>
+
+                    <button class="header-btn">
+
+                        <i class="fa-regular fa-envelope"></i>
+
+                    </button>
+
+                    <button class="header-btn logout-btn" title="Logout">
+
+                        <i class="fa-solid fa-right-from-bracket"></i>
+
+                    </button>
+
+                    <button class="header-btn">
+
+                        <i class="fa-solid fa-moon"></i>
+
+                    </button>
+
+                    <div class="profile-box">
+
+                        <img src="assets/images/admin.png" alt="Administrator">
+
+                        <div>
+
+                            <h4>Administrator</h4>
+
+                            <small>Super Admin</small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- Dashboard Content -->
+             
+<!--dashboard-content-->
+            <section class="dashboard-content">
+
+    <!-- Statistics Cards -->
+
+    <section class="stats-grid">
+
+        <div class="stat-card">
+
+            <div class="stat-icon blue">
+
+                <i class="fa-solid fa-user-graduate"></i>
+
+            </div>
+
+            <div class="stat-details">
+
+                <span>Total Students</span>
+
+                <h2>1,286</h2>
+
+                <small><i class="fa-solid fa-arrow-trend-up"></i> +12% this term</small>
+
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon green">
+
+                <i class="fa-solid fa-chalkboard-user"></i>
+
+            </div>
+
+            <div class="stat-details">
+
+                <span>Teachers</span>
+
+                <h2>94</h2>
+
+                <small><i class="fa-solid fa-user-plus"></i> 5 New Staff</small>
+
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon orange">
+
+                <i class="fa-solid fa-money-bill-wave"></i>
+
+            </div>
+
+            <div class="stat-details">
+
+                <span>Total Revenue</span>
+
+                <h2>₦18.4M</h2>
+
+                <small><i class="fa-solid fa-circle-check"></i> 92% Fees Collected</small>
+
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon purple">
+
+                <i class="fa-solid fa-calendar-check"></i>
+
+            </div>
+
+            <div class="stat-details">
+
+                <span>Attendance</span>
+
+                <h2>96%</h2>
+
+                <small><i class="fa-solid fa-circle-check"></i> Excellent</small>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</section>
+<section class="dashboard-grid">
+
+    <!-- LEFT SIDE -->
+
+    <div class="left-panel">
+
+        <!-- Analytics -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h3>School Analytics</h3>
+
+                <button>View Report</button>
+
+            </div>
+
+            <div class="chart-container">
+
+    <canvas id="schoolChart"></canvas>
+
+</div>
+        </div>
+
+        <!-- Recent Activities -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h3>Recent Activities</h3>
+
+                <a href="#">View All</a>
+
+            </div>
+
+            <div class="activity-list">
+
+                <div class="activity-item">
+
+                    <i class="fa-solid fa-user-plus"></i>
+
+                    <div>
+
+                        <h4>New Student Registered</h4>
+
+                        <p>2 minutes ago</p>
+
+                    </div>
+
+                </div>
+
+                <div class="activity-item">
+
+                    <i class="fa-solid fa-money-bill-wave"></i>
+
+                    <div>
+
+                        <h4>School Fees Paid</h4>
+
+                        <p>15 minutes ago</p>
+
+                    </div>
+
+                </div>
+
+                <div class="activity-item">
+
+                    <i class="fa-solid fa-file-circle-check"></i>
+
+                    <div>
+
+                        <h4>Results Published</h4>
+
+                        <p>1 hour ago</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+
+    <div class="right-panel">
+
+        <!-- Quick Actions -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h3>Quick Actions</h3>
+
+            </div>
+
+            <div class="quick-actions">
+
+                <button><i class="fa-solid fa-user-plus"></i> Add Student</button>
+
+                <button><i class="fa-solid fa-chalkboard-user"></i> Add Teacher</button>
+
+                <button><i class="fa-solid fa-money-bill-wave"></i> Collect Fees</button>
+
+                <button><i class="fa-solid fa-file-circle-plus"></i> Publish Results</button>
+
+                <button><i class="fa-solid fa-laptop"></i> Create CBT</button>
+
+                <button><i class="fa-solid fa-bullhorn"></i> Announcement</button>
+
+            </div>
+
+        </div>
+
+        <!-- Upcoming Events -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h3><i class="fa-solid fa-calendar-days"></i> Upcoming Events</h3>
+
+            </div>
+
+            <div class="event">
+
+                <div class="event-date">
+
+                    <h2>12</h2>
+
+                    <span>AUG</span>
+
+                </div>
+
+                <div>
+
+                    <h4>First Term Resumption</h4>
+
+                    <p>All students return to school.</p>
+
+                </div>
+
+            </div>
+
+            <div class="event">
+
+                <div class="event-date">
+
+                    <h2>18</h2>
+
+                    <span>AUG</span>
+
+                </div>
+
+                <div>
+
+                    <h4>Parents Meeting</h4>
+
+                    <p>Main School Hall • 10:00 AM</p>
+
+                </div>
+
+            </div>
+
+            <div class="event">
+
+                <div class="event-date">
+
+                    <h2>26</h2>
+
+                    <span>AUG</span>
+
+                </div>
+
+                <div>
+
+                    <h4>Inter-House Sports</h4>
+
+                    <p>School Sports Complex</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+        </main>
+
+    </div>
+
+    
+    <!-- Bottom Dashboard -->
+
+<section class="bottom-grid">
+
+    <!-- Latest Admissions -->
+
+    <div class="dashboard-card">
+
+        <div class="card-header">
+
+            <h3>
+                <i class="fa-solid fa-user-graduate"></i>
+                Latest Admissions
+            </h3>
+
+        </div>
+
+        <div class="student-list">
+
+            <div class="student-item">
+
+                <div class="avatar">AJ</div>
+
+                <div>
+
+                    <h4>Amara Johnson</h4>
+
+                    <p>SS1 Science</p>
+
+                </div>
+
+                <span class="badge success">Admitted</span>
+
+            </div>
+
+            <div class="student-item">
+
+                <div class="avatar">EO</div>
+
+                <div>
+
+                    <h4>Emeka Okafor</h4>
+
+                    <p>JSS3 Gold</p>
+
+                </div>
+
+                <span class="badge warning">Pending</span>
+
+            </div>
+
+            <div class="student-item">
+
+                <div class="avatar">UC</div>
+
+                <div>
+
+                    <h4>Uche Chukwu</h4>
+
+                    <p>Primary 5</p>
+
+                </div>
+
+                <span class="badge success">Admitted</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+</section>
+
+<!-- Recent Fee Payments -->
+
+<section class="dashboard-card payment-card">
+
+    <div class="card-header">
+
+        <h3>
+            <i class="fa-solid fa-wallet"></i>
+            Recent Fee Payments
+        </h3>
+
+        <button>View All</button>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="payment-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Student</th>
+
+                    <th>Class</th>
+
+                    <th>Amount</th>
+
+                    <th>Date</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>Amara Johnson</td>
+
+                    <td>SS1 Science</td>
+
+                    <td>₦85,000</td>
+
+                    <td>12 Aug 2026</td>
+
+                    <td><span class="badge success">Paid</span></td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Emeka Okafor</td>
+
+                    <td>JSS3 Gold</td>
+
+                    <td>₦75,000</td>
+
+                    <td>11 Aug 2026</td>
+
+                    <td><span class="badge success">Paid</span></td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Uche Chukwu</td>
+
+                    <td>Primary 5</td>
+
+                    <td>₦65,000</td>
+
+                    <td>10 Aug 2026</td>
+
+                    <td><span class="badge warning">Pending</span></td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Grace Obi</td>
+
+                    <td>SS2 Art</td>
+
+                    <td>₦90,000</td>
+
+                    <td>09 Aug 2026</td>
+
+                    <td><span class="badge success">Paid</span></td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module" src="js/dashboard-auth.js"></script>
+<script src="js/dashboard.js"></script>
+<script>
+  /*==================================
+Sidebar
+==================================*/
+
+const menuToggle=document.querySelector(".menu-toggle");
+
+const sidebar=document.querySelector(".sidebar");
+
+const overlay=document.querySelector(".overlay");
+
+menuToggle.addEventListener("click",()=>{
+
+sidebar.classList.toggle("show");
+
+overlay.classList.toggle("active");
+
+});
+
+overlay.addEventListener("click",()=>{
+
+sidebar.classList.remove("show");
+
+overlay.classList.remove("active");
+
+});
+
+/*==================================
+School Analytics Chart
+==================================*/
+
+const ctx=document.getElementById("schoolChart");
+
+if(ctx){
+
+new Chart(ctx,{
+
+type:"line",
+
+data:{
+
+labels:["Jan","Feb","Mar","Apr","May","Jun","Jul"],
+
+datasets:[
+
+{
+
+label:"Admissions",
+
+data:[80,120,140,170,220,250,310],
+
+borderColor:"#2563EB",
+
+backgroundColor:"rgba(37,99,235,.15)",
+
+fill:true,
+
+tension:.4
+
+},
+
+{
+
+label:"Fee Payments",
+
+data:[70,100,130,180,210,260,320],
+
+borderColor:"#10B981",
+
+backgroundColor:"rgba(16,185,129,.10)",
+
+fill:true,
+
+tension:.4
+
+}
+
+]
+
+},
+
+options:{
+
+responsive:true,
+
+maintainAspectRatio:false,
+
+plugins:{
+
+legend:{
+
+labels:{
+
+color:"#ffffff"
+
+}
+
+}
+
+},
+
+scales:{
+
+x:{
+
+ticks:{color:"#94A3B8"},
+
+grid:{color:"rgba(255,255,255,.05)"}
+
+},
+
+y:{
+
+ticks:{color:"#94A3B8"},
+
+grid:{color:"rgba(255,255,255,.05)"}
+
+}
+
+}
+
+}
+
+});
+
+}
+</script>
+</body>
+
+</html>

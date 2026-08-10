@@ -1,0 +1,17 @@
+# VS Code
+.vscode/
+
+# Operating system
+Thumbs.db
+.DS_Store
+
+# Node dependencies
+node_modules/
+
+# Firebase local files
+.firebase/
+
+# Environment/secrets
+.env
+.env.*
+!.env.example

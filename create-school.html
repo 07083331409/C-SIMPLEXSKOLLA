@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create School | SIMPLEXSKOLLA</title>
+
+<link rel="stylesheet" href="css/create-school.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<style>
+  /* ==========================================
+   SIMPLEXSKOLLA CREATE SCHOOL
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:#05051F;
+
+    color:#fff;
+
+    overflow-x:hidden;
+
+    min-height:100dvh;
+
+}
+
+.container{
+
+    min-height:100dvh;
+
+    display:grid;
+
+    grid-template-columns:42% 58%;
+
+    background:
+    radial-gradient(circle at top left,#2563eb20,transparent 35%),
+    radial-gradient(circle at bottom right,#d4af3712,transparent 40%),
+    #05051F;
+
+}
+
+
+/* ==========================
+   LEFT PANEL
+========================== */
+
+.left-panel{
+
+    padding:70px 60px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    position:relative;
+
+}
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    margin-bottom:40px;
+
+}
+
+.logo img{
+
+    width:70px;
+
+    height:70px;
+
+    object-fit:contain;
+
+    background:#2563EB;
+
+    border-radius:18px;
+
+    padding:10px;
+
+    box-shadow:0 15px 35px rgba(37,99,235,.35);
+
+}
+
+.logo h2{
+
+    font-size:30px;
+
+    font-weight:700;
+
+}
+
+.logo p{
+
+    color:#94A3B8;
+
+    font-size:14px;
+
+    margin-top:5px;
+
+}
+
+.badge{
+
+    width:max-content;
+
+    padding:10px 18px;
+
+    border-radius:50px;
+
+    background:rgba(37,99,235,.18);
+
+    border:1px solid rgba(37,99,235,.35);
+
+    color:#7FB3FF;
+
+    margin-bottom:30px;
+
+    font-size:14px;
+
+}
+
+.left-panel h1{
+
+    font-size:54px;
+
+    line-height:1.15;
+
+    margin-bottom:20px;
+
+}
+
+.left-panel p{
+
+    color:#AAB2C8;
+
+    font-size:17px;
+
+    line-height:1.8;
+
+    max-width:520px;
+
+    margin-bottom:45px;
+
+}
+/* ==========================================
+   STEP INDICATOR
+========================================== */
+
+.steps{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+.step{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    padding:18px 22px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:18px;
+
+    color:#CBD5E1;
+
+    transition:.35s;
+
+}
+
+.step:hover{
+
+    transform:translateX(8px);
+
+    border-color:#2563EB;
+
+    box-shadow:0 15px 35px rgba(37,99,235,.15);
+
+}
+
+.step span{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#1E293B;
+
+    color:#fff;
+
+    font-weight:600;
+
+}
+
+.step.active{
+
+    background:rgba(37,99,235,.15);
+
+    border:1px solid rgba(37,99,235,.45);
+
+}
+
+.step.active span{
+
+    background:linear-gradient(135deg,#2563EB,#4F46E5);
+
+}
+
+
+
+/* ==========================================
+   RIGHT PANEL
+========================================== */
+
+.right-panel{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:60px;
+
+}
+
+
+
+/* ==========================================
+   REGISTER CARD
+========================================== */
+
+.register-card{
+
+    width:100%;
+
+    max-width:560px;
+
+    padding:45px;
+
+    border-radius:28px;
+
+    background:rgba(255,255,255,.06);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+
+    0 20px 60px rgba(0,0,0,.35),
+
+    0 0 80px rgba(37,99,235,.08);
+
+}
+
+.register-card h2{
+
+    font-size:36px;
+
+    margin-bottom:8px;
+
+}
+
+.register-card p{
+
+    color:#94A3B8;
+
+    margin-bottom:35px;
+
+}
+
+
+
+/* ==========================================
+   INPUT GROUP
+========================================== */
+
+.input-group{
+
+    margin-bottom:22px;
+
+}
+
+.input-group label{
+
+    display:block;
+
+    margin-bottom:10px;
+
+    font-size:14px;
+
+    font-weight:500;
+
+    color:#E2E8F0;
+
+}
+
+.input-group input,
+
+.input-group select{
+
+    width:100%;
+
+    height:58px;
+
+    padding:0 18px;
+
+    border-radius:14px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:#0F172A;
+
+    color:#fff;
+
+    outline:none;
+
+    font-size:15px;
+
+    transition:.3s;
+
+}
+
+.input-group input::placeholder{
+
+    color:#64748B;
+
+}
+
+.input-group input:focus,
+
+.input-group select:focus{
+
+    border-color:#2563EB;
+
+    box-shadow:0 0 0 4px rgba(37,99,235,.15);
+
+}
+
+
+
+/* ==========================================
+   FILE UPLOAD
+========================================== */
+
+input[type="file"]{
+
+    padding:14px;
+
+    cursor:pointer;
+
+}
+
+
+
+/* ==========================================
+   BUTTON
+========================================== */
+
+button{
+
+    width:100%;
+
+    height:60px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:linear-gradient(135deg,#2563EB,#4F46E5);
+
+    color:#fff;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+    margin-top:12px;
+
+}
+
+button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 20px 45px rgba(37,99,235,.35);
+
+}
+
+button:active{
+
+    transform:scale(.98);
+
+}
+
+.button-row{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:space-between;
+
+    gap:14px;
+
+    margin-top:12px;
+
+}
+
+.button-row button{
+
+    width:calc(50% - 7px);
+
+}
+
+.button-row .back-btn{
+
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.14);
+
+    color:#fff;
+
+}
+
+.button-row .back-btn:hover{
+
+    background:rgba(255,255,255,.12);
+
+}
+
+
+
+/* ==========================================
+   BOTTOM LINK
+========================================== */
+
+.bottom{
+
+    margin-top:30px;
+
+    text-align:center;
+
+    color:#94A3B8;
+
+}
+
+.bottom a{
+
+    color:#D4AF37;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
+
+.bottom a:hover{
+
+    color:#FFD54A;
+
+}
+/* ==========================================
+   BACKGROUND GLOW EFFECTS
+========================================== */
+
+.left-panel::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:320px;
+
+    height:320px;
+
+    background:#2563EB;
+
+    border-radius:50%;
+
+    filter:blur(140px);
+
+    opacity:.18;
+
+    top:-80px;
+
+    left:-120px;
+
+    z-index:0;
+
+}
+
+.left-panel::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+
+    height:250px;
+
+    background:#D4AF37;
+
+    border-radius:50%;
+
+    filter:blur(140px);
+
+    opacity:.10;
+
+    bottom:-80px;
+
+    right:-50px;
+
+    z-index:0;
+
+}
+
+.left-panel>*{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+/* ==========================================
+   CARD ANIMATION
+========================================== */
+
+.register-card{
+
+    animation:fadeIn .8s ease;
+
+}
+
+.left-panel{
+
+    animation:slideLeft .8s ease;
+
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes slideLeft{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(-35px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateX(0);
+
+    }
+
+}
+
+
+/* ==========================================
+   CUSTOM SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#05051F;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#2563EB;
+
+    border-radius:50px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#4F46E5;
+
+}
+
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+@media(max-width:1200px){
+
+    .container{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .left-panel{
+
+        padding:50px 35px;
+
+    }
+
+    .right-panel{
+
+        padding:40px 25px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .left-panel{
+
+        display:none;
+
+    }
+
+    .right-panel{
+
+        padding:25px 15px;
+
+    }
+
+    .register-card{
+
+        padding:30px 22px;
+
+        border-radius:22px;
+
+    }
+
+    .register-card h2{
+
+        font-size:30px;
+
+    }
+
+    .input-group input,
+
+    .input-group select{
+
+        height:54px;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .register-card{
+
+        padding:24px 18px;
+
+    }
+
+    .register-card h2{
+
+        font-size:26px;
+
+    }
+
+    .button-row button{
+        width:100%;
+    }
+
+    button{
+
+        height:55px;
+
+        font-size:16px;
+
+    }
+
+}
+
+
+/* ==========================================
+   SMALL POLISH
+========================================== */
+
+::selection{
+
+    background:#2563EB;
+
+    color:#fff;
+
+}
+
+button,
+input,
+select{
+
+    font-family:'Poppins',sans-serif;
+
+}
+
+button:focus,
+input:focus,
+select:focus{
+
+    outline:none;
+
+}
+
+input,
+select,
+button{
+
+    transition:all .3s ease;
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- LEFT PANEL -->
+
+    <div class="left-panel">
+
+        <div class="logo">
+
+            <img src="assets/images/logo.png" alt="Logo">
+
+            <div>
+
+                <h2>SIMPLEXSKOLLA</h2>
+
+                <p>School ERP Platform</p>
+
+            </div>
+
+        </div>
+
+        <span class="badge">
+
+            Africa's Smart School ERP
+
+        </span>
+
+        <h1>
+
+            Create Your School Account
+
+        </h1>
+
+        <p>
+
+            Join thousands of schools using SIMPLEXSKOLLA to manage admissions,
+            students, teachers, finance, examinations and more.
+
+        </p>
+
+        <div class="steps">
+
+            <div class="step active">
+
+                <span>1</span>
+
+                School Information
+
+            </div>
+
+            <div class="step">
+
+                <span>2</span>
+
+                Contact Details
+
+            </div>
+
+            <div class="step">
+
+                <span>3</span>
+
+                Administrator
+
+            </div>
+
+            <div class="step">
+
+                <span>4</span>
+
+                Finish
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT PANEL -->
+
+    <div class="right-panel">
+
+        <div class="register-card">
+
+            <h2>Create School</h2>
+
+            <p>Step 1 of 4</p>
+
+            <form>
+
+                <div class="input-group">
+
+                    <label>School Name</label>
+
+                    <input
+                    type="text"
+                    placeholder="Enter school name">
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>School Type</label>
+
+                    <select>
+
+                        <option>Select School Type</option>
+
+                        <option>Nursery</option>
+
+                        <option>Primary</option>
+
+                        <option>Secondary</option>
+
+                        <option>College</option>
+
+                        <option>University</option>
+
+                    </select>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>School Motto</label>
+
+                    <input
+                    type="text"
+                    placeholder="Enter school motto">
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>School Logo</label>
+
+                    <input
+                    type="file">
+
+                </div>
+
+                <button>
+
+                    Continue →
+
+                </button>
+
+                <p class="form-message" style="margin-top: 16px; font-size: 14px; color: #F87171; min-height: 22px;"></p>
+
+            </form>
+
+            <div class="bottom">
+
+                Already have an account?
+
+                <a href="login.html">
+
+                    Sign In
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="module" src="js/create-school.js"></script>
+
+</body>
+
+</html>

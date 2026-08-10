@@ -1,0 +1,87 @@
+/* Additional styles for the admission wizard success state */
+.admission-success-state {
+    display: none;
+    background: var(--card-bg, #111C37);
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 40px 30px;
+    text-align: center;
+}
+
+.admission-success-state.show {
+    display: block;
+}
+
+.success-icon {
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(34,197,94,0.18);
+    color: #4ADE80;
+    font-size: 34px;
+}
+
+.success-title {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.success-subtitle {
+    color: #94A3B8;
+    line-height: 1.8;
+}
+
+.success-details {
+    margin-top: 24px;
+}
+
+.success-detail-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    color: #CBD5E1;
+}
+
+.success-action-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.input-error {
+    border-color: #F87171 !important;
+    box-shadow: 0 0 0 2px rgba(248,113,113,0.20) !important;
+}
+
+.field-error {
+    color: #FCA5A5;
+    font-size: 12px;
+    margin-top: 7px;
+    min-height: 18px;
+}
+
+.review-summary-value {
+    color: #fff;
+}
+
+.review-summary-value.empty {
+    color: #94A3B8;
+}
+
+.document-review .document-status .ready {
+    color: #22c55e;
+}
+
+.empty-row {
+    color: #CBD5E1;
+    text-align: center;
+}
