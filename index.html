@@ -25,16 +25,12 @@
 <link
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
 
         *{
             margin:0;
             padding:0;
-
-    transition: background .25s ease, transform .25s ease, box-shadow .25s ease;
-
-        transition: background .25s ease, transform .25s ease, box-shadow .25s ease;
+            transition: background .25s ease, transform .25s ease, box-shadow .25s ease;
             scroll-behavior:smooth;
         }
 
@@ -45,21 +41,20 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
             background:#08162E;
 
             color:white;
-
+         width: 100%;
             overflow-x:hidden;
 
         }
 
         .container{
 
-    width:min(92%,1350px);
+    width:min(100%,1350px);
 
     margin:auto;
 
 }
 
 .navbar{
-
     position:fixed;
 
     top:20px;
@@ -169,45 +164,256 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     text-decoration:none;
     font-weight:600;
     padding:8px 14px;
-    border-radius:14px;
     display:inline-flex;
     align-items:center;
     gap:8px;
     position:relative;
-    overflow:hidden;
-    z-index:2;
-    transition: color .25s ease, transform .18s ease;
-    text-shadow: 0 1px 0 rgba(0,0,0,0.45);
-
+    z-index:1;
+    transition: color .25s ease;
 }
 
-/* Hover state: text becomes dark to remain readable over the light gradient */
-.desktop-nav a:hover{
-    color:#000080;
-    transform:translateY(-3px);
+.desktop-nav a::after{
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: #38BDF8;
+    border-radius: 999px;
+    transform: translateX(-50%);
+    transition: width .25s ease, opacity .25s ease;
+    opacity: 0;
+    pointer-events: none;
 }
 
-.nav-actions{
-
-    display:flex;
-
-    gap:14px;
-
+.desktop-nav a:hover,
+.desktop-nav a:focus-visible {
+    color:#7DD3FC;
 }
 
-.btn{
-
-    cursor:pointer;
-
-    border:none;
-
-    font-weight:700;
-
-    border-radius:50px;
-
-    transition:.3s;
-
+.desktop-nav a:hover::after,
+.desktop-nav a:focus-visible::after {
+    width: calc(100% - 16px);
+    opacity: 1;
 }
+
+.desktop-nav a.active {
+    color:#7DD3FC;
+}
+
+.desktop-nav a.active::after {
+    width: calc(100% - 16px);
+    opacity: 1;
+}
+
+.desktop-nav a:focus-visible {
+    outline: 3px solid rgba(56,189,248,0.45);
+    outline-offset: 4px;
+}
+
+
+        .mobile-nav,
+        .nav-actions a{
+            text-decoration:none;
+        }
+
+        .mobile-nav{
+            display:none;
+            position:absolute;
+            top: calc(100% + 14px);
+            right: 0;
+            width:min(300px, calc(100vw - 32px));
+            max-width:100%;
+            background: rgba(8,22,46,.95);
+            border:1px solid rgba(255,255,255,.08);
+            border-radius:22px;
+            padding:18px;
+            box-shadow:0 25px 60px rgba(0,0,0,.32);
+            backdrop-filter: blur(18px);
+            flex-direction:column;
+            gap:10px;
+            z-index:1001;
+            opacity:0;
+            visibility:hidden;
+            pointer-events:none;
+            transform:translateY(-10px);
+            transition: opacity .3s ease, visibility .3s ease, transform .3s ease, pointer-events .3s ease;
+        }
+
+        .mobile-nav.open{
+            display:flex;
+            opacity:1;
+            visibility:visible;
+            pointer-events:auto;
+            transform:translateY(0);
+        }
+
+        .mobile-nav a{
+            color:#D8E4FF;
+            background: transparent;
+            padding:12px 14px;
+            border-radius:14px;
+            transition: background .25s ease, color .25s ease, transform .25s ease, box-shadow .25s ease;
+        }
+
+        .mobile-nav a:hover,
+        .mobile-nav a:focus-visible{
+            color:#7DD3FC;
+            background: rgba(56, 189, 248, 0.12);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 24px rgba(56,189,248,.12);
+            outline: none;
+        }
+
+        .mobile-nav a.active{
+            color:#7DD3FC;
+            background: rgba(56,189,248,.14);
+            box-shadow: 0 10px 22px rgba(56,189,248,.12);
+        }
+
+        .menu-toggle{
+            display:none;
+            width:48px;
+            height:48px;
+            border-radius:16px;
+            border:1px solid rgba(255,255,255,.12);
+            background: rgba(255,255,255,.08);
+            color:#fff;
+            cursor:pointer;
+            align-items:center;
+            justify-content:center;
+            transition: background .25s ease, transform .25s ease, box-shadow .25s ease;
+            padding:0;
+            flex-shrink:0;
+        }
+
+        .menu-toggle:hover{
+            background: rgba(255,255,255,.16);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 24px rgba(56,189,248,.18);
+        }
+
+        .menu-toggle:focus-visible{
+            outline: 3px solid rgba(56,189,248,0.55);
+            outline-offset: 3px;
+        }
+
+        .menu-icon{
+            width: 18px;
+            height: 2px;
+            border-radius: 999px;
+            background: #fff;
+            position: relative;
+            transition: background .25s ease;
+        }
+
+        .menu-icon::before,
+        .menu-icon::after{
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 18px;
+            height: 2px;
+            border-radius: 999px;
+            background: #fff;
+            transition: transform .25s ease, top .25s ease, opacity .25s ease;
+        }
+
+        .menu-icon::before{
+            top: -6px;
+        }
+
+        .menu-icon::after{
+            top: 6px;
+        }
+
+        .menu-toggle.open .menu-icon{
+            background: transparent;
+        }
+
+        .menu-toggle.open .menu-icon::before{
+            top: 0;
+            transform: rotate(45deg);
+        }
+
+        .menu-toggle.open .menu-icon::after{
+            top: 0;
+            transform: rotate(-45deg);
+        }
+
+        .nav-actions a.btn-login:hover{
+            color:#EFF5FF;
+            background: rgba(255,255,255,.14);
+            transform: translateY(-1px);
+            box-shadow: 0 14px 34px rgba(56,189,248,.18);
+        }
+
+        .btn-primary:hover{
+            transform: translateY(-1px);
+            box-shadow:0 14px 34px rgba(251,191,36,.35);
+            background: linear-gradient(135deg, #FCD34D, #FBBF24);
+        }
+
+        .nav-actions .btn:hover{
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(37,99,235,.12);
+        }
+
+        .navbar:hover .nav-container{
+            background: rgba(8,22,46,0.94);
+            transform: translateY(-6px);
+            box-shadow: 0 30px 80px rgba(2,6,23,0.6);
+            animation: navPulse .9s ease;
+        }
+
+        @media(max-width:992px){
+            .desktop-nav{
+                display:none;
+            }
+            .menu-toggle{
+                display:inline-flex;
+            }
+            .nav-actions{
+                display:none;
+                gap:12px;
+            }
+            .mobile-nav{
+                display:flex;
+            }
+            .navbar{
+                position:fixed;
+            }
+        }
+
+        @media(max-width:760px){
+            .nav-container{
+                flex-wrap:wrap;
+                gap:14px;
+                padding:16px 20px;
+            }
+            .mobile-nav{
+                width: min(100%, calc(100vw - 32px));
+                right: 0;
+            }
+            .nav-actions{
+                width:100%;
+                justify-content:flex-end;
+            }
+        }
+
+        @media(max-width:480px){
+            .mobile-nav{
+                width: min(100%, calc(100vw - 20px));
+                right: 0;
+            }
+            .nav-container{
+                padding:14px 16px;
+            }
+            .nav-actions{
+                gap:10px;
+            }
+        }
 
 .btn-login{
 
@@ -218,6 +424,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     color:white;
 
     border:1px solid rgba(255,255,255,.12);
+
+    border-radius: 28px;
 
 }
 
@@ -238,6 +446,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     );
 
     color:#08162E;
+
+    border-radius: 28px;
 
 }
 
@@ -313,8 +523,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
     margin-bottom:24px;
 
+    margin-left: 0%;
+
     font-weight:600;
 
+}
+.btn,
+.btn-primary,
+.btn-login{
+    text-decoration:none !important;
 }
 
 .hero-content h1{
@@ -361,6 +578,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     border-radius:28px;
 
     box-shadow:0 30px 80px rgba(0,0,0,.35);
+    opacity:1;
+    transition:opacity .8s ease-in-out;
 }
 
 
@@ -729,41 +948,43 @@ height:170px;
 
     padding:90px 0;
 
-    background:linear-gradient(
-        180deg,
-        #061326,
-        #08162E
-    );
+    background:linear-gradient(180deg, #061326, #08162E);
+
+}
+
+.dashboard-showcase .container{
+
+    width:min(92%, 1280px);
+
+    max-width:100%;
 
 }
 
 .dashboard-window{
 
-        margin-top:40px;
+    width:100%;
 
-    border-radius:32px;
+    max-width:1240px;
+
+    margin:40px auto 0;
+
+    border-radius:28px;
 
     overflow:hidden;
 
     border:1px solid rgba(255,255,255,.08);
 
-    backdrop-filter:blur(20px);
+    background:rgba(7,18,35,.8);
 
-    box-shadow:0 40px 80px rgba(0,0,0,.35);
+    box-shadow:0 28px 70px rgba(2,6,23,.45);
 
-    transition:.45s;
-
-}
-
-.dashboard-window:hover{
-
-    transform:translateY(-8px);
+    box-sizing:border-box;
 
 }
 
 .window-header{
 
-    height:65px;
+    height:58px;
 
     display:flex;
 
@@ -771,47 +992,35 @@ height:170px;
 
     gap:10px;
 
-    padding:0 24px;
+    padding:0 20px;
 
     background:rgba(255,255,255,.04);
 
-    border-bottom:1px solid rgba(255,255,255,.08);
+    border-bottom:1px solid rgba(255,255,255,.07);
 
 }
 
 .dot{
 
-    width:14px;
+    width:12px;
 
-    height:14px;
+    height:12px;
 
     border-radius:50%;
 
 }
 
-.red{
-
-    background:#FF5F57;
-
-}
-
-.yellow{
-
-    background:#FEBC2E;
-
-}
-
-.green{
-
-    background:#28C840;
-
-}
+.red{ background:#FF5F57; }
+.yellow{ background:#FEBC2E; }
+.green{ background:#28C840; }
 
 .dashboard-layout{
 
     display:grid;
 
-    grid-template-columns:260px 1fr;
+    grid-template-columns:240px minmax(0, 1fr);
+
+    min-width:0;
 
 }
 
@@ -819,9 +1028,11 @@ height:170px;
 
     background:rgba(255,255,255,.03);
 
-    padding:30px 20px;
+    border-right:1px solid rgba(255,255,255,.07);
 
-    border-right:1px solid rgba(255,255,255,.08);
+    padding:24px 16px;
+
+    min-width:0;
 
 }
 
@@ -831,49 +1042,43 @@ height:170px;
 
     align-items:center;
 
-    gap:14px;
+    gap:12px;
 
-    padding:16px 18px;
+    padding:14px 12px;
 
-    margin-bottom:10px;
+    margin-bottom:8px;
 
-    border-radius:16px;
+    border-radius:14px;
 
-    color:#D8E4FF;
+    color:#D9E6FF;
 
-    transition:.35s;
+    font-size:14px;
 
-    cursor:pointer;
+    line-height:1.4;
 
-}
-
-.menu-item i{
-
-    width:24px;
-
-}
-
-.menu-item:hover{
-
-    background:rgba(37,99,235,.18);
+    white-space:nowrap;
 
 }
 
 .menu-item.active{
 
-    background:linear-gradient(
-        135deg,
-        #2563EB,
-        #0EA5E9
-    );
+    background:linear-gradient(135deg, #2563EB, #0EA5E9);
 
-    color:white;
+    color:#fff;
 
 }
 
 .dashboard-content{
 
-    padding:35px;
+    width:100%;
+
+    max-width:100%;
+
+    padding:28px 22px 24px;
+
+    min-width:0;
+
+    box-sizing:border-box;
 
 }
 
@@ -881,57 +1086,324 @@ height:170px;
 
     display:grid;
 
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(4, minmax(0, 1fr));
 
-    gap:20px;
+    gap:14px;
 
-    margin-bottom:35px;
+    width:100%;
+
+    max-width:100%;
+
+    margin-bottom:22px;
 
 }
 
 .mini-card{
 
-    background:rgba(255,255,255,.06);
+    background:rgba(255,255,255,.05);
 
-    border:1px solid rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.07);
 
-    border-radius:22px;
+    border-radius:18px;
 
-    padding:24px;
+    padding:18px 14px;
 
-    transition:.35s;
+    min-width:0;
 
-}
+    width:100%;
 
-.mini-card:hover{
+    max-width:100%;
 
-    transform:translateY(-6px);
-
-    background:rgba(37,99,235,.18);
+    box-sizing:border-box;
 
 }
 
-.mini-card h3{
+.mini-card strong{
 
-    font-size:34px;
+    display:block;
+
+    font-size:clamp(1.35rem, 1.8vw, 2rem);
+
+    line-height:1.2;
 
     color:#FBBF24;
 
-    margin-bottom:10px;
+    margin-bottom:6px;
+
+    font-weight:800;
 
 }
 
 .mini-card span{
 
-    color:#C7D6F3;
+    display:block;
+
+    color:#C9D9F7;
+
+    font-size:12px;
+
+    letter-spacing:.4px;
 
 }
 
-.chart-placeholder{
+.mini-card small{
 
-    height:360px;
+    display:inline-block;
 
-    border-radius:26px;
+    margin-top:8px;
+
+    color:#7EF0B3;
+
+    font-size:11px;
+
+    font-weight:600;
+
+}
+
+.preview-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:16px;
+
+    margin-bottom:18px;
+
+}
+
+.preview-card{
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.07);
+
+    border-radius:18px;
+
+    padding:18px 16px;
+
+    min-width:0;
+
+    box-sizing:border-box;
+
+}
+
+.preview-card-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:16px;
+
+    gap:12px;
+
+}
+
+.preview-card-header h4{
+
+    font-size:14px;
+
+    color:#E8F0FF;
+
+    font-weight:700;
+
+}
+
+.preview-badge{
+
+    background:rgba(59,130,246,.18);
+
+    color:#A9D1FF;
+
+    border-radius:999px;
+
+    padding:6px 8px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+}
+
+.revenue-bar,
+.expense-bar{
+
+    height:10px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.08);
+
+    overflow:hidden;
+
+    margin-bottom:10px;
+
+}
+
+.revenue-bar span,
+.expense-bar span{
+
+    display:block;
+
+    height:100%;
+
+    border-radius:inherit;
+
+}
+
+.revenue-bar span{ background:linear-gradient(90deg, #22C55E, #4ADE80); width:82%; }
+.expense-bar span{ background:linear-gradient(90deg, #F59E0B, #FBBF24); width:46%; }
+
+.preview-card p{
+
+    color:#BCD3F6;
+
+    font-size:12px;
+
+    margin:0;
+
+}
+
+.analytics-grid{
+
+    display:grid;
+
+    grid-template-columns:1.6fr 1fr;
+
+    gap:16px;
+
+}
+
+.chart-card,
+.activity-card,
+.chat-card{
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.07);
+
+    border-radius:18px;
+
+    padding:18px 16px;
+
+    min-width:0;
+
+    width:100%;
+
+    max-width:100%;
+
+    box-sizing:border-box;
+
+}
+
+.chart-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:14px;
+
+    gap:10px;
+
+}
+
+.chart-header h4,
+.activity-card h4,
+.chat-card h4{
+
+    font-size:14px;
+
+    color:#F4F7FF;
+
+    font-weight:700;
+
+}
+
+.chart-header .tag,
+.activity-card .tag,
+.chat-card .tag{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:5px 8px;
+
+    border-radius:999px;
+
+    background:rgba(59,130,246,.14);
+
+    color:#B8D7FF;
+
+    font-size:11px;
+
+    font-weight:700;
+
+}
+
+.line-chart{
+
+    height:140px;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:8px;
+
+    padding-top:10px;
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+
+    border-left:1px solid rgba(255,255,255,.06);
+
+    padding-left:8px;
+
+}
+
+.bar{
+
+    flex:1;
+
+    border-radius:8px 8px 0 0;
+
+    background:linear-gradient(180deg, rgba(59,130,246,.9), rgba(59,130,246,.28));
+
+    min-height:16px;
+
+    opacity:.95;
+
+}
+
+.bar:nth-child(1){ height:35%; }
+.bar:nth-child(2){ height:52%; }
+.bar:nth-child(3){ height:44%; }
+.bar:nth-child(4){ height:72%; }
+.bar:nth-child(5){ height:58%; }
+.bar:nth-child(6){ height:82%; }
+.bar:nth-child(7){ height:100%; }
+
+.ring-wrap{ display:flex; align-items:center; justify-content:center; padding:8px 0 0; }
+
+.donut{
+
+    width:110px;
+
+    height:110px;
+
+    border-radius:50%;
+
+    background:conic-gradient(#22C55E 0 72%, #FBBF24 72% 87%, #EF4444 87% 100%);
+
+    position:relative;
 
     display:flex;
 
@@ -939,23 +1411,287 @@ height:170px;
 
     justify-content:center;
 
-    font-size:28px;
+}
 
-    font-weight:700;
+.donut::after{
 
-    color:white;
+    content:"";
 
-    background:linear-gradient(
-        135deg,
-        #2563EB,
-        #0EA5E9,
-        #7C3AED
-    );
+    position:absolute;
 
-    box-shadow:0 20px 60px rgba(37,99,235,.35);
+    inset:18px;
+
+    background:#07182F;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.06);
 
 }
-/*==================================================
+
+.donut-text{
+
+    position:relative;
+
+    z-index:1;
+
+    font-size:22px;
+
+    font-weight:800;
+
+    color:#fff;
+
+}
+
+.activity-list,
+.chat-list{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+.activity-list li,
+.chat-list li{
+
+    display:flex;
+
+    gap:10px;
+
+    align-items:flex-start;
+
+    background:rgba(255,255,255,.03);
+
+    border:1px solid rgba(255,255,255,.05);
+
+    border-radius:12px;
+
+    padding:10px 10px;
+
+    min-width:0;
+
+    box-sizing:border-box;
+
+}
+
+.activity-list i,
+.chat-list i{
+
+    color:#FBBF24;
+
+    font-size:13px;
+
+    margin-top:3px;
+
+    flex-shrink:0;
+
+}
+
+.activity-list span,
+.chat-list span{
+
+    color:#D8E4FF;
+
+    font-size:12px;
+
+    line-height:1.5;
+
+    overflow-wrap:anywhere;
+
+    word-break:break-word;
+
+}
+
+.chat-card{ background:rgba(14,25,44,.8); }
+
+.chat-bubble{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+.chat-message{
+
+    max-width:82%;
+
+    padding:10px 12px;
+
+    border-radius:12px;
+
+    font-size:12px;
+
+    line-height:1.5;
+
+    color:#EAF2FF;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.05);
+
+}
+
+.chat-message.self{
+
+    align-self:flex-end;
+
+    background:linear-gradient(135deg, rgba(37,99,235,.35), rgba(14,165,233,.18));
+
+}
+
+.message-input{
+
+    margin-top:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:8px 10px;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.05);
+
+}
+
+.message-input span{
+
+    flex:1;
+
+    color:#C2D3F8;
+
+    font-size:11px;
+
+}
+
+.message-send{
+
+    width:28px;
+
+    height:28px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:linear-gradient(135deg, #2563EB, #0EA5E9);
+
+    color:#fff;
+
+    font-size:12px;
+
+}
+
+@media (max-width: 900px){
+
+    .dashboard-showcase{ padding:72px 0; }
+
+    .dashboard-showcase .container{ width:100%; max-width:100%; }
+
+    .dashboard-window{ border-radius:22px; }
+
+    .dashboard-layout{ grid-template-columns:1fr; }
+
+    .sidebar{
+
+        display:flex;
+
+        overflow-x:auto;
+
+        gap:8px;
+
+        border-right:none;
+
+        border-bottom:1px solid rgba(255,255,255,.07);
+
+        padding:14px 12px;
+
+        white-space:nowrap;
+
+    }
+
+    .sidebar::-webkit-scrollbar{ display:none; }
+
+    .menu-item{ min-width:150px; justify-content:center; margin-bottom:0; }
+
+    .dashboard-content{ padding:18px 14px 20px; }
+
+    .mini-cards{ grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; margin-bottom:16px; }
+
+    .preview-grid,
+    .analytics-grid{ grid-template-columns:1fr; }
+
+    .preview-card,
+    .chart-card,
+    .activity-card,
+    .chat-card{ padding:16px 14px; }
+
+    .line-chart{ height:120px; }
+
+    .donut{ width:96px; height:96px; }
+
+}
+
+@media (min-width: 901px){
+
+    .preview-grid{
+
+        grid-template-columns:repeat(3, minmax(0, 1fr));
+
+    }
+
+}
+
+@media (max-width: 430px){
+
+    .dashboard-showcase .container{ width:100%; max-width:100%; padding-left:8px; padding-right:8px; }
+
+    .window-header{ height:50px; padding:0 14px; }
+
+    .dashboard-content{ padding:14px 10px 16px; }
+
+    .mini-cards{ grid-template-columns:1fr; }
+
+    .mini-card{ padding:14px 12px; }
+
+    .mini-card strong{ font-size:1.4rem; }
+
+    .preview-card-header,
+    .chart-header{ gap:8px; }
+
+    .line-chart{ height:100px; gap:6px; }
+
+    .donut{ width:84px; height:84px; }
+
+    .donut-text{ font-size:18px; }
+
+    .activity-list li,
+    .chat-list li{ padding:9px 8px; }
+
+    .message-input{ padding:7px 8px; }
+
+}/*==================================================
         DASHBOARD ANALYTICS
 ==================================================*/
 
@@ -988,6 +1724,16 @@ height:170px;
 
     transition:.35s;
 
+    width:100%;
+
+    max-width:100%;
+
+    box-sizing:border-box;
+
+    min-width:0;
+
+    overflow:hidden;
+
 }
 
 .chart-card:hover,
@@ -1013,9 +1759,15 @@ height:170px;
 
 .chart-card canvas{
 
+    display:block;
+
     width:100% !important;
 
+    max-width:100% !important;
+
     height:300px !important;
+
+    min-width:0;
 
 }
 
@@ -1051,6 +1803,10 @@ height:170px;
 
     transition:.30s;
 
+    max-width:100%;
+
+    box-sizing:border-box;
+
 }
 
 .activity-list li:hover{
@@ -1076,6 +1832,14 @@ height:170px;
     color:#D7E3FF;
 
     line-height:1.6;
+
+    display:block;
+
+    max-width:100%;
+
+    overflow-wrap:anywhere;
+
+    word-break:break-word;
 
 }
 /*==================================================
@@ -1702,6 +2466,15 @@ section{
 .hero-buttons .btn{
     width:100%;
     max-width:320px;
+    text-decoration:none;
+}
+
+.hero-buttons .btn,
+.hero-buttons .btn:link,
+.hero-buttons .btn:visited,
+.hero-buttons .btn:hover,
+.hero-buttons .btn:active {
+    text-decoration: none !important;
 }
 
 .hero-image img,
@@ -2244,7 +3017,7 @@ img{
 
     display:grid;
 
-    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+    grid-template-columns:repeat(3, minmax(0, 1fr));
 
     gap:35px;
 
@@ -2253,13 +3026,6 @@ img{
 }
 
 .preview-card{
-
-.preview-image img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-}
 
     background:rgba(255,255,255,.05);
 
@@ -2274,7 +3040,15 @@ img{
     transition:.45s;
 
     position:relative;
+    
 
+}
+
+.preview-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
 }
 
 .preview-card:hover{
@@ -2675,32 +3449,6 @@ img{
     line-height: 1.8;
     max-width: 720px;
     margin: 16px auto 0;
-}
-
-/* Sliding highlight for nav links */
-.desktop-nav a::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, #7abaf1 0%, #87CEEB 50%, #00BFFF 100%);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform .45s cubic-bezier(.2,.9,.2,1), opacity .2s ease;
-    z-index: 0;
-    pointer-events: none;
-    border-radius: inherit;
-    opacity: 0;
-    will-change: transform, opacity;
-}
-
-.desktop-nav a:hover {
-    color: #f0b907;
-    transform: translateY(-3px);
-}
-
-.desktop-nav a:hover::before {
-    transform: scaleX(1);
-    opacity: 1;
 }
 
 /* FAQ ITEMS */
@@ -3126,6 +3874,532 @@ text-align:center;
 }
 
 }
+/* Final compact-window fix: keep dashboard preview readable without collapsing the mockup */
+@media (max-width: 760px) {
+    .dashboard-showcase .container,
+    .dashboard-window,
+    .hero-image {
+        max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .dashboard-showcase {
+        padding: 68px 0;
+    }
+
+    .dashboard-window {
+        margin-left: 0;
+        margin-right: 0;
+        border-radius: 22px;
+        overflow: hidden;
+    }
+
+    .dashboard-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        display: flex;
+        overflow-x: auto;
+        gap: 10px;
+        padding: 14px 12px;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        white-space: nowrap;
+    }
+
+    .menu-item {
+        min-width: 150px;
+        justify-content: center;
+        margin-bottom: 0;
+    }
+
+    .dashboard-content {
+        padding: 16px 14px 18px;
+    }
+
+    .mini-cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .finance-grid,
+    .analytics-grid,
+    .dashboard-bottom {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-card canvas,
+    .chart-area,
+    canvas {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
+
+@media (max-width: 430px) {
+    .dashboard-showcase .container,
+    .hero-image {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .mini-cards {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .menu-item {
+        min-width: 132px;
+        padding: 12px 10px;
+        font-size: 12px;
+    }
+}
+
+/*==================================================
+    STATIC DASHBOARD PREVIEW OVERRIDE
+==================================================*/
+
+.dashboard-showcase {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #061326, #08162E);
+}
+
+.dashboard-showcase .container {
+    width: min(92%, 1280px);
+    max-width: 100%;
+}
+
+.dashboard-window {
+    width: 100%;
+    max-width: 1240px;
+    margin: 40px auto 0;
+    border-radius: 28px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(7,18,35,.8);
+    box-shadow: 0 28px 70px rgba(2,6,23,.45);
+    box-sizing: border-box;
+}
+
+.window-header {
+    height: 58px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px;
+    background: rgba(255,255,255,.04);
+    border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.red { background:#FF5F57; }
+.yellow { background:#FEBC2E; }
+.green { background:#28C840; }
+
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    min-width: 0;
+}
+
+.sidebar {
+    background: rgba(255,255,255,.03);
+    border-right: 1px solid rgba(255,255,255,.07);
+    padding: 24px 16px;
+    min-width: 0;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 12px;
+    margin-bottom: 8px;
+    border-radius: 14px;
+    color: #D9E6FF;
+    font-size: 14px;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+.menu-item.active {
+    background: linear-gradient(135deg, #2563EB, #0EA5E9);
+    color: #fff;
+}
+
+.dashboard-content {
+    width: 100%;
+    max-width: 100%;
+    padding: 28px 22px 24px;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.mini-cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 22px;
+}
+
+.mini-card {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 18px;
+    padding: 18px 14px;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.mini-card strong {
+    display: block;
+    font-size: clamp(1.35rem, 1.8vw, 2rem);
+    line-height: 1.2;
+    color: #FBBF24;
+    margin-bottom: 6px;
+    font-weight: 800;
+}
+
+.mini-card span {
+    display: block;
+    color: #C9D9F7;
+    font-size: 12px;
+    letter-spacing: .4px;
+}
+
+.mini-card small {
+    display: inline-block;
+    margin-top: 8px;
+    color: #7EF0B3;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.preview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.preview-section .preview-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 35px;
+    margin-top: 70px;
+    margin-bottom: 0;
+}
+
+.preview-card {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 18px;
+    padding: 18px 16px;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.preview-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 12px;
+}
+
+.preview-card-header h4 {
+    font-size: 14px;
+    color: #E8F0FF;
+    font-weight: 700;
+}
+
+.preview-badge {
+    background: rgba(59,130,246,.18);
+    color: #A9D1FF;
+    border-radius: 999px;
+    padding: 6px 8px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.revenue-bar,
+.expense-bar {
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.08);
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.revenue-bar span,
+.expense-bar span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+}
+
+.revenue-bar span { background: linear-gradient(90deg, #22C55E, #4ADE80); width: 82%; }
+.expense-bar span { background: linear-gradient(90deg, #F59E0B, #FBBF24); width: 46%; }
+
+.preview-card p {
+    color: #BCD3F6;
+    font-size: 12px;
+    margin: 0;
+}
+
+.analytics-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 16px;
+}
+
+.chart-card,
+.activity-card,
+.chat-card {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 18px;
+    padding: 18px 16px;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.chart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    gap: 10px;
+}
+
+.chart-header h4,
+.activity-card h4,
+.chat-card h4 {
+    font-size: 14px;
+    color: #F4F7FF;
+    font-weight: 700;
+}
+
+.chart-header .tag,
+.activity-card .tag,
+.chat-card .tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 8px;
+    border-radius: 999px;
+    background: rgba(59,130,246,.14);
+    color: #B8D7FF;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.line-chart {
+    height: 140px;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    padding-top: 10px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    border-left: 1px solid rgba(255,255,255,.06);
+    padding-left: 8px;
+}
+
+.bar {
+    flex: 1;
+    border-radius: 8px 8px 0 0;
+    background: linear-gradient(180deg, rgba(59,130,246,.9), rgba(59,130,246,.28));
+    min-height: 16px;
+    opacity: .95;
+}
+
+.bar:nth-child(1){ height:35%; }
+.bar:nth-child(2){ height:52%; }
+.bar:nth-child(3){ height:44%; }
+.bar:nth-child(4){ height:72%; }
+.bar:nth-child(5){ height:58%; }
+.bar:nth-child(6){ height:82%; }
+.bar:nth-child(7){ height:100%; }
+
+.ring-wrap { display: flex; align-items: center; justify-content: center; padding: 8px 0 0; }
+
+.donut {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: conic-gradient(#22C55E 0 72%, #FBBF24 72% 87%, #EF4444 87% 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.donut::after {
+    content: "";
+    position: absolute;
+    inset: 18px;
+    background: #07182F;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.06);
+}
+
+.donut-text {
+    position: relative;
+    z-index: 1;
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+}
+
+.activity-list,
+.chat-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.activity-list li,
+.chat-list li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.05);
+    border-radius: 12px;
+    padding: 10px 10px;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.activity-list i,
+.chat-list i {
+    color: #FBBF24;
+    font-size: 13px;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.activity-list span,
+.chat-list span {
+    color: #D8E4FF;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.chat-card { background: rgba(14,25,44,.8); }
+
+.chat-bubble {
+    display:flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.chat-message {
+    max-width: 82%;
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #EAF2FF;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.05);
+}
+
+.chat-message.self {
+    align-self: flex-end;
+    background: linear-gradient(135deg, rgba(37,99,235,.35), rgba(14,165,233,.18));
+}
+
+.message-input {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 12px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.05);
+}
+
+.message-input span {
+    flex: 1;
+    color: #C2D3F8;
+    font-size: 11px;
+}
+
+.message-send {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2563EB, #0EA5E9);
+    color: #fff;
+    font-size: 12px;
+}
+
+@media (max-width: 900px) {
+    .dashboard-showcase { padding: 72px 0; }
+    .dashboard-showcase .container { width: 100%; max-width: 100%; }
+    .dashboard-window { border-radius: 22px; }
+    .dashboard-layout { grid-template-columns: 1fr; }
+    .sidebar {
+        display: flex;
+        overflow-x: auto;
+        gap: 8px;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,.07);
+        padding: 14px 12px;
+        white-space: nowrap;
+    }
+    .sidebar::-webkit-scrollbar { display: none; }
+    .menu-item { min-width: 150px; justify-content: center; margin-bottom: 0; }
+    .dashboard-content { padding: 18px 14px 20px; }
+    .mini-cards { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; margin-bottom: 16px; }
+    .preview-section .preview-grid,
+    .analytics-grid { grid-template-columns: 1fr; }
+    .preview-card,
+    .chart-card,
+    .activity-card,
+    .chat-card { padding: 16px 14px; }
+    .line-chart { height: 120px; }
+    .donut { width: 96px; height: 96px; }
+}
+
+@media (max-width: 430px) {
+    .dashboard-showcase .container { width: 100%; max-width: 100%; padding-left: 8px; padding-right: 8px; }
+    .window-header { height: 50px; padding: 0 14px; }
+    .dashboard-content { padding: 14px 10px 16px; }
+    .mini-cards { grid-template-columns: 1fr; }
+    .mini-card { padding: 14px 12px; }
+    .mini-card strong { font-size: 1.4rem; }
+    .preview-card-header,
+    .chart-header { gap: 8px; }
+    .line-chart { height: 100px; gap: 6px; }
+    .donut { width: 84px; height: 84px; }
+    .donut-text { font-size: 18px; }
+    .activity-list li,
+    .chat-list li { padding: 9px 8px; }
+    .message-input { padding: 7px 8px; }
+}
     </style>
 
 </head>
@@ -3136,7 +4410,7 @@ text-align:center;
 
     <div class="container nav-container">
 
-        <a href="#" class="logo">
+        <a href="#hero" class="logo">
 
     <div class="logo-box">
 
@@ -3156,23 +4430,37 @@ text-align:center;
 
         <nav class="desktop-nav">
 
-            <a href="#">Home</a>
-            <a href="#">Features</a>
-            <a href="#">Modules</a>
-            <a href="#">Pricing</a>
-            <a href="#">Contact</a>
+            <a href="#hero" class="active">Home</a>
+            <a href="#features">Features</a>
+            <a href="#modules">Modules</a>
+            <a href="#final-cta">Pricing</a>
+            <a href="#footer">Contact</a>
 
+        </nav>
+
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" type="button">
+            <span class="menu-icon"></span>
+        </button>
+
+        <nav class="mobile-nav" aria-label="Mobile navigation">
+            <a href="#hero" class="active">Home</a>
+            <a href="#features">Features</a>
+            <a href="#modules">Modules</a>
+            <a href="#final-cta">Pricing</a>
+            <a href="#footer">Contact</a>
+            <a href="login.html" class="btn btn-login">Login</a>
+            <a href="create-school.html" class="btn btn-primary">Create School</a>
         </nav>
 
         <div class="nav-actions">
 
-            <button class="btn btn-login">
+            <a href="login.html" class="btn btn-login">
                 Login
-            </button>
+            </a>
 
-            <button class="btn btn-primary">
+            <a href="create-school.html" class="btn btn-primary">
                 Create School
-            </button>
+            </a>
 
         </div>
 
@@ -3182,7 +4470,7 @@ text-align:center;
 
 <main>
 
-<section class="hero">
+<section class="hero" id="hero">
 
     <div class="container hero-container">
 
@@ -3212,17 +4500,17 @@ text-align:center;
 
             <div class="hero-buttons">
 
-                <button class="btn btn-primary">
+                <a href="create-school.html" class="btn btn-primary">
 
                     Create School
 
-                </button>
+                </a>
 
-                <button class="btn btn-login">
+                <a href="#preview" class="btn btn-login">
 
                     Watch Demo
 
-                </button>
+                </a>
 
             </div>
 
@@ -3230,8 +4518,7 @@ text-align:center;
 
         <div class="hero-image">
 
-          
-                        <img class="dashboard-preview" src="./images/dashboard2.png" alt="">
+                        <img class="dashboard-preview" src="./images/dashboard.png" alt="School dashboard preview">
                      
                 </div>
 
@@ -3357,28 +4644,11 @@ text-align:center;
 
         <div class="section-header">
 
-            <span>
+            <span><i class="fa-solid fa-chart-line"></i> LIVE PLATFORM PREVIEW</span>
 
-                <i class="fa-solid fa-chart-line"></i>
+            <h2>Powerful Dashboard.<br>Beautiful Experience.</h2>
 
-                LIVE PLATFORM PREVIEW
-
-            </span>
-
-            <h2>
-
-                Powerful Dashboard.<br>
-
-                Beautiful Experience.
-
-            </h2>
-
-            <p>
-
-                Everything your administrators need,
-                beautifully organized into one intelligent dashboard.
-
-            </p>
+            <p>Everything your administrators need, beautifully organized into one intelligent dashboard.</p>
 
         </div>
 
@@ -3387,9 +4657,7 @@ text-align:center;
             <div class="window-header">
 
                 <span class="dot red"></span>
-
                 <span class="dot yellow"></span>
-
                 <span class="dot green"></span>
 
             </div>
@@ -3398,53 +4666,12 @@ text-align:center;
 
                 <aside class="sidebar">
 
-                    <div class="menu-item active">
-
-                        <i class="fa-solid fa-house"></i>
-
-                        Dashboard
-
-                    </div>
-
-                    <div class="menu-item">
-
-                        <i class="fa-solid fa-user-graduate"></i>
-
-                        Students
-
-                    </div>
-
-                    <div class="menu-item">
-
-                        <i class="fa-solid fa-chalkboard-user"></i>
-
-                        Teachers
-
-                    </div>
-
-                    <div class="menu-item">
-
-                        <i class="fa-solid fa-book"></i>
-
-                        Subjects
-
-                    </div>
-
-                    <div class="menu-item">
-
-                        <i class="fa-solid fa-file-lines"></i>
-
-                        Results
-
-                    </div>
-
-                    <div class="menu-item">
-
-                        <i class="fa-solid fa-wallet"></i>
-
-                        Finance
-
-                    </div>
+                    <div class="menu-item active"><i class="fa-solid fa-house"></i>Dashboard</div>
+                    <div class="menu-item"><i class="fa-solid fa-user-graduate"></i>Students</div>
+                    <div class="menu-item"><i class="fa-solid fa-chalkboard-user"></i>Teachers</div>
+                    <div class="menu-item"><i class="fa-solid fa-book"></i>Subjects</div>
+                    <div class="menu-item"><i class="fa-solid fa-file-lines"></i>Results</div>
+                    <div class="menu-item"><i class="fa-solid fa-wallet"></i>Finance</div>
 
                 </aside>
 
@@ -3453,345 +4680,113 @@ text-align:center;
                     <div class="mini-cards">
 
                         <div class="mini-card">
-
-                            <h3>2,458</h3>
-
+                            <strong>2,458</strong>
                             <span>Students</span>
-
+                            <small>+12.4%</small>
                         </div>
 
                         <div class="mini-card">
-
-                            <h3>186</h3>
-
+                            <strong>186</strong>
                             <span>Teachers</span>
-
+                            <small>+5.1%</small>
                         </div>
 
                         <div class="mini-card">
-
-                            <h3>98%</h3>
-
+                            <strong>98%</strong>
                             <span>Attendance</span>
-
+                            <small>Stable</small>
                         </div>
 
                         <div class="mini-card">
-
-                            <h3>₦4.2M</h3>
-
+                            <strong>₦4.2M</strong>
                             <span>Revenue</span>
-
+                            <small>Growth</small>
                         </div>
 
                     </div>
-<div class="finance-grid">
 
-    <div class="finance-card revenue-card">
+                    <div class="preview-grid">
 
-        <div class="finance-top">
+                        <div class="preview-card">
+                            <div class="preview-card-header">
+                                <h4>Total Revenue</h4>
+                                <span class="preview-badge">₦4.2M</span>
+                            </div>
+                            <div class="revenue-bar"><span></span></div>
+                            <p>82% of monthly target achieved.</p>
+                        </div>
 
-            <div>
+                        <div class="preview-card">
+                            <div class="preview-card-header">
+                                <h4>Total Expenses</h4>
+                                <span class="preview-badge">₦1.3M</span>
+                            </div>
+                            <div class="expense-bar"><span></span></div>
+                            <p>46% of monthly budget used.</p>
+                        </div>
 
-                <p>Total Revenue</p>
+                    </div>
 
-                <h2 id="revenueCounter">₦0</h2>
-
-            </div>
-
-            <i class="fa-solid fa-money-bill-trend-up"></i>
-
-        </div>
-
-        <div class="progress-bar">
-
-            <div class="progress-fill revenue-fill"></div>
-
-        </div>
-
-        <small>82% of monthly target achieved</small>
-
-    </div>
-
-    <div class="finance-card expense-card">
-
-        <div class="finance-top">
-
-            <div>
-
-                <p>Total Expenses</p>
-
-                <h2>₦1.3M</h2>
-
-            </div>
-
-            <i class="fa-solid fa-wallet"></i>
-
-        </div>
-
-        <div class="progress-bar">
-
-            <div class="progress-fill expense-fill"></div>
-
-        </div>
-
-        <small>46% of monthly budget used</small>
-
-    </div>
-
-</div>
                     <div class="analytics-grid">
 
-    <div class="chart-card">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h4>Student Growth</h4>
+                                <span class="tag">+18%</span>
+                            </div>
+                            <div class="line-chart" aria-label="Student growth chart">
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h4>Attendance</h4>
+                                <span class="tag">92%</span>
+                            </div>
+                            <div class="ring-wrap">
+                                <div class="donut" aria-label="Attendance donut chart">
+                                    <span class="donut-text">92</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="activity-card">
+                            <div class="chart-header">
+                                <h4>Recent Activities</h4>
+                                <span class="tag">Live</span>
+                            </div>
+                            <ul class="activity-list">
+                                <li><i class="fa-solid fa-user-plus"></i><span>15 new students registered today.</span></li>
+                                <li><i class="fa-solid fa-book"></i><span>New mathematics assignment uploaded.</span></li>
+                                <li><i class="fa-solid fa-wallet"></i><span>₦450,000 school fees received.</span></li>
+                                <li><i class="fa-solid fa-calendar"></i><span>PTA meeting scheduled for Friday.</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="chat-card">
+                            <div class="chart-header">
+                                <h4>Message Center</h4>
+                                <span class="tag">4</span>
+                            </div>
+                            <div class="chat-bubble">
+                                <div class="chat-message">Good morning, the lecture schedule is updated.</div>
+                                <div class="chat-message self">Thanks, please confirm the fee reminder.</div>
+                            </div>
+                            <div class="message-input">
+                                <span>Type a message</span>
+                                <span class="message-send"><i class="fa-solid fa-paper-plane"></i></span>
+                            </div>
+                        </div>
+
+                    </div>
 
-        <div class="card-title">
-            Student Growth
-        </div>
-
-        <canvas id="studentChart"></canvas>
-
-    </div>
-
-    <div class="chart-card">
-
-        <div class="card-title">
-            Attendance
-        </div>
-
-        <canvas id="attendanceChart"></canvas>
-
-    </div>
-
-    <div class="activity-card">
-
-        <div class="card-title">
-            Recent Activities
-        </div>
-
-        <ul class="activity-list">
-
-            <li>
-                <i class="fa-solid fa-user-plus"></i>
-                <span>15 new students registered today</span>
-            </li>
-
-            <li>
-                <i class="fa-solid fa-book"></i>
-                <span>New Mathematics assignment published</span>
-            </li>
-
-            <li>
-                <i class="fa-solid fa-wallet"></i>
-                <span>₦450,000 school fees received</span>
-            </li>
-
-            <li>
-                <i class="fa-solid fa-bell"></i>
-                <span>PTA meeting scheduled for Friday</span>
-            </li>
-
-        </ul>
-
-    </div>
-
-    <div class="activity-card">
-
-        <div class="card-title">
-            Notifications
-        </div>
-
-        <ul class="activity-list">
-
-            <li>
-
-                <i class="fa-solid fa-circle-check"></i>
-
-                <span>Database synchronized successfully</span>
-
-            </li>
-
-            <li>
-
-                <i class="fa-solid fa-shield-halved"></i>
-
-                <span>Backup completed automatically</span>
-
-            </li>
-
-            <li>
-
-                <i class="fa-solid fa-calendar"></i>
-
-                <span>Term ends in 18 days</span>
-
-            </li>
-
-            <li>
-
-                <i class="fa-solid fa-user-check"></i>
-
-                <span>98% staff attendance today</span>
-
-            </li>
-
-        </ul>
-
-    </div>
-
-</div>
-<div class="dashboard-bottom">
-
-    <!-- Upcoming Events -->
-
-    <div class="events-card">
-
-        <h3>
-            <i class="fa-solid fa-calendar-days"></i>
-            Upcoming Events
-        </h3>
-
-        <div class="event-item">
-            <div class="event-date">
-                <span>12</span>
-                <small>AUG</small>
-            </div>
-            <div class="event-info">
-                <h4>First Term Resumption</h4>
-                <p>All students return to school.</p>
-            </div>
-        </div>
-
-        <div class="event-item">
-            <div class="event-date">
-                <span>18</span>
-                <small>AUG</small>
-            </div>
-            <div class="event-info">
-                <h4>Parents Meeting</h4>
-                <p>Main School Hall • 10:00 AM</p>
-            </div>
-        </div>
-
-        <div class="event-item">
-            <div class="event-date">
-                <span>26</span>
-                <small>AUG</small>
-            </div>
-            <div class="event-info">
-                <h4>Inter-House Sports</h4>
-                <p>School Sports Complex</p>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Latest Admissions -->
-
-    <div class="admissions-card">
-
-        <h3>
-            <i class="fa-solid fa-user-graduate"></i>
-            Latest Admissions
-        </h3>
-
-        <div class="student-row">
-
-            <div class="student-avatar">AJ</div>
-
-            <div>
-
-                <strong>Amara Johnson</strong>
-
-                <p>SS1 Science</p>
-
-            </div>
-
-            <span class="status admitted">Admitted</span>
-
-        </div>
-
-        <div class="student-row">
-
-            <div class="student-avatar">EO</div>
-
-            <div>
-
-                <strong>Emeka Okafor</strong>
-
-                <p>JSS3 Gold</p>
-
-            </div>
-
-            <span class="status pending">Pending</span>
-
-        </div>
-
-        <div class="student-row">
-
-            <div class="student-avatar">UC</div>
-
-            <div>
-
-                <strong>Uche Chukwu</strong>
-
-                <p>Primary 5</p>
-
-            </div>
-
-            <span class="status admitted">Admitted</span>
-
-        </div>
-
-    </div>
-
-</div>
-<div class="quick-actions">
-
-    <h2 class="section-title">
-        Quick Actions
-    </h2>
-
-    <div class="quick-grid">
-
-        <div class="quick-card">
-            <i class="fa-solid fa-user-plus"></i>
-            <h3>Register Student</h3>
-            <p>Create a new student admission record.</p>
-        </div>
-
-        <div class="quick-card">
-            <i class="fa-solid fa-chalkboard-user"></i>
-            <h3>Add Teacher</h3>
-            <p>Register teachers and assign subjects.</p>
-        </div>
-
-        <div class="quick-card">
-            <i class="fa-solid fa-money-check-dollar"></i>
-            <h3>Collect Fees</h3>
-            <p>Record school fee payments instantly.</p>
-        </div>
-
-        <div class="quick-card">
-            <i class="fa-solid fa-file-lines"></i>
-            <h3>Generate Result</h3>
-            <p>Create professional report cards.</p>
-        </div>
-
-        <div class="quick-card">
-            <i class="fa-solid fa-book-open-reader"></i>
-            <h3>Library</h3>
-            <p>Manage books and borrowing records.</p>
-        </div>
-
-        <div class="quick-card">
-            <i class="fa-solid fa-bus"></i>
-            <h3>Transport</h3>
-            <p>Manage buses, routes and drivers.</p>
-        </div>
-
-    </div>
-
-</div>
                 </div>
 
             </div>
@@ -3805,7 +4800,7 @@ text-align:center;
         WHY CHOOSE SIMPLEXSKOLLA
 =========================================== -->
 
-<section class="features-section">
+<section class="features-section" id="features">
 
     <div class="container">
 
@@ -3962,7 +4957,7 @@ text-align:center;
         PLATFORM MODULES
 ===========================================-->
 
-<section class="modules-section">
+<section class="modules-section" id="modules">
 
     <div class="container">
 
@@ -4142,7 +5137,7 @@ text-align:center;
         LIVE PLATFORM PREVIEW
 ===========================================-->
 
-<section class="preview-section">
+<section class="preview-section" id="preview">
 
     <div class="container">
 
@@ -4571,7 +5566,7 @@ text-align:center;
     </div>
 </section>
 <!-- FINAL CTA SECTION -->
-<section class="final-cta-section">
+<section class="final-cta-section" id="final-cta">
 
     <div class="cta-container">
 
@@ -4608,7 +5603,7 @@ text-align:center;
 
 </section>
 <!-- FOOTER SECTION -->
-<footer class="footer-section">
+<footer class="footer-section" id="footer">
 
     <div class="footer-container">
 
@@ -4623,6 +5618,12 @@ text-align:center;
                 A complete school management platform designed to simplify
                 administration, improve communication, and empower modern
                 schools.
+            </p>
+
+            <p class="footer-contact-info">
+                <a href="tel:+2348105339882">08105339882</a>
+                <span>or</span>
+                <a href="tel:+2347083331409">07083331409</a>
             </p>
 
         </div>
@@ -4679,9 +5680,9 @@ text-align:center;
 
         <div class="social-links">
 
-            <a href="#">Facebook</a>
-            <a href="#">Twitter</a>
-            <a href="#">LinkedIn</a>
+            <a href="https://wa.me/2347083331409" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a href="https://www.facebook.com/search/top?q=Ezuma%20jeremiah%20obumneme" target="_blank" rel="noopener noreferrer">Ezuma jeremiah obumneme</a>
+            <a href="tel:+2348105339882">08105339882 / 07083331409</a>
 
         </div>
 
@@ -4743,259 +5744,8 @@ const observer = new IntersectionObserver((entries) => {
 });
 
 counters.forEach(counter => observer.observe(counter));
-/*==================================================
-        SIMPLEXSKOLLA DASHBOARD CHARTS
-==================================================*/
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    /*=========================
-        STUDENT GROWTH
-    =========================*/
-
-    const studentCanvas = document.getElementById("studentChart");
-
-    if (studentCanvas) {
-
-        new Chart(studentCanvas, {
-
-            type: "line",
-
-            data: {
-
-                labels: [
-                    "Jan",
-                    "Feb",
-                    "Mar",
-                    "Apr",
-                    "May",
-                    "Jun",
-                    "Jul"
-                ],
-
-                datasets: [{
-
-                    label: "Students",
-
-                    data: [
-                        620,
-                        710,
-                        790,
-                        910,
-                        1040,
-                        1180,
-                        1325
-                    ],
-
-                    borderColor: "#3B82F6",
-
-                    backgroundColor: "rgba(59,130,246,.18)",
-
-                    fill: true,
-
-                    borderWidth: 4,
-
-                    pointRadius: 5,
-
-                    pointHoverRadius: 8,
-
-                    pointBackgroundColor: "#FBBF24",
-
-                    tension: .4
-
-                }]
-
-            },
-
-            options: {
-
-                responsive: true,
-
-                maintainAspectRatio: false,
-
-                plugins: {
-
-                    legend: {
-
-                        labels: {
-
-                            color: "#FFFFFF"
-
-                        }
-
-                    }
-
-                },
-
-                scales: {
-
-                    x: {
-
-                        ticks: {
-
-                            color: "#C7D6F3"
-
-                        },
-
-                        grid: {
-
-                            color: "rgba(255,255,255,.06)"
-
-                        }
-
-                    },
-
-                    y: {
-
-                        ticks: {
-
-                            color: "#C7D6F3"
-
-                        },
-
-                        grid: {
-
-                            color: "rgba(255,255,255,.06)"
-
-                        }
-
-                    }
-
-                }
-
-            }
-
-        });
-
-    }
-
-    /*=========================
-        ATTENDANCE
-    =========================*/
-
-    const attendanceCanvas = document.getElementById("attendanceChart");
-
-    if (attendanceCanvas) {
-
-        new Chart(attendanceCanvas, {
-
-            type: "doughnut",
-
-            data: {
-
-                labels: [
-
-                    "Present",
-
-                    "Absent",
-
-                    "Late"
-
-                ],
-
-                datasets: [{
-
-                    data: [
-
-                        92,
-
-                        5,
-
-                        3
-
-                    ],
-
-                    backgroundColor: [
-
-                        "#22C55E",
-
-                        "#EF4444",
-
-                        "#FBBF24"
-
-                    ],
-
-                    borderWidth: 0
-
-                }]
-
-            },
-
-            options: {
-
-                responsive: true,
-
-                maintainAspectRatio: false,
-
-                cutout: "70%",
-
-                plugins: {
-
-                    legend: {
-
-                        position: "bottom",
-
-                        labels: {
-
-                            color: "#FFFFFF",
-
-                            padding: 18
-
-                        }
-
-                    }
-
-                }
-
-            }
-
-        });
-
-    }
-
-});
-/*==================================================
-        REVENUE COUNTER
-==================================================*/
-
-(function () {
-
-    const revenue = document.getElementById("revenueCounter");
-
-    if (!revenue) return;
-
-    const target = 4200000;
-
-    let current = 0;
-
-    const duration = 2500;
-
-    const frameRate = 30;
-
-    const increment = target / (duration / frameRate);
-
-    const formatter = new Intl.NumberFormat("en-NG");
-
-    const timer = setInterval(() => {
-
-        current += increment;
-
-        if (current >= target) {
-
-            current = target;
-
-            clearInterval(timer);
-
-        }
-
-        revenue.textContent = "₦" + formatter.format(Math.floor(current));
-
-    }, frameRate);
-
-})();
-/*==================================================
-        PROGRESS BAR ANIMATION
-==================================================*/
+/*==================================================*/
 
 window.addEventListener("load", () => {
 
@@ -5027,6 +5777,60 @@ faqItems.forEach(item => {
     });
 
 });
+
+// Menu toggle functionality
+document.addEventListener("DOMContentLoaded", function() {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const mobileNav = document.querySelector(".mobile-nav");
+    
+    if (menuToggle && mobileNav) {
+        // Toggle menu when icon is clicked
+        menuToggle.addEventListener("click", function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const isOpen = mobileNav.classList.contains("open");
+            
+            if (isOpen) {
+                mobileNav.classList.remove("open");
+                menuToggle.classList.remove("open");
+                menuToggle.setAttribute("aria-expanded", "false");
+            } else {
+                mobileNav.classList.add("open");
+                menuToggle.classList.add("open");
+                menuToggle.setAttribute("aria-expanded", "true");
+            }
+        });
+    }
+});
+
+const heroImage = document.querySelector(".dashboard-preview");
+const heroImageSources = [
+      "./images/4th.jpg",
+      "./images/dashboard.png",
+    "./images/hero-background.png",
+    "./images/dashboard2.png",
+    "./images/dashboard3.png",
+    "./images/dashboard4.png"
+];
+
+if (heroImage && heroImageSources.length > 1) {
+    let heroImageIndex = 0;
+
+    setInterval(() => {
+        const nextIndex = (heroImageIndex + 1) % heroImageSources.length;
+
+        heroImage.style.opacity = "0";
+
+        setTimeout(() => {
+            heroImage.src = heroImageSources[nextIndex];
+            heroImage.alt = "School dashboard preview";
+            heroImage.style.opacity = "1";
+            heroImageIndex = nextIndex;
+        }, 400);
+    }, 6000);
+}
+
 </script>
 </body>
 
