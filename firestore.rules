@@ -2,33 +2,325 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Allow any authenticated user to read their own profile and create/update their own profile record.
+    // Users can read their own profile and create it during registration.
+    // Tenant membership and role remain immutable after creation.
     match /users/{userId} {
-      allow read, update: if request.auth != null && request.auth.uid == userId;
-      allow create: if request.auth != null && request.auth.uid == userId;
+      allow read: if request.auth != null && request.auth.uid == userId;
+
+      allow create: if request.auth != null
+        && request.auth.uid == userId
+        && request.resource.data.keys().hasAll([
+          "uid",
+          "email",
+          "schoolId",
+          "role",
+          "displayName",
+           "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "uid",
+          "email",
+          "schoolId",
+          "role",
+          "displayName",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.uid == userId
+        && request.resource.data.uid is string
+        && request.resource.data.email is string
+        && request.resource.data.schoolId is string
+        && request.resource.data.role is string
+        && request.resource.data.displayName is string
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.updatedAt is timestamp;
+
+      allow update: if request.auth != null
+        && request.auth.uid == userId
+        && request.resource.data.uid == resource.data.uid
+        && request.resource.data.schoolId == resource.data.schoolId
+        && request.resource.data.role == resource.data.role
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          "displayName",
+          "updatedAt"
+        ])
+        && request.resource.data.displayName is string
+        && request.resource.data.updatedAt is timestamp;
+
       allow delete: if false;
     }
 
-    // School profile access is allowed only when the authenticated user is linked to the school.
+    // School profiles are tenant-scoped. Registration is allowed to finish
+    // the logo update before the initial user profile exists.
     match /schools/{schoolId} {
       allow read: if request.auth != null && isAuthorizedSchool(request.auth.uid, schoolId);
       allow create: if request.auth != null
-        && request.resource.data.createdBy == request.auth.uid
+        && request.resource.data.keys().hasAll([
+          "schoolId",
+          "schoolName",
+          "schoolType",
+          "schoolMotto",
+          "schoolCode",
+          "email",
+          "phone",
+          "address",
+          "logo",
+          "status",
+          "createdBy",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "schoolId",
+          "schoolName",
+          "schoolType",
+          "schoolMotto",
+          "schoolCode",
+          "email",
+          "phone",
+          "address",
+          "logo",
+          "status",
+          "createdBy",
+          "createdAt",
+          "updatedAt"
+        ])
         && request.resource.data.schoolId == schoolId
+        && request.resource.data.schoolId is string
         && request.resource.data.schoolName is string
-        && request.resource.data.status == "active";
-      allow update: if request.auth != null && isAuthorizedSchool(request.auth.uid, schoolId);
+        && request.resource.data.schoolType is string
+        && request.resource.data.schoolMotto is string
+        && request.resource.data.schoolCode is string
+        && request.resource.data.email is string
+        && request.resource.data.phone is string
+        && request.resource.data.address is string
+        && request.resource.data.logo is string
+        && request.resource.data.status == "active"
+        && request.resource.data.status is string
+        && request.resource.data.createdBy == request.auth.uid
+        && request.resource.data.createdBy is string
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.updatedAt is timestamp;
+      allow update: if request.auth != null
+        && isAuthorizedSchoolOrCreator(request.auth.uid, schoolId)
+        && resource.data.keys().hasAll([
+          "schoolId",
+          "createdBy",
+          "createdAt",
+          "status"
+        ])
+        && request.resource.data.schoolId == resource.data.schoolId
+        && request.resource.data.createdBy == resource.data.createdBy
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.status == resource.data.status
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          "logo",
+          "updatedAt"
+        ])
+        && request.resource.data.logo is string
+        && request.resource.data.updatedAt is timestamp;
       allow delete: if false;
     }
 
-    // Student document access requires the user to belong to the same school.
     match /schools/{schoolId}/students/{studentId} {
-      allow read, write: if request.auth != null && isAuthorizedSchool(request.auth.uid, schoolId);
+      allow read: if request.auth != null
+        && isAuthorizedSchool(request.auth.uid, schoolId);
+
+      allow create: if request.auth != null
+        && isAuthorizedSchool(request.auth.uid, schoolId)
+        && request.resource.data.keys().hasAll([
+          "firstName",
+          "middleName",
+          "lastName",
+          "gender",
+          "dateOfBirth",
+          "nationality",
+          "stateOfOrigin",
+          "religion",
+          "bloodGroup",
+          "phone",
+          "email",
+          "residentialAddress",
+          "passport",
+          "fatherName",
+          "motherName",
+          "guardianName",
+          "relationship",
+          "guardianPhone",
+          "alternativePhone",
+          "guardianEmail",
+          "occupation",
+          "homeAddress",
+          "academicSession",
+          "term",
+          "class",
+          "department",
+          "studentType",
+          "house",
+          "admissionType",
+          "admissionDate",
+          "previousSchool",
+          "previousClass",
+          "classTeacher",
+          "academicNotes",
+          "genotype",
+          "medicalCondition",
+          "allergies",
+          "disabilityOrSpecialNeeds",
+          "medication",
+          "preferredHospital",
+          "doctorOrMedicalContact",
+          "emergencyContactName",
+          "emergencyContactPhone",
+          "medicalNotes",
+          "birthCertificate",
+          "previousResult",
+          "transferCertificate",
+          "medicalReport",
+          "otherDocument",
+          "fullName",
+          "admissionNumber",
+          "schoolId",
+          "createdBy",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "firstName",
+          "middleName",
+          "lastName",
+          "gender",
+          "dateOfBirth",
+          "nationality",
+          "stateOfOrigin",
+          "religion",
+          "bloodGroup",
+          "phone",
+          "email",
+          "residentialAddress",
+          "passport",
+          "fatherName",
+          "motherName",
+          "guardianName",
+          "relationship",
+          "guardianPhone",
+          "alternativePhone",
+          "guardianEmail",
+          "occupation",
+          "homeAddress",
+          "academicSession",
+          "term",
+          "class",
+          "department",
+          "studentType",
+          "house",
+          "admissionType",
+          "admissionDate",
+          "previousSchool",
+          "previousClass",
+          "classTeacher",
+          "academicNotes",
+          "genotype",
+          "medicalCondition",
+          "allergies",
+          "disabilityOrSpecialNeeds",
+          "medication",
+          "preferredHospital",
+          "doctorOrMedicalContact",
+          "emergencyContactName",
+          "emergencyContactPhone",
+          "medicalNotes",
+          "birthCertificate",
+          "previousResult",
+          "transferCertificate",
+          "medicalReport",
+          "otherDocument",
+          "fullName",
+          "admissionNumber",
+          "schoolId",
+          "createdBy",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.schoolId == schoolId
+        && request.resource.data.schoolId is string
+        && request.resource.data.createdBy == request.auth.uid
+        && request.resource.data.createdBy is string
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.updatedAt is timestamp
+        && request.resource.data.status == "active"
+        && request.resource.data.admissionNumber is string
+        && request.resource.data.firstName is string
+        && request.resource.data.middleName is string
+        && request.resource.data.lastName is string
+        && request.resource.data.gender is string
+        && request.resource.data.dateOfBirth is string
+        && request.resource.data.nationality is string
+        && request.resource.data.stateOfOrigin is string
+        && request.resource.data.religion is string
+        && request.resource.data.bloodGroup is string
+        && request.resource.data.phone is string
+        && request.resource.data.email is string
+        && request.resource.data.residentialAddress is string
+        && request.resource.data.passport is string
+        && request.resource.data.fatherName is string
+        && request.resource.data.motherName is string
+        && request.resource.data.guardianName is string
+        && request.resource.data.relationship is string
+        && request.resource.data.guardianPhone is string
+        && request.resource.data.alternativePhone is string
+        && request.resource.data.guardianEmail is string
+        && request.resource.data.occupation is string
+        && request.resource.data.homeAddress is string
+        && request.resource.data.academicSession is string
+        && request.resource.data.term is string
+        && request.resource.data.class is string
+        && request.resource.data.department is string
+        && request.resource.data.studentType is string
+        && request.resource.data.house is string
+        && request.resource.data.admissionType is string
+        && request.resource.data.admissionDate is string
+        && request.resource.data.previousSchool is string
+        && request.resource.data.previousClass is string
+        && request.resource.data.classTeacher is string
+        && request.resource.data.academicNotes is string
+        && request.resource.data.genotype is string
+        && request.resource.data.medicalCondition is string
+        && request.resource.data.allergies is string
+        && request.resource.data.disabilityOrSpecialNeeds is string
+        && request.resource.data.medication is string
+        && request.resource.data.preferredHospital is string
+        && request.resource.data.doctorOrMedicalContact is string
+        && request.resource.data.emergencyContactName is string
+        && request.resource.data.emergencyContactPhone is string
+        && request.resource.data.medicalNotes is string
+        && request.resource.data.birthCertificate is string
+        && request.resource.data.previousResult is string
+        && request.resource.data.transferCertificate is string
+        && request.resource.data.medicalReport is string
+        && request.resource.data.otherDocument is string
+        && request.resource.data.fullName is string;
+
+      allow update: if false;
+
+      allow delete: if false;
     }
 
     function isAuthorizedSchool(uid, schoolId) {
       return exists(/databases/$(database)/documents/users/$(uid))
           && get(/databases/$(database)/documents/users/$(uid)).data.schoolId == schoolId;
+    }
+
+    function isAuthorizedSchoolOrCreator(uid, schoolId) {
+      return isAuthorizedSchool(uid, schoolId)
+          || (
+            exists(/databases/$(database)/documents/schools/$(schoolId))
+            && get(/databases/$(database)/documents/schools/$(schoolId)).data.createdBy == uid
+          );
     }
   }
 }
