@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Profile | SIMPLEXSKOLLA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/staff-profile.css">
+</head>
+<body>
+    <div class="app">
+        <div class="overlay"></div>
+        <aside class="sidebar">
+            <div class="logo"><img src="images/dashboard.png" alt="SIMPLEXSKOLLA Logo"><div><h2>SIMPLEXSKOLLA</h2><p>School ERP Platform</p></div></div>
+            <nav class="menu" aria-label="Main navigation">
+                <a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+                <a href="student.html"><i class="fa-solid fa-user-graduate"></i><span>Students</span></a>
+                <a href="staff-list.html" class="active"><i class="fa-solid fa-chalkboard-user"></i><span>Staff Management</span></a>
+                <a href="add-staff.html" class="sub-menu-link"><i class="fa-solid fa-user-plus"></i><span>Add Staff</span></a>
+                <a href="#"><i class="fa-solid fa-school"></i><span>Academics</span></a>
+                <a href="#"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></a>
+                <a href="#"><i class="fa-solid fa-money-bill-wave"></i><span>Finance</span></a>
+                <a href="#"><i class="fa-solid fa-square-poll-vertical"></i><span>Results</span></a>
+                <a href="#"><i class="fa-solid fa-laptop-code"></i><span>CBT</span></a>
+                <a href="#"><i class="fa-solid fa-book"></i><span>Library</span></a>
+                <a href="#"><i class="fa-solid fa-bed"></i><span>Hostel</span></a>
+                <a href="#"><i class="fa-solid fa-chart-line"></i><span>Reports</span></a>
+                <a href="#"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            </nav>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="topbar-left"><button class="menu-toggle" type="button" aria-label="Open navigation"><i class="fa-solid fa-bars"></i></button><div><h2>Staff Management</h2><p>Review staff details and account information.</p></div></div>
+                <div class="topbar-right">
+                    <div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input type="search" placeholder="Search staff..." aria-label="Search staff"></div>
+                    <button class="header-btn" type="button" aria-label="Notifications"><i class="fa-regular fa-bell"></i><span class="notification-dot"></span></button>
+                    <button class="header-btn" type="button" aria-label="Messages"><i class="fa-regular fa-envelope"></i></button>
+                    <button class="header-btn" type="button" aria-label="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
+                    <button class="header-btn" type="button" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+                    <div class="profile-box"><img src="images/dashboard.png" alt="Administrator"><div><h4>Administrator</h4><small>Super Admin</small></div></div>
+                </div>
+            </header>
+
+            <section class="profile-page">
+                <div class="breadcrumb"><a href="staff-list.html">Staff Management</a><i class="fa-solid fa-chevron-right"></i><span>Staff Profile</span></div>
+                <div class="profile-demo-note"><i class="fa-solid fa-flask"></i><span>Sample profile for UI demonstration. Staff data will be connected to Firebase later.</span></div>
+
+                <section class="profile-hero">
+                    <div class="hero-identity"><img class="hero-avatar" src="images/dashboard.png" alt="Chinedu Okafor"><div><span class="hero-label">STAFF PROFILE</span><h1>Chinedu Okafor</h1><p class="hero-role">Mathematics Teacher <span>•</span> Academic Department</p><div class="hero-meta"><span><i class="fa-regular fa-id-badge"></i> STF-2026-001</span><span class="status-badge active"><i class="fa-solid fa-circle-check"></i> Active</span><span><i class="fa-solid fa-graduation-cap"></i> Teaching Staff</span></div></div></div>
+                    <div class="profile-actions"><button class="outline-button" id="editStaff" type="button"><i class="fa-solid fa-pen"></i> Edit Staff</button><button class="outline-button" id="printProfile" type="button"><i class="fa-solid fa-print"></i> Print Profile</button><div class="action-menu-wrap"><button class="outline-button" id="moreActions" type="button" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i> More Actions</button><div class="action-menu" id="actionMenu"><button type="button" data-action="download"><i class="fa-solid fa-download"></i> Download Profile</button><button type="button" data-action="deactivate"><i class="fa-solid fa-user-slash"></i> Deactivate Staff</button><button type="button" data-action="activity"><i class="fa-solid fa-clock-rotate-left"></i> View Activity</button></div></div></div>
+                </section>
+
+                <div class="profile-grid">
+                    <div class="profile-column">
+                        <section class="detail-card"><div class="section-heading"><div class="section-icon"><i class="fa-solid fa-chart-simple"></i></div><div><h2>Staff Overview</h2><p>Current employment and account summary.</p></div></div><div class="detail-list"><div><span>Staff ID</span><strong>STF-2026-001</strong></div><div><span>Staff Type</span><strong>Teaching Staff</strong></div><div><span>Role</span><strong>Mathematics Teacher</strong></div><div><span>Department</span><strong>Academic</strong></div><div><span>Employment Status</span><strong class="text-success">Active</strong></div><div><span>Employment Date</span><strong>15 January 2022</strong></div><div><span>Qualification</span><strong>B.Sc. Mathematics Education</strong></div><div><span>System Role</span><strong>Teacher</strong></div></div></section>
+                        <section class="detail-card"><div class="section-heading"><div class="section-icon gold"><i class="fa-solid fa-user"></i></div><div><h2>Personal Information</h2><p>Basic identity details.</p></div></div><div class="detail-list"><div><span>First Name</span><strong>Chinedu</strong></div><div><span>Middle Name</span><strong>Emeka</strong></div><div><span>Last Name</span><strong>Okafor</strong></div><div><span>Gender</span><strong>Male</strong></div><div><span>Date of Birth</span><strong>23 August 1990</strong></div><div><span>Marital Status</span><strong>Married</strong></div><div><span>Nationality</span><strong>Nigerian</strong></div></div></section>
+                        <section class="detail-card"><div class="section-heading"><div class="section-icon green"><i class="fa-solid fa-briefcase"></i></div><div><h2>Employment Information</h2><p>Role history and current assignment.</p></div></div><div class="detail-list"><div><span>Staff ID</span><strong>STF-2026-001</strong></div><div><span>Staff Type</span><strong>Teaching Staff</strong></div><div><span>Department</span><strong>Academic</strong></div><div><span>Position / Role</span><strong>Mathematics Teacher</strong></div><div><span>Qualification</span><strong>B.Sc. Mathematics Education</strong></div><div><span>Employment Date</span><strong>15 January 2022</strong></div><div><span>Employment Status</span><strong class="text-success">Active</strong></div><div><span>Years of Service</span><strong>4 years</strong></div></div></section>
+                    </div>
+                    <div class="profile-column">
+                        <section class="detail-card"><div class="section-heading"><div class="section-icon blue"><i class="fa-solid fa-address-book"></i></div><div><h2>Contact Information</h2><p>Reach this staff member when needed.</p></div></div><div class="detail-list"><div><span>Phone Number</span><strong><a href="tel:+2348034567890">+234 803 456 7890</a></strong></div><div><span>Email Address</span><strong><a href="mailto:chinedu.okafor@simplexskolla.edu">chinedu.okafor@simplexskolla.edu</a></strong></div><div class="wide-row"><span>Residential Address</span><strong>12 Unity Crescent, GRA, Enugu</strong></div><div><span>State</span><strong>Enugu</strong></div><div><span>Local Government Area</span><strong>Enugu North</strong></div><div class="wide-row"><span>Emergency Contact</span><strong>Amaka Okafor · +234 805 123 4567</strong></div></div></section>
+                        <section class="detail-card"><div class="section-heading"><div class="section-icon purple"><i class="fa-solid fa-shield-halved"></i></div><div><h2>System Account</h2><p>Access and account status.</p></div></div><div class="detail-list"><div><span>Login Email</span><strong>chinedu.okafor@simplexskolla.edu</strong></div><div><span>System Role</span><strong>Teacher</strong></div><div><span>Account Status</span><strong class="text-success">Active</strong></div><div><span>Last Login</span><strong>Today, 08:42 AM</strong></div></div><div class="info-note"><i class="fa-solid fa-circle-info"></i><p>System permissions control which areas this staff member can access. Permission management will be connected later.</p></div></section>
+                        <section class="detail-card"><div class="section-heading"><div class="section-icon orange"><i class="fa-solid fa-certificate"></i></div><div><h2>Qualifications &amp; Professional Information</h2><p>Professional background and teaching focus.</p></div></div><div class="detail-list"><div><span>Highest Qualification</span><strong>B.Sc. Mathematics Education</strong></div><div><span>Area of Specialization</span><strong>Pure Mathematics</strong></div><div><span>Professional Certification</span><strong>TRCN Certified</strong></div><div><span>Years of Experience</span><strong>8 years</strong></div><div class="wide-row"><span>Subjects Taught</span><strong>Mathematics, Further Mathematics</strong></div></div></section>
+                        <section class="detail-card activity-card"><div class="section-heading"><div class="section-icon teal"><i class="fa-solid fa-clock-rotate-left"></i></div><div><h2>Recent Activity</h2><p>Sample activity history.</p></div></div><div class="activity-list"><div><span class="activity-dot"></span><div><strong>Account activated</strong><small>Today, 08:42 AM</small></div></div><div><span class="activity-dot"></span><div><strong>Assigned to Mathematics Department</strong><small>12 January 2026, 02:15 PM</small></div></div><div><span class="activity-dot"></span><div><strong>Staff information updated</strong><small>05 January 2026, 11:30 AM</small></div></div><div><span class="activity-dot"></span><div><strong>Profile created</strong><small>15 January 2022, 09:00 AM</small></div></div></div></section>
+                    </div>
+                </div>
+                <a class="back-bottom" href="staff-list.html"><i class="fa-solid fa-arrow-left"></i> Back to Staff Management</a>
+            </section>
+        </main>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"><i class="fa-solid fa-circle-check"></i><span id="toastMessage"></span></div>
+    <script src="js/staff-profile.js"></script>
+</body>
+</html>

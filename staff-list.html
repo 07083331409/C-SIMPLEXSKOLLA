@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Management | SIMPLEXSKOLLA</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Dashboard CSS -->
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/staff-list.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- Mobile Overlay -->
+        <div class="overlay"></div>
+
+        <!-- ================= Sidebar ================= -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <img src="assets/images/logo.png" alt="SIMPLEXSKOLLA Logo">
+
+                <div>
+
+                    <h2>SIMPLEXSKOLLA</h2>
+
+                    <p>School ERP Platform</p>
+
+                </div>
+
+            </div>
+
+            <nav class="menu">
+
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="student.html">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span>Students</span>
+                </a>
+
+                <a href="staff-list.html" class="active">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                    <span>Teachers</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-school"></i>
+                    <span>Academics</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Attendance</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                    <span>Finance</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-square-poll-vertical"></i>
+                    <span>Results</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <span>CBT</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-book"></i>
+                    <span>Library</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-bed"></i>
+                    <span>Hostel</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Reports</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+
+            </nav>
+
+        </aside>
+
+        <!-- ================= Main Content ================= -->
+
+        <main class="main">
+
+            <header class="topbar">
+
+                <div class="topbar-left">
+
+                    <button class="menu-toggle">
+
+                        <i class="fa-solid fa-bars"></i>
+
+                    </button>
+
+                    <div>
+
+                        <h2>Staff Management</h2>
+
+                        <p>Manage teachers, administrators and other school staff.</p>
+
+                    </div>
+
+                </div>
+
+                <div class="topbar-right">
+
+                    <div class="search-box">
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                        <input type="text" placeholder="Search staff...">
+
+                    </div>
+
+                    <button class="header-btn">
+
+                        <i class="fa-regular fa-bell"></i>
+
+                        <span class="notification-dot"></span>
+
+                    </button>
+
+                    <button class="header-btn">
+
+                        <i class="fa-regular fa-envelope"></i>
+
+                    </button>
+
+                    <button class="header-btn logout-btn" title="Logout">
+
+                        <i class="fa-solid fa-right-from-bracket"></i>
+
+                    </button>
+
+                    <button class="header-btn">
+
+                        <i class="fa-solid fa-moon"></i>
+
+                    </button>
+
+                    <div class="profile-box">
+
+                        <img src="assets/images/admin.png" alt="Administrator">
+
+                        <div>
+
+                            <h4>Administrator</h4>
+
+                            <small>Super Admin</small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- Staff Management Content -->
+
+            <section class="staff-management">
+
+                <!-- Header Section -->
+                <div class="staff-header">
+                    <div class="header-left">
+                        <h1>Staff Directory</h1>
+                        <p>Oversee your school's teaching and administrative staff</p>
+                    </div>
+                    <div class="header-actions">
+                        <a class="primary-btn add-staff-btn" href="add-staff.html">
+                            <i class="fa-solid fa-user-plus"></i> Add Staff Member
+                        </a>
+                        <button class="secondary-btn">
+                            <i class="fa-solid fa-download"></i> Export
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Statistics Cards -->
+                <section class="staff-stats">
+
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span>Total Staff</span>
+                            <h2>47</h2>
+                            <small><i class="fa-solid fa-arrow-trend-up"></i> +3 this term</small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span>Teaching Staff</span>
+                            <h2>34</h2>
+                            <small><i class="fa-solid fa-check-circle"></i> Active</small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fa-solid fa-briefcase"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span>Administrative Staff</span>
+                            <h2>13</h2>
+                            <small><i class="fa-solid fa-check-circle"></i> Active</small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon purple">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span>On Duty Today</span>
+                            <h2>44</h2>
+                            <small><i class="fa-solid fa-percent"></i> 94% Present</small>
+                        </div>
+                    </div>
+
+                </section>
+
+                <!-- Filters and Search Section -->
+                <div class="staff-controls">
+
+                    <div class="search-section">
+                        <div class="search-input-wrapper">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="staffSearch" placeholder="Search by name, ID, or email...">
+                        </div>
+                    </div>
+
+                    <div class="filters-section">
+                        <select id="roleFilter" class="filter-select">
+                            <option value="">All Roles</option>
+                            <option value="teacher">Teacher</option>
+                            <option value="principal">Principal</option>
+                            <option value="vice-principal">Vice Principal</option>
+                            <option value="bursar">Bursar</option>
+                            <option value="administrator">Administrator</option>
+                            <option value="support-staff">Support Staff</option>
+                        </select>
+
+                        <select id="departmentFilter" class="filter-select">
+                            <option value="">All Departments</option>
+                            <option value="science">Science</option>
+                            <option value="arts">Arts</option>
+                            <option value="commercial">Commercial</option>
+                            <option value="administration">Administration</option>
+                        </select>
+
+                        <select id="statusFilter" class="filter-select">
+                            <option value="">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="on-leave">On Leave</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <!-- Staff Table Section -->
+                <div class="staff-table-container">
+
+                    <div class="table-responsive">
+                        <table class="staff-table">
+                            <thead>
+                                <tr>
+                                    <th>Staff Member</th>
+                                    <th>Staff ID</th>
+                                    <th>Role</th>
+                                    <th>Department</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="staffTableBody">
+                                <!-- Sample staff data will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Empty State (hidden by default) -->
+                    <div class="empty-state" id="emptyState" style="display: none;">
+                        <div class="empty-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <h3>No Staff Members Found</h3>
+                        <p>Start by adding your first staff member to the school.</p>
+                        <a class="primary-btn" href="add-staff.html">
+                            <i class="fa-solid fa-user-plus"></i> Add Staff Member
+                        </a>
+                    </div>
+
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-section">
+                    <div class="pagination-info">
+                        <span>Showing <strong id="paginationStart">1</strong> to <strong id="paginationEnd">10</strong> of <strong id="paginationTotal">47</strong> staff members</span>
+                    </div>
+                    <div class="pagination">
+                        <button class="pagination-btn prev-btn" id="prevBtn">
+                            <i class="fa-solid fa-chevron-left"></i> Previous
+                        </button>
+                        <div class="pagination-numbers" id="paginationNumbers">
+                            <!-- Page numbers will be generated here -->
+                        </div>
+                        <button class="pagination-btn next-btn" id="nextBtn">
+                            Next <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- Modal for future use (Add/Edit Staff) -->
+    <div class="modal" id="staffModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Staff Member</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Modal for adding/editing staff will be implemented with Firebase integration.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+    <script src="js/staff-list.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Staff | SIMPLEXSKOLLA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/add-staff.css">
+</head>
+<body>
+    <div class="app">
+        <div class="overlay"></div>
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="SIMPLEXSKOLLA Logo">
+                <div><h2>SIMPLEXSKOLLA</h2><p>School ERP Platform</p></div>
+            </div>
+            <nav class="menu" aria-label="Main navigation">
+                <a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+                <a href="student.html"><i class="fa-solid fa-user-graduate"></i><span>Students</span></a>
+                <a href="staff-list.html" class="active"><i class="fa-solid fa-chalkboard-user"></i><span>Staff Management</span></a>
+                <a href="add-staff.html" class="sub-menu-link current" aria-current="page"><i class="fa-solid fa-user-plus"></i><span>Add Staff</span></a>
+                <a href="#"><i class="fa-solid fa-school"></i><span>Academics</span></a>
+                <a href="#"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></a>
+                <a href="#"><i class="fa-solid fa-money-bill-wave"></i><span>Finance</span></a>
+                <a href="#"><i class="fa-solid fa-square-poll-vertical"></i><span>Results</span></a>
+                <a href="#"><i class="fa-solid fa-laptop-code"></i><span>CBT</span></a>
+                <a href="#"><i class="fa-solid fa-book"></i><span>Library</span></a>
+                <a href="#"><i class="fa-solid fa-bed"></i><span>Hostel</span></a>
+                <a href="#"><i class="fa-solid fa-chart-line"></i><span>Reports</span></a>
+                <a href="#"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            </nav>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="menu-toggle" type="button" aria-label="Open navigation"><i class="fa-solid fa-bars"></i></button>
+                    <div><h2>Staff Management</h2><p>Create and manage your school's staff profiles.</p></div>
+                </div>
+                <div class="topbar-right">
+                    <div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input type="search" placeholder="Search staff..." aria-label="Search staff"></div>
+                    <button class="header-btn" type="button" aria-label="Notifications"><i class="fa-regular fa-bell"></i><span class="notification-dot"></span></button>
+                    <button class="header-btn" type="button" aria-label="Messages"><i class="fa-regular fa-envelope"></i></button>
+                    <button class="header-btn" type="button" aria-label="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
+                    <button class="header-btn" type="button" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+                    <div class="profile-box"><img src="assets/images/admin.png" alt="Administrator"><div><h4>Administrator</h4><small>Super Admin</small></div></div>
+                </div>
+            </header>
+
+            <section class="add-staff-page">
+                <div class="page-heading">
+                    <div><span class="eyebrow">STAFF DIRECTORY</span><h1>Add Staff</h1><p>Create a new staff member profile for your school.</p></div>
+                    <a class="back-link" href="staff-list.html"><i class="fa-solid fa-arrow-left"></i> Back to Staff</a>
+                </div>
+
+                <form id="staffForm" novalidate>
+                    <section class="form-card">
+                        <div class="card-heading"><div class="card-icon"><i class="fa-solid fa-id-card"></i></div><div><h2>Personal Information</h2><p>Enter the staff member's basic details.</p></div></div>
+                        <div class="personal-layout">
+                            <div class="photo-upload">
+                                <div class="photo-preview" id="photoPreview"><i class="fa-solid fa-user"></i></div>
+                                <label class="upload-button" for="profilePhoto"><i class="fa-solid fa-camera"></i> Choose Photo</label>
+                                <input id="profilePhoto" name="profilePhoto" type="file" accept="image/png,image/jpeg,image/webp">
+                                <small>JPG, PNG or WEBP. Max 2 MB.</small>
+                                <span class="field-error" data-error-for="profilePhoto"></span>
+                            </div>
+                            <div class="field-grid three-columns">
+                                <div class="field"><label for="firstName">First Name <span>*</span></label><input id="firstName" name="firstName" type="text" placeholder="e.g. Mary" autocomplete="given-name" required><span class="field-error" data-error-for="firstName"></span></div>
+                                <div class="field"><label for="middleName">Middle Name</label><input id="middleName" name="middleName" type="text" placeholder="e.g. Ada" autocomplete="additional-name"><span class="field-error" data-error-for="middleName"></span></div>
+                                <div class="field"><label for="lastName">Last Name <span>*</span></label><input id="lastName" name="lastName" type="text" placeholder="e.g. Johnson" autocomplete="family-name" required><span class="field-error" data-error-for="lastName"></span></div>
+                                <div class="field"><label for="gender">Gender <span>*</span></label><select id="gender" name="gender" required><option value="">Select gender</option><option>Female</option><option>Male</option><option>Prefer not to say</option></select><span class="field-error" data-error-for="gender"></span></div>
+                                <div class="field"><label for="dateOfBirth">Date of Birth</label><input id="dateOfBirth" name="dateOfBirth" type="date"><span class="field-error" data-error-for="dateOfBirth"></span></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="form-card">
+                        <div class="card-heading"><div class="card-icon"><i class="fa-solid fa-address-book"></i></div><div><h2>Contact Information</h2><p>Provide reliable contact details for this staff member.</p></div></div>
+                        <div class="field-grid two-columns">
+                            <div class="field"><label for="phone">Phone Number <span>*</span></label><input id="phone" name="phone" type="tel" placeholder="e.g. +234 801 234 5678" autocomplete="tel" required><span class="field-error" data-error-for="phone"></span></div>
+                            <div class="field"><label for="email">Email Address <span>*</span></label><input id="email" name="email" type="email" placeholder="staff@example.com" autocomplete="email" required><span class="field-error" data-error-for="email"></span></div>
+                            <div class="field field-wide"><label for="address">Residential Address</label><textarea id="address" name="address" rows="3" placeholder="Enter residential address" autocomplete="street-address"></textarea><span class="field-error" data-error-for="address"></span></div>
+                            <div class="field"><label for="state">State</label><input id="state" name="state" type="text" placeholder="e.g. Lagos" autocomplete="address-level1"><span class="field-error" data-error-for="state"></span></div>
+                            <div class="field"><label for="lga">Local Government Area</label><input id="lga" name="lga" type="text" placeholder="e.g. Ikeja"><span class="field-error" data-error-for="lga"></span></div>
+                        </div>
+                    </section>
+
+                    <section class="form-card">
+                        <div class="card-heading"><div class="card-icon"><i class="fa-solid fa-briefcase"></i></div><div><h2>Employment Information</h2><p>Define the staff member's role and employment details.</p></div></div>
+                        <div class="field-grid three-columns">
+                            <div class="field"><label for="staffId">Staff ID</label><input id="staffId" name="staffId" type="text" placeholder="Auto-generated if left blank"><span class="field-hint">Optional for this mock form</span><span class="field-error" data-error-for="staffId"></span></div>
+                            <div class="field"><label for="staffType">Staff Type <span>*</span></label><select id="staffType" name="staffType" required><option value="">Select type</option><option>Teaching Staff</option><option>Administrative Staff</option><option>Support Staff</option></select><span class="field-error" data-error-for="staffType"></span></div>
+                            <div class="field"><label for="role">Role <span>*</span></label><input id="role" name="role" type="text" placeholder="e.g. Mathematics Teacher" required><span class="field-error" data-error-for="role"></span></div>
+                            <div class="field"><label for="department">Department <span>*</span></label><input id="department" name="department" type="text" placeholder="e.g. Science" required><span class="field-error" data-error-for="department"></span></div>
+                            <div class="field"><label for="qualification">Qualification</label><input id="qualification" name="qualification" type="text" placeholder="e.g. B.Sc. Education"><span class="field-error" data-error-for="qualification"></span></div>
+                            <div class="field"><label for="employmentDate">Employment Date <span>*</span></label><input id="employmentDate" name="employmentDate" type="date" required><span class="field-error" data-error-for="employmentDate"></span></div>
+                            <div class="field"><label for="employmentStatus">Employment Status <span>*</span></label><select id="employmentStatus" name="employmentStatus" required><option value="">Select status</option><option>Active</option><option>On Leave</option><option>Inactive</option></select><span class="field-error" data-error-for="employmentStatus"></span></div>
+                        </div>
+                    </section>
+
+                    <section class="form-card">
+                        <div class="card-heading"><div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div><div><h2>Account Information</h2><p>Set up how this staff member will access the system.</p></div></div>
+                        <div class="field-grid two-columns">
+                            <div class="field"><label for="loginEmail">Login Email</label><input id="loginEmail" name="loginEmail" type="email" placeholder="Leave blank to use email address"><span class="field-hint">This can match the contact email.</span><span class="field-error" data-error-for="loginEmail"></span></div>
+                            <div class="field"><label for="systemRole">System Role</label><select id="systemRole" name="systemRole"><option value="">Select system role</option><option>Administrator</option><option>Principal</option><option>Vice Principal</option><option>Teacher</option><option>Accountant</option><option>Bursar</option><option>Librarian</option><option>Other Staff</option></select><span class="field-error" data-error-for="systemRole"></span></div>
+                        </div>
+                        <div class="info-note"><i class="fa-solid fa-circle-info"></i><p>Permissions will determine which areas of SIMPLEXSKOLLA this staff member can access. You can configure them when account management is connected.</p></div>
+                    </section>
+
+                    <div class="form-actions"><a class="cancel-button" href="staff-list.html">Cancel</a><div><button class="secondary-submit" id="saveAnother" type="submit" name="saveAnother"><i class="fa-solid fa-plus"></i> Save &amp; Add Another</button><button class="primary-btn save-button" type="submit"><i class="fa-solid fa-check"></i> Save Staff</button></div></div>
+                </form>
+            </section>
+        </main>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"><i class="fa-solid fa-circle-check"></i><span id="toastMessage"></span></div>
+    <script src="js/add-staff.js"></script>
+</body>
+</html>
