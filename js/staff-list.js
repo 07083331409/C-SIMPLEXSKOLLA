@@ -7,7 +7,7 @@ Staff Management Module - JavaScript
 // In production, this will be replaced with Firestore data
 const SAMPLE_STAFF_DATA = [
     {
-        id: "SK-T-001",
+        id: "STF-2026-001",
         name: "Dr. Mary Johnson",
         role: "Principal",
         department: "Administration",
@@ -534,8 +534,7 @@ function viewStaffProfile(staffId) {
  * Edit staff (future Firebase integration)
  */
 function editStaff(staffId) {
-    console.log("Edit staff:", staffId);
-    // Future: Open modal with staff edit form
+    window.location.href = `edit-staff.html?id=${encodeURIComponent(staffId)}`;
 }
 
 /**

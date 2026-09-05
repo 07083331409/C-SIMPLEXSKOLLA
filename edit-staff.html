@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Staff | SIMPLEXSKOLLA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/edit-staff.css">
+</head>
+<body>
+    <div class="app">
+        <div class="overlay"></div>
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="SIMPLEXSKOLLA Logo">
+                <div><h2>SIMPLEXSKOLLA</h2><p>School ERP Platform</p></div>
+            </div>
+            <nav class="menu" aria-label="Main navigation">
+                <a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+                <a href="student.html"><i class="fa-solid fa-user-graduate"></i><span>Students</span></a>
+                <a href="staff-list.html" class="active"><i class="fa-solid fa-chalkboard-user"></i><span>Staff Management</span></a>
+                <a href="add-staff.html" class="sub-menu-link"><i class="fa-solid fa-user-plus"></i><span>Add Staff</span></a>
+                <a href="#"><i class="fa-solid fa-school"></i><span>Academics</span></a>
+                <a href="#"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></a>
+                <a href="#"><i class="fa-solid fa-money-bill-wave"></i><span>Finance</span></a>
+                <a href="#"><i class="fa-solid fa-square-poll-vertical"></i><span>Results</span></a>
+                <a href="#"><i class="fa-solid fa-laptop-code"></i><span>CBT</span></a>
+                <a href="#"><i class="fa-solid fa-book"></i><span>Library</span></a>
+                <a href="#"><i class="fa-solid fa-bed"></i><span>Hostel</span></a>
+                <a href="#"><i class="fa-solid fa-chart-line"></i><span>Reports</span></a>
+                <a href="#"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            </nav>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="menu-toggle" type="button" aria-label="Open navigation"><i class="fa-solid fa-bars"></i></button>
+                    <div><h2>Edit Staff</h2><p>Update staff member information and employment details.</p></div>
+                </div>
+                <div class="topbar-right">
+                    <div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input type="search" placeholder="Search staff..." aria-label="Search staff"></div>
+                    <button class="header-btn" type="button" aria-label="Notifications"><i class="fa-regular fa-bell"></i><span class="notification-dot"></span></button>
+                    <button class="header-btn" type="button" aria-label="Messages"><i class="fa-regular fa-envelope"></i></button>
+                    <button class="header-btn" type="button" aria-label="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
+                    <button class="header-btn" type="button" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+                    <div class="profile-box"><img src="assets/images/admin.png" alt="Administrator"><div><h4>Administrator</h4><small>Super Admin</small></div></div>
+                </div>
+            </header>
+
+            <section class="edit-staff-page" id="editContent">
+                <div class="page-heading">
+                    <div>
+                        <div class="breadcrumb-section">
+                            <span class="eyebrow">STAFF MANAGEMENT</span>
+                            <nav class="breadcrumb" aria-label="Breadcrumb">
+                                <a href="staff-list.html">Staff Management</a>
+                                <i class="fa-solid fa-chevron-right"></i>
+                                <a href="#" id="profileLink">Staff Profile</a>
+                                <i class="fa-solid fa-chevron-right"></i>
+                                <span>Edit Staff</span>
+                            </nav>
+                        </div>
+                        <h1>Edit Staff</h1>
+                        <p id="pageSubtitle">Update staff member information and employment details.</p>
+                    </div>
+                    <div id="headerActions" style="display: none;">
+                        <div class="staff-header-info">
+                            <div>
+                                <span class="info-label">Staff ID</span>
+                                <span class="info-value" id="headerStaffId">—</span>
+                            </div>
+                            <div>
+                                <span class="info-label">Status</span>
+                                <span class="info-value status-badge" id="headerStatus">—</span>
+                            </div>
+                            <div>
+                                <span class="info-label">Name</span>
+                                <span class="info-value" id="headerName">—</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="notFoundState" class="not-found-state">
+                    <div class="not-found-card">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <h2>Staff Profile Not Found</h2>
+                        <p id="notFoundMessage">The staff member with this ID does not exist.</p>
+                        <a href="staff-list.html" class="primary-btn"><i class="fa-solid fa-arrow-left"></i> Back to Staff Management</a>
+                    </div>
+                </div>
+
+                <form id="staffForm" novalidate style="display: none;">
+                    <section class="form-card">
+                        <div class="card-heading"><div class="card-icon"><i class="fa-solid fa-image"></i></div><div><h2>Profile Photo</h2><p>Update the staff member's profile picture.</p></div></div>
+                        <div class="photo-section">
+                            <div class="photo-area">
+                                <div class="photo-preview" id="photoPreview"><i class="fa-solid fa-user"></i></div>
+                                <div class="photo-actions">
+                                    <label class="upload-button" for="profilePhoto"><i class="fa-solid fa-camera"></i> Change Photo</label>
+                                    <button type="button" class="remove-photo-button" id="removePhotoBtn"><i class="fa-solid fa-trash"></i> Remove Photo</button>
+                                    <input id="profilePhoto" name="profilePhoto" type="file" accept="image/png,image/jpeg,image/webp">
+                                    <small>JPG, PNG or WEBP. Max 2 MB.</small>
+                                    <span class="field-error" data-error-for="profilePhoto"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="form-card">
+                        <div class="card-heading"><div class="card-icon"><i class="fa-solid fa-id-card"></i></div><div><h2>Personal Information</h2><p>Edit the staff member's basic details.</p></div></div>
+                        <div class="field-grid three-columns">
+                            <div class="field"><label for="firstName">First Name <span>*</span></label><input id="firstName" name="firstName" type="text" placeholder="e.g. Chinedu" autocomplete="given-name" required><span class="field-error" data-error-for="firstName"></span></div>
+                            <div class="field"><label for="middleName">Middle Name</label><input id="middleName" name="middleName" type="text" placeholder="e.g. Emeka" autocomplete="additional-name"><span class="field-error" data-error-for="middleName"></span></div>
+                            <div class="field"><label for="lastName">Last Name <span>*</span></label><input id="lastName" name="lastName" type="text" placeholder="e.g. Okafor" autocomplete="family-name" required><span class="field-error" data-error-for="lastName"></span></div>
+                            <div class="field"><label for="gender">Gender <span>*</span></label><select id="gender" name="gender" required><option value="">Select gender</option><option>Male</option><option>Female</option><option>Prefer not to say</option></select><span class="field-error" data-error-for="gender"></span></div>
+                            <div class="field"><label for="dateOfBirth">Date of Birth</label><input id="dateOfBirth" name="dateOfBirth" type="date"><span class="field-error" data-error-for="dateOfBirth"></span></div>
+                            <div class="field"><label for="maritalStatus">Marital Status</label><select id="maritalStatus" name="maritalStatus"><option value="">Select status</option><option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option></select><span class="field-error" data-error-for="maritalStatus"></span></div>
+                            <div class="field"><label for="nationality">Nationality</label><input id="nationality" name="nationality" type="text" placeholder="e.g. Nigerian"><span class="field-error" data-error-for="nationality"></span></div>
+                        </div>
+                    </section>
+
+                    <section class="form-card">
+                        <div class="card-heading"><div class="card-icon"><i class="fa-solid fa-address-book"></i></div><div><h2>Contact Information</h2><p>Update contact details for this staff member.</p></div></div>
+                        <div class="field-grid two-columns">
+                            <div class="field"><label for="phone">Phone Number <span>*</span></label><input id="phone" name="phone" type="tel" placeholder="e.g. +234 803 456 7890" autocomplete="tel" required><span class="field-error" data-error-for="phone"></span></div>
+                            <div class="field"><label for="email">Email Address <span>*</span></label><input id="email" name="email" type="email" placeholder="staff@example.com" autocomplete="email" required><span class="field-error" data-error-for="email"></span></div>
+                            <div class="field field-wide"><label for="address">Residential Address</label><textarea id="address" name="address" rows="3" placeholder="Enter residential address" autocomplete="street-address"></textarea><span class="field-error" data-error-for="address"></span></div>
+                            <div class="field"><label for="state">State</label><input id="state" name="state" type="text" placeholder="e.g. Enugu" autocomplete="address-level1"><span class="field-error" data-error-for="state"></span></div>
+                            <div class="field"><label for="lga">Local Government Area</label><input id="lga" name="lga" type="text" placeholder="e.g. Enugu North"><span class="field-error" data-error-for="lga"></span></div>
+                            <div class="field"><label for="emergencyContact">Emergency Contact</label><input id="emergencyContact" name="emergencyContact" type="text" placeholder="e.g. Amaka Okafor · +234 805 123 4567"><span class="field-error" data-error-for="emergencyContact"></span></div>
+                        </div>
+                    </section>
+
+                    <section class="form-card">
+                        <div class="card-heading"><div class="card-icon"><i class="fa-solid fa-briefcase"></i></div><div><h2>Employment Information</h2><p>Update the staff member's role and employment details.</p></div></div>
+                        <div class="field-grid three-columns">
+                            <div class="field"><label for="staffId">Staff ID</label><input id="staffId" name="staffId" type="text" placeholder="e.g. STF-2026-001" disabled><span class="field-hint">Auto-generated. Cannot be changed.</span><span class="field-error" data-error-for="staffId"></span></div>
+                            <div class="field"><label for="staffType">Staff Type <span>*</span></label><select id="staffType" name="staffType" required><option value="">Select type</option><option>Teaching Staff</option><option>Administrative Staff</option><option>Support Staff</option></select><span class="field-error" data-error-for="staffType"></span></div>
+                            <div class="field"><label for="role">Role <span>*</span></label><input id="role" name="role" type="text" placeholder="e.g. Mathematics Teacher" required><span class="field-error" data-error-for="role"></span></div>
+                            <div class="field"><label for="department">Department <span>*</span></label><input id="department" name="department" type="text" placeholder="e.g. Academic" required><span class="field-error" data-error-for="department"></span></div>
+                            <div class="field"><label for="qualification">Qualification</label><input id="qualification" name="qualification" type="text" placeholder="e.g. B.Sc. Mathematics Education"><span class="field-error" data-error-for="qualification"></span></div>
+                            <div class="field"><label for="employmentDate">Employment Date <span>*</span></label><input id="employmentDate" name="employmentDate" type="date" required><span class="field-error" data-error-for="employmentDate"></span></div>
+                            <div class="field"><label for="employmentStatus">Employment Status <span>*</span></label><select id="employmentStatus" name="employmentStatus" required><option value="">Select status</option><option>Active</option><option>On Leave</option><option>Inactive</option></select><span class="field-error" data-error-for="employmentStatus"></span></div>
+                        </div>
+                    </section>
+
+                    <section class="form-card">
+                        <div class="card-heading"><div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div><div><h2>Account Information</h2><p>Manage system access and permissions for this staff member.</p></div></div>
+                        <div class="field-grid two-columns">
+                            <div class="field"><label for="loginEmail">Login Email</label><input id="loginEmail" name="loginEmail" type="email" placeholder="staff@simplexskolla.edu"><span class="field-hint">Email used to log into SIMPLEXSKOLLA.</span><span class="field-error" data-error-for="loginEmail"></span></div>
+                            <div class="field"><label for="systemRole">System Role</label><select id="systemRole" name="systemRole"><option value="">Select system role</option><option>Administrator</option><option>Principal</option><option>Vice Principal</option><option>Teacher</option><option>Accountant</option><option>Bursar</option><option>Librarian</option><option>Other Staff</option></select><span class="field-error" data-error-for="systemRole"></span></div>
+                        </div>
+                        <div class="info-note"><i class="fa-solid fa-circle-info"></i><p>System permissions determine which areas of SIMPLEXSKOLLA this staff member can access. Permission management will be connected later.</p></div>
+                    </section>
+
+                    <div class="form-actions">
+                        <a class="cancel-button" href="#" id="cancelButton">Cancel</a>
+                        <button class="primary-btn save-button" type="submit"><i class="fa-solid fa-check"></i> Save Changes</button>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"><i class="fa-solid fa-circle-check"></i><span id="toastMessage"></span></div>
+    <div class="save-modal" id="saveModal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fa-solid fa-circle-check"></i>
+                <h2>Success</h2>
+            </div>
+            <p class="modal-message">Staff information updated successfully.</p>
+            <a href="#" class="primary-btn" id="viewProfileButton"><i class="fa-solid fa-arrow-right"></i> View Updated Profile</a>
+        </div>
+    </div>
+    <div class="unsaved-changes-modal" id="unsavedModal">
+        <div class="modal-overlay" id="unsavedOverlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <h2>Unsaved Changes</h2>
+            </div>
+            <p class="modal-message">You have unsaved changes. Do you want to leave without saving?</p>
+            <div class="modal-actions">
+                <button type="button" class="cancel-button" id="keepEditingBtn">Keep Editing</button>
+                <button type="button" class="danger-button" id="leaveBtn">Leave Without Saving</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/edit-staff.js"></script>
+</body>
+</html>
