@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes Management | SIMPLEXSKOLLA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/classes.css">
+</head>
+<body>
+    <div class="app">
+        <div class="overlay"></div>
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="images/dashboard.png" alt="SIMPLEXSKOLLA Logo">
+                <div><h2>SIMPLEXSKOLLA</h2><p>School ERP Platform</p></div>
+            </div>
+            <nav class="menu" aria-label="Main navigation">
+                <a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+                <a href="student.html"><i class="fa-solid fa-user-graduate"></i><span>Students</span></a>
+                <a href="staff-list.html"><i class="fa-solid fa-chalkboard-user"></i><span>Teachers</span></a>
+                <a href="classes.html" class="active" aria-current="page"><i class="fa-solid fa-school"></i><span>Academics</span></a>
+                <a href="#"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></a>
+                <a href="#"><i class="fa-solid fa-money-bill-wave"></i><span>Finance</span></a>
+                <a href="#"><i class="fa-solid fa-square-poll-vertical"></i><span>Results</span></a>
+                <a href="#"><i class="fa-solid fa-laptop-code"></i><span>CBT</span></a>
+                <a href="#"><i class="fa-solid fa-book"></i><span>Library</span></a>
+                <a href="#"><i class="fa-solid fa-bed"></i><span>Hostel</span></a>
+                <a href="#"><i class="fa-solid fa-chart-line"></i><span>Reports</span></a>
+                <a href="#"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            </nav>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="menu-toggle" type="button" aria-label="Open navigation"><i class="fa-solid fa-bars"></i></button>
+                    <div><h2>Classes Management</h2><p>Organize classes and student capacity for your school.</p></div>
+                </div>
+                <div class="topbar-right">
+                    <div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="headerSearch" type="search" placeholder="Search classes..." aria-label="Search classes"></div>
+                    <button class="header-btn" type="button" aria-label="Notifications"><i class="fa-regular fa-bell"></i><span class="notification-dot"></span></button>
+                    <button class="header-btn" type="button" aria-label="Messages"><i class="fa-regular fa-envelope"></i></button>
+                    <button class="header-btn logout-btn" type="button" aria-label="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
+                    <button class="header-btn" type="button" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+                    <div class="profile-box"><img src="images/dashboard.png" alt="Administrator"><div><h4>Administrator</h4><small>Super Admin</small></div></div>
+                </div>
+            </header>
+
+            <section class="classes-page">
+                <div class="page-heading">
+                    <div><span class="eyebrow">ACADEMIC FOUNDATION</span><h1>Classes Management</h1><p>Manage classes, sections, class teachers and student capacity.</p></div>
+                    <div class="page-actions">
+                        <button class="secondary-button" id="exportButton" type="button"><i class="fa-solid fa-download"></i> Export</button>
+                        <button class="primary-button" id="addClassButton" type="button"><i class="fa-solid fa-plus"></i> Add Class</button>
+                    </div>
+                </div>
+
+                <section class="summary-grid" aria-label="Class summary">
+                    <article class="summary-card"><div class="summary-icon blue"><i class="fa-solid fa-school"></i></div><div><span>Total Classes</span><strong id="totalClasses">0</strong><small>All school classes</small></div></article>
+                    <article class="summary-card"><div class="summary-icon green"><i class="fa-solid fa-circle-check"></i></div><div><span>Active Classes</span><strong id="activeClasses">0</strong><small>Currently running</small></div></article>
+                    <article class="summary-card"><div class="summary-icon gold"><i class="fa-solid fa-users"></i></div><div><span>Total Students</span><strong id="totalStudents">0</strong><small>Across all classes</small></div></article>
+                    <article class="summary-card"><div class="summary-icon purple"><i class="fa-solid fa-chart-simple"></i></div><div><span>Average Class Size</span><strong id="averageClassSize">0</strong><small>Students per class</small></div></article>
+                </section>
+
+                <section class="classes-panel">
+                    <div class="panel-heading"><div><h2>Class Directory</h2><p>Review class structure and available student capacity.</p></div><span class="mock-note"><i class="fa-solid fa-flask"></i> Local prototype data</span></div>
+                    <div class="class-controls">
+                        <div class="class-search"><i class="fa-solid fa-magnifying-glass"></i><input id="classSearch" type="search" placeholder="Search by class, teacher, room or ID..." aria-label="Search classes by class, teacher, room or ID"></div>
+                        <div class="filter-group"><label for="levelFilter">Academic Level</label><select id="levelFilter"><option value="">All Levels</option><option value="Junior Secondary">Junior Secondary</option><option value="Senior Secondary">Senior Secondary</option></select></div>
+                        <div class="filter-group"><label for="statusFilter">Status</label><select id="statusFilter"><option value="">All Statuses</option><option value="Active">Active</option><option value="Inactive">Inactive</option></select></div>
+                        <div class="filter-group"><label for="sectionFilter">Section/Arm</label><select id="sectionFilter"><option value="">All Sections</option></select></div>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table class="classes-table">
+                            <caption class="sr-only">Classes directory</caption>
+                            <thead><tr><th scope="col">Class ID</th><th scope="col">Class Name</th><th scope="col">Section/Arm</th><th scope="col">Academic Level</th><th scope="col">Class Teacher</th><th scope="col">Students</th><th scope="col">Capacity</th><th scope="col">Room</th><th scope="col">Status</th><th scope="col">Actions</th></tr></thead>
+                            <tbody id="classesBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="empty-state" id="emptyState" hidden><div class="empty-icon"><i class="fa-solid fa-school"></i></div><h3>No classes found</h3><p>Try adjusting your search or filters.</p><button class="secondary-button" id="resetEmptyButton" type="button">Reset Filters</button></div>
+                    <div class="table-footer"><span id="paginationSummary">Showing 0 classes</span><div class="pagination" id="pagination" aria-label="Class pages"></div></div>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <div class="modal" id="classModal" role="dialog" aria-modal="true" aria-labelledby="classModalTitle" hidden>
+        <div class="modal-backdrop" data-close-modal></div>
+        <div class="modal-card">
+            <div class="modal-heading"><div><span class="eyebrow">LOCAL CLASS RECORD</span><h2 id="classModalTitle">Add Class</h2></div><button class="close-button" type="button" aria-label="Close class form" data-close-modal><i class="fa-solid fa-xmark"></i></button></div>
+            <form id="classForm" novalidate>
+                <input id="classRecordId" type="hidden">
+                <div class="form-grid">
+                    <div class="field"><label for="className">Class Name <span>*</span></label><input id="className" name="className" type="text" placeholder="e.g. JSS1" required><span class="field-error" data-error-for="className"></span></div>
+                    <div class="field"><label for="classSection">Section/Arm <span>*</span></label><input id="classSection" name="section" type="text" placeholder="e.g. A" required><span class="field-error" data-error-for="classSection"></span></div>
+                    <div class="field"><label for="classLevel">Academic Level <span>*</span></label><select id="classLevel" name="level" required><option value="">Select level</option><option>Junior Secondary</option><option>Senior Secondary</option></select><span class="field-error" data-error-for="classLevel"></span></div>
+                    <div class="field"><label for="classTeacher">Class Teacher <span>*</span></label><input id="classTeacher" name="classTeacher" type="text" placeholder="e.g. Mr. John Okoro" required><span class="field-error" data-error-for="classTeacher"></span></div>
+                    <div class="field"><label for="studentCapacity">Student Capacity <span>*</span></label><input id="studentCapacity" name="capacity" type="number" min="1" placeholder="e.g. 40" required><span class="field-error" data-error-for="studentCapacity"></span></div>
+                    <div class="field"><label for="classRoom">Room <span>*</span></label><input id="classRoom" name="room" type="text" placeholder="e.g. Room 101" required><span class="field-error" data-error-for="classRoom"></span></div>
+                    <div class="field"><label for="classStatus">Status</label><select id="classStatus" name="status"><option>Active</option><option>Inactive</option></select><span class="field-error" data-error-for="classStatus"></span></div>
+                </div>
+                <div class="modal-actions"><button class="secondary-button" type="button" data-close-modal>Cancel</button><button class="primary-button" type="submit"><i class="fa-solid fa-check"></i> Save Class</button></div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="viewModal" role="dialog" aria-modal="true" aria-labelledby="viewModalTitle" hidden>
+        <div class="modal-backdrop" data-close-view></div>
+        <div class="modal-card view-card"><div class="modal-heading"><div><span class="eyebrow">CLASS OVERVIEW</span><h2 id="viewModalTitle">Class Details</h2></div><button class="close-button" type="button" aria-label="Close class details" data-close-view><i class="fa-solid fa-xmark"></i></button></div><div class="view-grid" id="viewDetails"></div><div class="modal-actions"><button class="secondary-button" type="button" data-close-view>Close</button></div></div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"><i class="fa-solid fa-circle-check"></i><span id="toastMessage"></span></div>
+    <script src="js/classes.js"></script>
+</body>
+</html>
