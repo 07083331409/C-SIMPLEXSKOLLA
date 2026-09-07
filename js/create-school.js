@@ -18,6 +18,7 @@ let registrationData = {
     schoolName: '',
     schoolType: '',
     schoolMotto: '',
+    schoolCode: '',
     schoolLogoFile: null,
     country: '',
     state: '',
@@ -123,6 +124,16 @@ function isValidEmail(value) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+function createSchoolCode(schoolName) {
+    const normalizedName = schoolName
+        .toUpperCase()
+        .replace(/[^A-Z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .slice(0, 24) || 'SCHOOL';
+    const suffix = `${Date.now().toString(36).slice(-6)}-${Math.random().toString(36).slice(2, 6)}`.toUpperCase();
+    return `${normalizedName}-${suffix}`;
+}
+
 async function createAdminAccount(email, password) {
     const credential = await createUserWithEmailAndPassword(auth, email, password);
     return credential.user;
@@ -179,14 +190,11 @@ function validateStepOne() {
         throw new Error('Please enter your school motto.');
     }
 
-    if (!selectedLogoFile) {
-        throw new Error('Please upload your school logo.');
-    }
-
     registrationData.schoolName = nameInput.value.trim();
     registrationData.schoolType = typeSelect.value;
     registrationData.schoolMotto = mottoInput.value.trim();
-    registrationData.schoolLogoFile = selectedLogoFile;
+    registrationData.schoolCode = createSchoolCode(registrationData.schoolName);
+    registrationData.schoolLogoFile = selectedLogoFile || null;
 }
 
 function showStepTwo() {
@@ -401,11 +409,16 @@ async function submitRegistration() {
             });
 
             if (registrationData.schoolLogoFile) {
-                const logoRef = ref(storage, `school-logos/${schoolProfile.id}/${registrationData.schoolLogoFile.name}`);
-                await uploadBytes(logoRef, registrationData.schoolLogoFile);
-                const logoUrl = await getDownloadURL(logoRef);
-                await updateSchoolProfile(schoolProfile.id, { logo: logoUrl });
-                schoolProfile.logo = logoUrl;
+                try {
+                    const logoRef = ref(storage, `school-logos/${schoolProfile.id}/${registrationData.schoolLogoFile.name}`);
+                    await uploadBytes(logoRef, registrationData.schoolLogoFile);
+                    const logoUrl = await getDownloadURL(logoRef);
+                    await updateSchoolProfile(schoolProfile.id, { logo: logoUrl });
+                    schoolProfile.logo = logoUrl;
+                } catch (logoError) {
+                    console.warn('School logo upload failed; continuing without a logo.', logoError);
+                    schoolProfile.logo = '';
+                }
             }
 
             await createUserProfile(user.uid, {
@@ -420,7 +433,7 @@ async function submitRegistration() {
         } catch (firestoreError) {
             console.error('School creation failed after auth succeeded:', firestoreError);
             await signOut(auth);
-            throw new Error('School registration failed. Please try again later.');
+            throw firestoreError;
         }
     } catch (error) {
         if (error?.code === 'auth/email-already-in-use') {
