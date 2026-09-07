@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Teachers Management | SIMPLEXSKOLLA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/class-teachers.css">
+</head>
+<body>
+    <div class="app">
+        <div class="overlay"></div>
+        <aside class="sidebar">
+            <div class="logo"><img src="images/dashboard.png" alt="SIMPLEXSKOLLA Logo"><div><h2>SIMPLEXSKOLLA</h2><p>School ERP Platform</p></div></div>
+            <nav class="menu" aria-label="Main navigation">
+                <a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+                <a href="student.html"><i class="fa-solid fa-user-graduate"></i><span>Students</span></a>
+                <a href="staff-list.html"><i class="fa-solid fa-chalkboard-user"></i><span>Teachers</span></a>
+                <a href="classes.html" class="active" aria-current="page"><i class="fa-solid fa-school"></i><span>Academics</span></a>
+                <a href="subjects.html" class="sub-menu-link"><i class="fa-solid fa-book"></i><span>Subjects</span></a>
+                <a href="class-teachers.html" class="sub-menu-link current"><i class="fa-solid fa-user-check"></i><span>Class Teachers</span></a>
+                <a href="#"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></a>
+                <a href="#"><i class="fa-solid fa-money-bill-wave"></i><span>Finance</span></a>
+                <a href="#"><i class="fa-solid fa-square-poll-vertical"></i><span>Results</span></a>
+                <a href="#"><i class="fa-solid fa-laptop-code"></i><span>CBT</span></a>
+                <a href="#"><i class="fa-solid fa-book"></i><span>Library</span></a>
+                <a href="#"><i class="fa-solid fa-bed"></i><span>Hostel</span></a>
+                <a href="#"><i class="fa-solid fa-chart-line"></i><span>Reports</span></a>
+                <a href="#"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            </nav>
+        </aside>
+        <main class="main">
+            <header class="topbar">
+                <div class="topbar-left"><button class="menu-toggle" type="button" aria-label="Open navigation"><i class="fa-solid fa-bars"></i></button><div><h2>Class Teachers Management</h2><p>Manage class teacher assignments across the school.</p></div></div>
+                <div class="topbar-right">
+                    <div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="headerSearch" type="search" placeholder="Search assignments..." aria-label="Search assignments"></div>
+                    <button class="header-btn" type="button" aria-label="Notifications"><i class="fa-regular fa-bell"></i><span class="notification-dot"></span></button>
+                    <button class="header-btn" type="button" aria-label="Messages"><i class="fa-regular fa-envelope"></i></button>
+                    <button class="header-btn" type="button" aria-label="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
+                    <button class="header-btn" type="button" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+                    <div class="profile-box"><img src="images/dashboard.png" alt="Administrator"><div><h4>Administrator</h4><small>Super Admin</small></div></div>
+                </div>
+            </header>
+            <section class="assignments-page">
+                <div class="page-heading"><div><span class="eyebrow">ACADEMIC RESPONSIBILITY</span><h1>Class Teachers Management</h1><p>Manage class teacher assignments across the school.</p></div><div class="page-actions"><button class="secondary-button" id="exportButton" type="button"><i class="fa-solid fa-download"></i> Export CSV</button><button class="primary-button" id="assignButton" type="button"><i class="fa-solid fa-user-plus"></i> Assign Class Teacher</button></div></div>
+                <section class="summary-grid" aria-label="Class teacher summary">
+                    <article class="summary-card"><div class="summary-icon blue"><i class="fa-solid fa-school"></i></div><div><span>Total Classes</span><strong id="totalClasses">0</strong><small>In assignment directory</small></div></article>
+                    <article class="summary-card"><div class="summary-icon green"><i class="fa-solid fa-user-check"></i></div><div><span>Assigned</span><strong id="assignedClasses">0</strong><small>Active class teachers</small></div></article>
+                    <article class="summary-card"><div class="summary-icon gold"><i class="fa-solid fa-user-slash"></i></div><div><span>Unassigned</span><strong id="unassignedClasses">0</strong><small>Needs an assignment</small></div></article>
+                    <article class="summary-card"><div class="summary-icon purple"><i class="fa-solid fa-users-gear"></i></div><div><span>Active Teachers</span><strong id="activeTeachers">0</strong><small>Distinct assigned staff</small></div></article>
+                </section>
+                <section class="assignments-panel">
+                    <div class="panel-heading"><div><h2>Class Teacher Directory</h2><p>See who is responsible for each class.</p></div><span class="mock-note"><i class="fa-solid fa-flask"></i> Local prototype data</span></div>
+                    <div class="controls">
+                        <div class="assignment-search"><i class="fa-solid fa-magnifying-glass"></i><input id="assignmentSearch" type="search" placeholder="Search class, teacher or ID..." aria-label="Search class teacher assignments"></div>
+                        <div class="filter-group"><label for="levelFilter">Academic Level</label><select id="levelFilter"><option value="">All Levels</option><option>Junior Secondary</option><option>Senior Secondary</option></select></div>
+                        <div class="filter-group"><label for="sectionFilter">Section</label><select id="sectionFilter"><option value="">All Sections</option><option>A</option><option>B</option><option>C</option></select></div>
+                        <div class="filter-group"><label for="statusFilter">Status</label><select id="statusFilter"><option value="">All Statuses</option><option>Active</option><option>Unassigned</option><option>Inactive</option></select></div>
+                        <button class="secondary-button reset-button" id="resetButton" type="button"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+                    </div>
+                    <div class="table-wrap"><table class="assignment-table"><caption class="sr-only">Class teacher assignments</caption><thead><tr><th>Assignment ID</th><th>Class</th><th>Level</th><th>Class Teacher</th><th>Teacher ID</th><th>Status</th><th>Actions</th></tr></thead><tbody id="assignmentBody"></tbody></table></div>
+                    <div class="empty-state" id="emptyState" hidden><div class="empty-icon"><i class="fa-solid fa-user-slash"></i></div><h3>No class teacher assignments found</h3><p>Try adjusting your search or filters.</p><button class="secondary-button" id="resetEmptyButton" type="button">Reset Filters</button></div>
+                    <div class="table-footer"><span id="paginationSummary">Showing 0 assignments</span><div class="pagination" id="pagination" aria-label="Assignment pages"></div></div>
+                </section>
+            </section>
+        </main>
+    </div>
+    <div class="modal" id="assignmentModal" role="dialog" aria-modal="true" aria-labelledby="assignmentModalTitle" hidden><div class="modal-backdrop" data-close-modal></div><div class="modal-card"><div class="modal-heading"><div><span class="eyebrow">LOCAL ASSIGNMENT</span><h2 id="assignmentModalTitle">Assign Class Teacher</h2></div><button class="close-button" type="button" aria-label="Close assignment form" data-close-modal><i class="fa-solid fa-xmark"></i></button></div><form id="assignmentForm" novalidate><input id="assignmentRecordId" type="hidden"><div class="form-grid"><div class="field field-wide"><label for="assignmentClass">Class <span>*</span></label><select id="assignmentClass" required></select><span class="field-error" data-error-for="assignmentClass"></span></div><div class="field field-wide"><label for="assignmentTeacher">Teacher <span>*</span></label><select id="assignmentTeacher" required></select><span class="field-error" data-error-for="assignmentTeacher"></span></div><div class="field field-wide"><label for="assignmentStatus">Status</label><select id="assignmentStatus"><option>Active</option><option>Unassigned</option><option>Inactive</option></select><span class="field-error" data-error-for="assignmentStatus"></span></div></div><p class="form-note" id="assignmentNotice"><i class="fa-solid fa-circle-info"></i> Choose one staff member responsible for this class.</p><div class="modal-actions"><button class="secondary-button" type="button" data-close-modal>Cancel</button><button class="primary-button" type="submit"><i class="fa-solid fa-check"></i> Save Assignment</button></div></form></div></div>
+    <div class="modal" id="viewModal" role="dialog" aria-modal="true" aria-labelledby="viewModalTitle" hidden><div class="modal-backdrop" data-close-view></div><div class="modal-card"><div class="modal-heading"><div><span class="eyebrow">ASSIGNMENT OVERVIEW</span><h2 id="viewModalTitle">Assignment Details</h2></div><button class="close-button" type="button" aria-label="Close assignment details" data-close-view><i class="fa-solid fa-xmark"></i></button></div><div class="view-grid" id="viewDetails"></div><div class="modal-actions"><button class="secondary-button" type="button" data-close-view>Close</button></div></div></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"><i class="fa-solid fa-circle-check"></i><span id="toastMessage"></span></div>
+    <script src="js/class-teachers.js"></script>
+</body>
+</html>
