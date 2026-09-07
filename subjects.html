@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subjects Management | SIMPLEXSKOLLA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/subjects.css">
+</head>
+<body>
+    <div class="app">
+        <div class="overlay"></div>
+        <aside class="sidebar">
+            <div class="logo"><img src="images/dashboard.png" alt="SIMPLEXSKOLLA Logo"><div><h2>SIMPLEXSKOLLA</h2><p>School ERP Platform</p></div></div>
+            <nav class="menu" aria-label="Main navigation">
+                <a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+                <a href="student.html"><i class="fa-solid fa-user-graduate"></i><span>Students</span></a>
+                <a href="staff-list.html"><i class="fa-solid fa-chalkboard-user"></i><span>Teachers</span></a>
+                <a href="classes.html" class="active"><i class="fa-solid fa-school"></i><span>Academics</span></a>
+                <a href="subjects.html" class="sub-menu-link current" aria-current="page"><i class="fa-solid fa-book"></i><span>Subjects</span></a>
+                <a href="#"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></a>
+                <a href="#"><i class="fa-solid fa-money-bill-wave"></i><span>Finance</span></a>
+                <a href="#"><i class="fa-solid fa-square-poll-vertical"></i><span>Results</span></a>
+                <a href="#"><i class="fa-solid fa-laptop-code"></i><span>CBT</span></a>
+                <a href="#"><i class="fa-solid fa-bed"></i><span>Hostel</span></a>
+                <a href="#"><i class="fa-solid fa-chart-line"></i><span>Reports</span></a>
+                <a href="#"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            </nav>
+        </aside>
+        <main class="main">
+            <header class="topbar">
+                <div class="topbar-left"><button class="menu-toggle" type="button" aria-label="Open navigation"><i class="fa-solid fa-bars"></i></button><div><h2>Subjects Management</h2><p>Manage your school's academic subject catalogue.</p></div></div>
+                <div class="topbar-right">
+                    <div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="headerSearch" type="search" placeholder="Search subjects..." aria-label="Search subjects"></div>
+                    <button class="header-btn" type="button" aria-label="Notifications"><i class="fa-regular fa-bell"></i><span class="notification-dot"></span></button>
+                    <button class="header-btn" type="button" aria-label="Messages"><i class="fa-regular fa-envelope"></i></button>
+                    <button class="header-btn" type="button" aria-label="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
+                    <button class="header-btn" type="button" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+                    <div class="profile-box"><img src="images/dshboard.png" alt="Administrator"><div><h4>Administrator</h4><small>Super Admin</small></div></div>
+                </div>
+            </header>
+            <section class="subjects-page">
+                <div class="page-heading"><div><span class="eyebrow">ACADEMIC CATALOGUE</span><h1>Subjects Management</h1><p>Manage school subjects, subject codes, categories and academic levels.</p></div><div class="page-actions"><button class="secondary-button" id="exportButton" type="button"><i class="fa-solid fa-download"></i> Export</button><button class="primary-button" id="addSubjectButton" type="button"><i class="fa-solid fa-plus"></i> Add Subject</button></div></div>
+                <section class="summary-grid" aria-label="Subject summary">
+                    <article class="summary-card"><div class="summary-icon blue"><i class="fa-solid fa-book"></i></div><div><span>Total Subjects</span><strong id="totalSubjects">0</strong><small>All catalogue subjects</small></div></article>
+                    <article class="summary-card"><div class="summary-icon green"><i class="fa-solid fa-circle-check"></i></div><div><span>Active Subjects</span><strong id="activeSubjects">0</strong><small>Currently available</small></div></article>
+                    <article class="summary-card"><div class="summary-icon gold"><i class="fa-solid fa-star"></i></div><div><span>Core Subjects</span><strong id="coreSubjects">0</strong><small>Required subjects</small></div></article>
+                    <article class="summary-card"><div class="summary-icon purple"><i class="fa-solid fa-lightbulb"></i></div><div><span>Elective Subjects</span><strong id="electiveSubjects">0</strong><small>Choice subjects</small></div></article>
+                </section>
+                <section class="subjects-panel">
+                    <div class="panel-heading"><div><h2>Subject Directory</h2><p>Review subject classifications for the school catalogue.</p></div><span class="mock-note"><i class="fa-solid fa-flask"></i> Local prototype data</span></div>
+                    <div class="subject-controls">
+                        <div class="subject-search"><i class="fa-solid fa-magnifying-glass"></i><input id="subjectSearch" type="search" placeholder="Search by name, code, ID or department..." aria-label="Search subjects by name, code, ID or department"></div>
+                        <div class="filter-group"><label for="categoryFilter">Category</label><select id="categoryFilter"><option value="">All Categories</option><option>Core</option><option>Elective</option><option>General</option><option>Vocational</option></select></div>
+                        <div class="filter-group"><label for="levelFilter">Academic Level</label><select id="levelFilter"><option value="">All Levels</option><option>Junior Secondary</option><option>Senior Secondary</option></select></div>
+                        <div class="filter-group"><label for="departmentFilter">Department</label><select id="departmentFilter"><option value="">All Departments</option><option>Science</option><option>Arts</option><option>Commercial</option><option>General</option><option>Vocational</option></select></div>
+                        <div class="filter-group"><label for="statusFilter">Status</label><select id="statusFilter"><option value="">All Statuses</option><option>Active</option><option>Inactive</option></select></div>
+                    </div>
+                    <div class="table-wrap"><table class="subjects-table"><caption class="sr-only">Subjects directory</caption><thead><tr><th>Subject ID</th><th>Code</th><th>Subject Name</th><th>Category</th><th>Academic Level</th><th>Department</th><th>Classes</th><th>Status</th><th>Actions</th></tr></thead><tbody id="subjectsBody"></tbody></table></div>
+                    <div class="empty-state" id="emptyState" hidden><div class="empty-icon"><i class="fa-solid fa-book-open"></i></div><h3>No subjects found</h3><p>Try adjusting your search or filters.</p><button class="secondary-button" id="resetEmptyButton" type="button">Reset Filters</button></div>
+                    <div class="table-footer"><span id="paginationSummary">Showing 0 subjects</span><div class="pagination" id="pagination" aria-label="Subject pages"></div></div>
+                </section>
+            </section>
+        </main>
+    </div>
+    <div class="modal" id="subjectModal" role="dialog" aria-modal="true" aria-labelledby="subjectModalTitle" hidden><div class="modal-backdrop" data-close-modal></div><div class="modal-card"><div class="modal-heading"><div><span class="eyebrow">LOCAL SUBJECT RECORD</span><h2 id="subjectModalTitle">Add Subject</h2></div><button class="close-button" type="button" aria-label="Close subject form" data-close-modal><i class="fa-solid fa-xmark"></i></button></div><form id="subjectForm" novalidate><input id="subjectRecordId" type="hidden"><div class="form-grid"><div class="field"><label for="subjectName">Subject Name <span>*</span></label><input id="subjectName" type="text" placeholder="e.g. Mathematics" required><span class="field-error" data-error-for="subjectName"></span></div><div class="field"><label for="subjectCode">Subject Code <span>*</span></label><input id="subjectCode" type="text" placeholder="e.g. MTH" required><span class="field-error" data-error-for="subjectCode"></span></div><div class="field"><label for="subjectCategory">Category <span>*</span></label><select id="subjectCategory" required><option value="">Select category</option><option>Core</option><option>Elective</option><option>General</option><option>Vocational</option></select><span class="field-error" data-error-for="subjectCategory"></span></div><div class="field"><label for="subjectLevel">Academic Level <span>*</span></label><select id="subjectLevel" required><option value="">Select level</option><option>Junior Secondary</option><option>Senior Secondary</option></select><span class="field-error" data-error-for="subjectLevel"></span></div><div class="field"><label for="subjectDepartment">Department <span>*</span></label><select id="subjectDepartment" required><option value="">Select department</option><option>Science</option><option>Arts</option><option>Commercial</option><option>General</option><option>Vocational</option></select><span class="field-error" data-error-for="subjectDepartment"></span></div><div class="field"><label for="subjectStatus">Status</label><select id="subjectStatus"><option>Active</option><option>Inactive</option></select><span class="field-error" data-error-for="subjectStatus"></span></div><div class="field field-wide"><label for="subjectClasses">Classes</label><input id="subjectClasses" type="text" placeholder="e.g. JSS1 A, JSS1 B"><span class="field-hint">Display-only mock class information.</span><span class="field-error" data-error-for="subjectClasses"></span></div></div><div class="modal-actions"><button class="secondary-button" type="button" data-close-modal>Cancel</button><button class="primary-button" type="submit"><i class="fa-solid fa-check"></i> Save Subject</button></div></form></div></div>
+    <div class="modal" id="viewModal" role="dialog" aria-modal="true" aria-labelledby="viewModalTitle" hidden><div class="modal-backdrop" data-close-view></div><div class="modal-card view-card"><div class="modal-heading"><div><span class="eyebrow">SUBJECT OVERVIEW</span><h2 id="viewModalTitle">Subject Details</h2></div><button class="close-button" type="button" aria-label="Close subject details" data-close-view><i class="fa-solid fa-xmark"></i></button></div><div class="view-grid" id="viewDetails"></div><div class="modal-actions"><button class="secondary-button" type="button" data-close-view>Close</button></div></div></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"><i class="fa-solid fa-circle-check"></i><span id="toastMessage"></span></div>
+    <script src="js/subjects.js"></script>
+</body>
+</html>
