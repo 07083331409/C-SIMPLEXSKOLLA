@@ -49,11 +49,11 @@
 
             <section class="profile-page">
                 <div class="breadcrumb"><a href="staff-list.html">Staff Management</a><i class="fa-solid fa-chevron-right"></i><span>Staff Profile</span></div>
-                <div class="profile-demo-note"><i class="fa-solid fa-flask"></i><span>Sample profile for UI demonstration. Staff data will be connected to Firebase later.</span></div>
+                <div class="profile-demo-note" id="profileStatus"><i class="fa-solid fa-circle-info"></i><span>Loading staff profile...</span></div>
 
                 <section class="profile-hero">
                     <div class="hero-identity"><img class="hero-avatar" src="images/dashboard.png" alt="Chinedu Okafor"><div><span class="hero-label">STAFF PROFILE</span><h1>Chinedu Okafor</h1><p class="hero-role">Mathematics Teacher <span>•</span> Academic Department</p><div class="hero-meta"><span><i class="fa-regular fa-id-badge"></i> STF-2026-001</span><span class="status-badge active"><i class="fa-solid fa-circle-check"></i> Active</span><span><i class="fa-solid fa-graduation-cap"></i> Teaching Staff</span></div></div></div>
-                    <div class="profile-actions"><button class="outline-button" id="editStaff" type="button"><i class="fa-solid fa-pen"></i> Edit Staff</button><button class="outline-button" id="printProfile" type="button"><i class="fa-solid fa-print"></i> Print Profile</button><div class="action-menu-wrap"><button class="outline-button" id="moreActions" type="button" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i> More Actions</button><div class="action-menu" id="actionMenu"><button type="button" data-action="download"><i class="fa-solid fa-download"></i> Download Profile</button><button type="button" data-action="deactivate"><i class="fa-solid fa-user-slash"></i> Deactivate Staff</button><button type="button" data-action="activity"><i class="fa-solid fa-clock-rotate-left"></i> View Activity</button></div></div></div>
+                    <div class="profile-actions"><button class="outline-button" id="editStaff" type="button"><i class="fa-solid fa-pen"></i> Edit Staff</button><button class="outline-button" id="printProfile" type="button"><i class="fa-solid fa-print"></i> Print Profile</button><div class="action-menu-wrap"><button class="outline-button" id="moreActions" type="button" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i> More Actions</button><div class="action-menu" id="actionMenu"><button type="button" data-action="download"><i class="fa-solid fa-download"></i> Download Profile</button><button type="button" data-action="archive"><i class="fa-solid fa-box-archive"></i> Archive Staff</button><button type="button" data-action="activity"><i class="fa-solid fa-clock-rotate-left"></i> View Activity</button></div></div></div>
                 </section>
 
                 <div class="profile-grid">
@@ -74,6 +74,6 @@
         </main>
     </div>
     <div class="toast" id="toast" role="status" aria-live="polite"><i class="fa-solid fa-circle-check"></i><span id="toastMessage"></span></div>
-    <script src="js/staff-profile.js"></script>
+    <script type="module" src="js/staff-profile.js"></script>
 </body>
 </html>

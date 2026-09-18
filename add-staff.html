@@ -93,7 +93,7 @@
                     <section class="form-card">
                         <div class="card-heading"><div class="card-icon"><i class="fa-solid fa-briefcase"></i></div><div><h2>Employment Information</h2><p>Define the staff member's role and employment details.</p></div></div>
                         <div class="field-grid three-columns">
-                            <div class="field"><label for="staffId">Staff ID</label><input id="staffId" name="staffId" type="text" placeholder="Auto-generated if left blank"><span class="field-hint">Optional for this mock form</span><span class="field-error" data-error-for="staffId"></span></div>
+                            <div class="field"><label for="staffId">Staff ID</label><input id="staffId" name="staffId" type="text" placeholder="Generated automatically" readonly><span class="field-hint">Generated automatically when the staff member is saved.</span><span class="field-error" data-error-for="staffId"></span></div>
                             <div class="field"><label for="staffType">Staff Type <span>*</span></label><select id="staffType" name="staffType" required><option value="">Select type</option><option>Teaching Staff</option><option>Administrative Staff</option><option>Support Staff</option></select><span class="field-error" data-error-for="staffType"></span></div>
                             <div class="field"><label for="role">Role <span>*</span></label><input id="role" name="role" type="text" placeholder="e.g. Mathematics Teacher" required><span class="field-error" data-error-for="role"></span></div>
                             <div class="field"><label for="department">Department <span>*</span></label><input id="department" name="department" type="text" placeholder="e.g. Science" required><span class="field-error" data-error-for="department"></span></div>
@@ -118,6 +118,6 @@
         </main>
     </div>
     <div class="toast" id="toast" role="status" aria-live="polite"><i class="fa-solid fa-circle-check"></i><span id="toastMessage"></span></div>
-    <script src="js/add-staff.js"></script>
+    <script type="module" src="js/add-staff.js"></script>
 </body>
 </html>

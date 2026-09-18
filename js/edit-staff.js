@@ -1,306 +1,399 @@
-/*=========================================
-SIMPLEXSKOLLA
-Edit Staff Page - JavaScript
-=========================================*/
+import { auth } from "./firebase.js";
+import { requireAuthenticatedSession } from "./auth-service.js";
+import { getStaffById, updateStaff } from "./staff-service.js";
 
-// Mock staff data for UI demonstration
-// In production, this will be replaced with Firestore data
-const STAFF_DATABASE = [
-    {
-        id: "STF-2026-001",
-        firstName: "Chinedu",
-        middleName: "Emeka",
-        lastName: "Okafor",
-        gender: "Male",
-        dateOfBirth: "1990-08-23",
-        maritalStatus: "Married",
-        nationality: "Nigerian",
-        phone: "+2348034567890",
-        email: "chinedu.okafor@simplexskolla.edu",
-        address: "12 Unity Crescent, GRA, Enugu",
-        state: "Enugu",
-        lga: "Enugu North",
-        emergencyContact: "Amaka Okafor · +2348051234567",
-        staffId: "STF-2026-001",
-        staffType: "Teaching Staff",
-        role: "Mathematics Teacher",
-        department: "Academic",
-        qualification: "B.Sc. Mathematics Education",
-        employmentDate: "2022-01-15",
-        employmentStatus: "Active",
-        loginEmail: "chinedu.okafor@simplexskolla.edu",
-        systemRole: "Teacher",
-        photo: null
-    },
-    {
-        id: "STF-2026-002",
-        firstName: "Mary",
-        middleName: "Adeola",
-        lastName: "Johnson",
-        gender: "Female",
-        dateOfBirth: "1985-03-14",
-        maritalStatus: "Married",
-        nationality: "Nigerian",
-        phone: "+2347012345678",
-        email: "mary.johnson@simplexskolla.edu",
-        address: "45 Ikoyi Drive, Lagos",
-        state: "Lagos",
-        lga: "Ikoyi",
-        emergencyContact: "John Johnson · +2348023456789",
-        staffId: "STF-2026-002",
-        staffType: "Administrative Staff",
-        role: "Principal",
-        department: "Administration",
-        qualification: "M.Ed. Educational Administration",
-        employmentDate: "2018-06-01",
-        employmentStatus: "Active",
-        loginEmail: "mary.johnson@simplexskolla.edu",
-        systemRole: "Principal",
-        photo: null
-    },
-    {
-        id: "STF-2026-003",
-        firstName: "David",
-        middleName: "Chisom",
-        lastName: "Okoro",
-        gender: "Male",
-        dateOfBirth: "1988-05-20",
-        maritalStatus: "Single",
-        nationality: "Nigerian",
-        phone: "+2348156789012",
-        email: "david.okoro@simplexskolla.edu",
-        address: "78 Shomolu Road, Lagos",
-        state: "Lagos",
-        lga: "Somolu",
-        emergencyContact: "Mrs. Grace Okoro · +2348167890123",
-        staffId: "STF-2026-003",
-        staffType: "Teaching Staff",
-        role: "Science Teacher",
-        department: "Science",
-        qualification: "B.Sc. Physics Education",
-        employmentDate: "2020-09-15",
-        employmentStatus: "Active",
-        loginEmail: "david.okoro@simplexskolla.edu",
-        systemRole: "Teacher",
-        photo: null
-    },
-    {
-        id: "STF-2026-004",
-        firstName: "Amara",
-        middleName: "Chioma",
-        lastName: "Adeyemi",
-        gender: "Female",
-        dateOfBirth: "1992-11-08",
-        maritalStatus: "Married",
-        nationality: "Nigerian",
-        phone: "+2347892345678",
-        email: "amara.adeyemi@simplexskolla.edu",
-        address: "23 Banana Island, Lagos",
-        state: "Lagos",
-        lga: "Ikoyi",
-        emergencyContact: "Toyin Adeyemi · +2348903456789",
-        staffId: "STF-2026-004",
-        staffType: "Teaching Staff",
-        role: "English Language Teacher",
-        department: "Arts",
-        qualification: "B.A. English Education",
-        employmentDate: "2021-02-10",
-        employmentStatus: "On Leave",
-        loginEmail: "amara.adeyemi@simplexskolla.edu",
-        systemRole: "Teacher",
-        photo: null
-    },
-    {
-        id: "STF-2026-005",
-        firstName: "Emmanuel",
-        middleName: "Obinna",
-        lastName: "Okonkwo",
-        gender: "Male",
-        dateOfBirth: "1980-07-12",
-        maritalStatus: "Married",
-        nationality: "Nigerian",
-        phone: "+2347654321098",
-        email: "emmanuel.okonkwo@simplexskolla.edu",
-        address: "156 Allen Avenue, Ikeja, Lagos",
-        state: "Lagos",
-        lga: "Ikeja",
-        emergencyContact: "Nkechi Okonkwo · +2348054321098",
-        staffId: "STF-2026-005",
-        staffType: "Administrative Staff",
-        role: "Bursar",
-        department: "Administration",
-        qualification: "B.Sc. Accounting",
-        employmentDate: "2015-01-20",
-        employmentStatus: "Active",
-        loginEmail: "emmanuel.okonkwo@simplexskolla.edu",
-        systemRole: "Bursar",
-        photo: null
-    },
-    {
-        id: "STF-2026-006",
-        firstName: "Josephine",
-        middleName: "Uche",
-        lastName: "Eze",
-        gender: "Female",
-        dateOfBirth: "1987-04-30",
-        maritalStatus: "Single",
-        nationality: "Nigerian",
-        phone: "+2348765432109",
-        email: "josephine.eze@simplexskolla.edu",
-        address: "34 Lekki Phase 1, Lagos",
-        state: "Lagos",
-        lga: "Lekki",
-        emergencyContact: "Mrs. Priscilla Eze · +2348876543210",
-        staffId: "STF-2026-006",
-        staffType: "Support Staff",
-        role: "Librarian",
-        department: "Support Services",
-        qualification: "B.Sc. Library Science",
-        employmentDate: "2019-08-05",
-        employmentStatus: "Inactive",
-        loginEmail: "josephine.eze@simplexskolla.edu",
-        systemRole: "Librarian",
-        photo: null
+let currentStaff = null;
+let verifiedSchoolId = "";
+let authenticatedUser = null;
+let isSubmitting = false;
+let hasUnsavedChanges = false;
+
+function safeText(value, fallback = "") {
+    if (value === undefined || value === null) {
+        return fallback;
     }
-];
 
-document.addEventListener("DOMContentLoaded", () => {
+    const normalized = String(value).trim();
+    return normalized || fallback;
+}
+
+function normalizeEmploymentStatus(value) {
+    const normalized = String(value || "").trim().toLowerCase();
+
+    if (normalized.includes("leave")) {
+        return "On Leave";
+    }
+
+    if (normalized.includes("inactive")) {
+        return "Inactive";
+    }
+
+    return "Active";
+}
+
+function normalizeSystemRole(value) {
+    const normalized = String(value || "").trim().toLowerCase();
+    const map = {
+        administrator: "administrator",
+        principal: "principal",
+        "vice principal": "vicePrincipal",
+        viceprincipal: "vicePrincipal",
+        teacher: "teacher",
+        accountant: "accountant",
+        bursar: "bursar",
+        librarian: "librarian",
+        "hostel master": "hostelMaster",
+        "security staff": "securityStaff",
+        "other staff": "teacher"
+    };
+
+    return map[normalized] || "teacher";
+}
+
+function mapSystemRoleLabel(value) {
+    const normalized = String(value || "").trim();
+    const map = {
+        administrator: "Administrator",
+        principal: "Principal",
+        vicePrincipal: "Vice Principal",
+        teacher: "Teacher",
+        accountant: "Accountant",
+        bursar: "Bursar",
+        librarian: "Librarian",
+        hostelMaster: "Other Staff",
+        securityStaff: "Other Staff"
+    };
+
+    return map[normalized] || "Teacher";
+}
+
+function normalizeAccountStatus(value) {
+    const normalized = String(value || "").trim().toLowerCase();
+
+    if (normalized.includes("leave")) {
+        return "onLeave";
+    }
+
+    if (normalized.includes("inactive")) {
+        return "inactive";
+    }
+
+    return "active";
+}
+
+function setError(id, message) {
+    const input = document.getElementById(id);
+    const field = input?.closest(".field");
+    const error = document.querySelector(`[data-error-for="${id}"]`);
+    field?.classList.add("invalid");
+    if (error) error.textContent = message;
+}
+
+function clearError(id) {
+    const input = document.getElementById(id);
+    const field = input?.closest(".field");
+    const error = document.querySelector(`[data-error-for="${id}"]`);
+    field?.classList.remove("invalid");
+    if (error) error.textContent = "";
+}
+
+function getFieldValue(id) {
+    const element = document.getElementById(id);
+    return element ? element.value.trim() : "";
+}
+
+function populatePhotoPreview(photoUrl) {
+    const preview = document.getElementById("photoPreview");
+
+    if (!preview) {
+        return;
+    }
+
+    preview.replaceChildren();
+
+    if (!photoUrl) {
+        const icon = document.createElement("i");
+        icon.className = "fa-solid fa-user";
+        preview.appendChild(icon);
+        return;
+    }
+
+    const image = document.createElement("img");
+    image.src = photoUrl;
+    image.alt = "Staff profile photo";
+    image.onerror = () => {
+        preview.replaceChildren();
+        const fallback = document.createElement("i");
+        fallback.className = "fa-solid fa-user";
+        preview.appendChild(fallback);
+    };
+    preview.appendChild(image);
+}
+
+function updateHeaderInfo(staff) {
+    const headerActions = document.getElementById("headerActions");
+    const headerStaffId = document.getElementById("headerStaffId");
+    const headerName = document.getElementById("headerName");
+    const headerStatus = document.getElementById("headerStatus");
+
+    if (!headerActions || !headerStaffId || !headerName || !headerStatus) {
+        return;
+    }
+
+    headerActions.style.display = "block";
+    headerStaffId.textContent = safeText(staff.staffNumber || staff.id, "—");
+    headerName.textContent = safeText(staff.fullName || [staff.firstName, staff.middleName, staff.lastName].filter(Boolean).join(" "), "Staff member");
+
+    const statusText = safeText(staff.employmentStatus || staff.accountStatus, "—");
+    headerStatus.textContent = statusText;
+    headerStatus.className = "info-value status-badge";
+
+    const normalizedStatus = statusText.toLowerCase();
+    if (normalizedStatus.includes("leave")) {
+        headerStatus.classList.add("on-leave");
+    } else if (normalizedStatus.includes("inactive")) {
+        headerStatus.classList.add("inactive");
+    } else {
+        headerStatus.classList.add("active");
+    }
+}
+
+function populateForm(staff) {
     const form = document.getElementById("staffForm");
     const notFoundState = document.getElementById("notFoundState");
-    const editContent = document.getElementById("editContent");
-    const photoInput = document.getElementById("profilePhoto");
-    const photoPreview = document.getElementById("photoPreview");
-    const removePhotoBtn = document.getElementById("removePhotoBtn");
+
+    if (!form || !notFoundState) {
+        return;
+    }
+
+    form.style.display = "block";
+    notFoundState.style.display = "none";
+
+    document.getElementById("firstName").value = safeText(staff.firstName);
+    document.getElementById("middleName").value = safeText(staff.middleName);
+    document.getElementById("lastName").value = safeText(staff.lastName);
+    document.getElementById("gender").value = safeText(staff.gender);
+    document.getElementById("dateOfBirth").value = safeText(staff.dateOfBirth);
+    document.getElementById("maritalStatus").value = safeText(staff.maritalStatus);
+    document.getElementById("nationality").value = safeText(staff.nationality);
+    document.getElementById("phone").value = safeText(staff.phone);
+    document.getElementById("email").value = safeText(staff.email);
+    document.getElementById("address").value = safeText(staff.address);
+    document.getElementById("state").value = safeText(staff.state);
+    document.getElementById("lga").value = safeText(staff.lga);
+    document.getElementById("emergencyContact").value = safeText(staff.emergencyContact);
+    document.getElementById("staffId").value = safeText(staff.staffNumber || staff.id);
+    document.getElementById("staffType").value = safeText(staff.staffType);
+    document.getElementById("role").value = safeText(staff.role || staff.systemRole || "");
+    document.getElementById("department").value = safeText(staff.department);
+    document.getElementById("qualification").value = safeText(staff.qualification);
+    document.getElementById("employmentDate").value = safeText(staff.employmentDate);
+    document.getElementById("employmentStatus").value = normalizeEmploymentStatus(staff.employmentStatus || staff.accountStatus || "Active");
+    document.getElementById("loginEmail").value = safeText(staff.loginEmail || staff.email);
+    document.getElementById("systemRole").value = mapSystemRoleLabel(staff.systemRole || "teacher");
+
+    populatePhotoPreview(staff.photoUrl || "");
+    updateHeaderInfo(staff);
+
+    const profileLink = document.getElementById("profileLink");
+    if (profileLink) {
+        profileLink.href = `staff-profile.html?id=${encodeURIComponent(staff.id)}`;
+    }
+
     const cancelButton = document.getElementById("cancelButton");
-    const saveModal = document.getElementById("saveModal");
-    const modalOverlay = document.getElementById("modalOverlay");
-    const viewProfileButton = document.getElementById("viewProfileButton");
-    const unsavedModal = document.getElementById("unsavedModal");
-    const keepEditingBtn = document.getElementById("keepEditingBtn");
-    const leaveBtn = document.getElementById("leaveBtn");
-    const menuToggle = document.querySelector(".menu-toggle");
-    const sidebar = document.querySelector(".sidebar");
-    const overlay = document.querySelector(".overlay");
+    if (cancelButton) {
+        cancelButton.href = `staff-profile.html?id=${encodeURIComponent(staff.id)}`;
+    }
+
+    const pageSubtitle = document.getElementById("pageSubtitle");
+    if (pageSubtitle) {
+        pageSubtitle.textContent = `Update ${safeText(staff.fullName || [staff.firstName, staff.lastName].filter(Boolean).join(" "), "staff member")} details.`;
+    }
+}
+
+function showNotFound(message) {
+    const form = document.getElementById("staffForm");
+    const notFoundState = document.getElementById("notFoundState");
+    const notFoundMessage = document.getElementById("notFoundMessage");
+
+    if (form) {
+        form.style.display = "none";
+    }
+
+    if (notFoundState) {
+        notFoundState.style.display = "flex";
+    }
+
+    if (notFoundMessage) {
+        notFoundMessage.textContent = message;
+    }
+}
+
+function validateForm() {
+    const requiredFields = [
+        "firstName",
+        "lastName",
+        "gender",
+        "phone",
+        "email",
+        "staffType",
+        "role",
+        "department",
+        "employmentDate",
+        "employmentStatus"
+    ];
+
+    let valid = true;
+
+    requiredFields.forEach((id) => {
+        const input = document.getElementById(id);
+        if (!input || !input.value.trim()) {
+            setError(id, "This field is required.");
+            valid = false;
+            return;
+        }
+
+        clearError(id);
+    });
+
+    const email = document.getElementById("email");
+    if (email && email.value.trim() && !email.validity.valid) {
+        setError("email", "Enter a valid email address.");
+        valid = false;
+    }
+
+    const loginEmail = document.getElementById("loginEmail");
+    if (loginEmail && loginEmail.value.trim() && !loginEmail.validity.valid) {
+        setError("loginEmail", "Enter a valid login email address.");
+        valid = false;
+    }
+
+    const phone = document.getElementById("phone");
+    if (phone && phone.value.trim() && phone.value.length < 10) {
+        setError("phone", "Enter a valid phone number.");
+        valid = false;
+    }
+
+    return valid;
+}
+
+function buildEditablePayload() {
+    const employmentStatus = getFieldValue("employmentStatus") || "Active";
+    const systemRole = normalizeSystemRole(getFieldValue("systemRole") || getFieldValue("role"));
+
+    return {
+        firstName: getFieldValue("firstName"),
+        middleName: getFieldValue("middleName"),
+        lastName: getFieldValue("lastName"),
+        gender: getFieldValue("gender"),
+        dateOfBirth: getFieldValue("dateOfBirth"),
+        maritalStatus: getFieldValue("maritalStatus"),
+        nationality: getFieldValue("nationality"),
+        phone: getFieldValue("phone"),
+        email: getFieldValue("email"),
+        address: getFieldValue("address"),
+        state: getFieldValue("state"),
+        lga: getFieldValue("lga"),
+        emergencyContact: getFieldValue("emergencyContact"),
+        staffType: getFieldValue("staffType"),
+        systemRole,
+        department: getFieldValue("department"),
+        qualification: getFieldValue("qualification"),
+        employmentDate: getFieldValue("employmentDate"),
+        employmentStatus,
+        loginEmail: getFieldValue("loginEmail") || getFieldValue("email"),
+        accountStatus: normalizeAccountStatus(employmentStatus),
+        photoUrl: currentStaff?.photoUrl || ""
+    };
+}
+
+function setSavingState(isSaving) {
+    const saveButton = document.querySelector(".save-button");
+
+    if (!saveButton) {
+        return;
+    }
+
+    saveButton.disabled = isSaving;
+
+    if (isSaving) {
+        saveButton.dataset.originalText = saveButton.dataset.originalText || saveButton.innerHTML;
+        saveButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving changes...';
+        return;
+    }
+
+    saveButton.innerHTML = saveButton.dataset.originalText || '<i class="fa-solid fa-check"></i> Save Changes';
+}
+
+function showToast(message, isError = false) {
     const toast = document.getElementById("toast");
     const toastMessage = document.getElementById("toastMessage");
 
-    let currentStaff = null;
-    let hasUnsavedChanges = false;
-    let pendingNavigation = null;
+    if (!toast || !toastMessage) {
+        return;
+    }
 
-    // Initialize
-    initializePage();
+    toastMessage.textContent = message;
+    toast.classList.toggle("error", isError);
+    toast.classList.add("show");
+    window.clearTimeout(showToast.timeout);
+    showToast.timeout = window.setTimeout(() => toast.classList.remove("show"), 3600);
+}
 
-    function initializePage() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const staffId = urlParams.get("id");
+async function initializePage() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const staffId = urlParams.get("id")?.trim();
 
-        if (!staffId) {
-            showNotFound("No staff ID provided. Please select a staff member to edit.");
+    if (!staffId) {
+        showNotFound("No staff ID provided. Please select a staff member to edit.");
+        return;
+    }
+
+    try {
+        const session = await requireAuthenticatedSession();
+        verifiedSchoolId = session.schoolProfile.id;
+        authenticatedUser = auth.currentUser;
+
+        if (!authenticatedUser?.uid) {
+            throw new Error("Authenticated user UID is unavailable.");
+        }
+
+        const staff = await getStaffById(verifiedSchoolId, staffId);
+
+        if (!staff) {
+            showNotFound("Staff member not found.");
             return;
         }
 
-        currentStaff = findStaffById(staffId);
-
-        if (!currentStaff) {
-            showNotFound(`Staff member with ID ${staffId} not found.`);
-            return;
-        }
-
-        loadStaffData();
-        setupEventListeners();
+        currentStaff = staff;
+        populateForm(staff);
+    } catch (error) {
+        console.error("Failed to load staff record for editing.", error);
+        showNotFound("Staff member not found.");
+        showToast("Unable to load staff profile. Please try again.", true);
     }
+}
 
-    function findStaffById(id) {
-        return STAFF_DATABASE.find(staff => staff.id === id);
-    }
+function attachFormEvents() {
+    const form = document.getElementById("staffForm");
+    const photoInput = document.getElementById("profilePhoto");
+    const removePhotoBtn = document.getElementById("removePhotoBtn");
+    const cancelButton = document.getElementById("cancelButton");
+    const menuToggle = document.querySelector(".menu-toggle");
+    const sidebar = document.querySelector(".sidebar");
+    const overlay = document.querySelector(".overlay");
+    const keepEditingBtn = document.getElementById("keepEditingBtn");
+    const leaveBtn = document.getElementById("leaveBtn");
+    const saveModal = document.getElementById("saveModal");
+    const viewProfileButton = document.getElementById("viewProfileButton");
 
-    function showNotFound(message) {
-        notFoundState.style.display = "flex";
-        form.style.display = "none";
-        document.getElementById("notFoundMessage").textContent = message;
-    }
-
-    function loadStaffData() {
-        form.style.display = "block";
-        notFoundState.style.display = "none";
-
-        document.getElementById("firstName").value = currentStaff.firstName || "";
-        document.getElementById("middleName").value = currentStaff.middleName || "";
-        document.getElementById("lastName").value = currentStaff.lastName || "";
-        document.getElementById("gender").value = currentStaff.gender || "";
-        document.getElementById("dateOfBirth").value = currentStaff.dateOfBirth || "";
-        document.getElementById("maritalStatus").value = currentStaff.maritalStatus || "";
-        document.getElementById("nationality").value = currentStaff.nationality || "";
-        document.getElementById("phone").value = currentStaff.phone || "";
-        document.getElementById("email").value = currentStaff.email || "";
-        document.getElementById("address").value = currentStaff.address || "";
-        document.getElementById("state").value = currentStaff.state || "";
-        document.getElementById("lga").value = currentStaff.lga || "";
-        document.getElementById("emergencyContact").value = currentStaff.emergencyContact || "";
-        document.getElementById("staffId").value = currentStaff.staffId || "";
-        document.getElementById("staffType").value = currentStaff.staffType || "";
-        document.getElementById("role").value = currentStaff.role || "";
-        document.getElementById("department").value = currentStaff.department || "";
-        document.getElementById("qualification").value = currentStaff.qualification || "";
-        document.getElementById("employmentDate").value = currentStaff.employmentDate || "";
-        document.getElementById("employmentStatus").value = currentStaff.employmentStatus || "";
-        document.getElementById("loginEmail").value = currentStaff.loginEmail || "";
-        document.getElementById("systemRole").value = currentStaff.systemRole || "";
-
-        // Update header info
-        updateHeaderInfo();
-        updateProfileLink();
-    }
-
-    function updateHeaderInfo() {
-        if (currentStaff) {
-            document.getElementById("headerActions").style.display = "block";
-            document.getElementById("headerStaffId").textContent = currentStaff.staffId;
-            document.getElementById("headerName").textContent = `${currentStaff.firstName} ${currentStaff.lastName}`;
-            
-            const statusBadge = document.getElementById("headerStatus");
-            statusBadge.textContent = currentStaff.employmentStatus;
-            statusBadge.className = "info-value status-badge";
-            statusBadge.classList.add(currentStaff.employmentStatus.toLowerCase().replace(" ", "-"));
-        }
-    }
-
-    function updateProfileLink() {
-        if (currentStaff) {
-            const profileLink = document.getElementById("profileLink");
-            profileLink.href = `staff-profile.html?id=${currentStaff.id}`;
-        }
-    }
-
-    function setupEventListeners() {
-        photoInput?.addEventListener("change", handlePhotoChange);
-        removePhotoBtn?.addEventListener("click", handleRemovePhoto);
-        form?.addEventListener("submit", handleFormSubmit);
-        cancelButton?.addEventListener("click", handleCancel);
-        viewProfileButton?.addEventListener("click", handleViewProfile);
-        keepEditingBtn?.addEventListener("click", handleKeepEditing);
-        leaveBtn?.addEventListener("click", handleLeaveWithoutSaving);
-
-        // Track unsaved changes
-        form?.querySelectorAll("input, select, textarea").forEach(field => {
-            if (field.id !== "staffId" && field.id !== "profilePhoto") {
-                field.addEventListener("change", () => {
-                    hasUnsavedChanges = true;
-                });
-            }
-        });
-
-        photoInput?.addEventListener("change", () => {
-            hasUnsavedChanges = true;
-        });
-    }
-
-    function handlePhotoChange() {
+    photoInput?.addEventListener("change", () => {
         const file = photoInput.files?.[0];
         clearError("profilePhoto");
 
-        if (!file) return;
+        if (!file) {
+            return;
+        }
 
         if (!file.type.startsWith("image/")) {
             setError("profilePhoto", "Please choose an image file.");
@@ -316,30 +409,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const reader = new FileReader();
         reader.addEventListener("load", () => {
-            photoPreview.innerHTML = `<img src="${reader.result}" alt="Selected profile photo">`;
-            removePhotoBtn.disabled = false;
+            populatePhotoPreview(String(reader.result));
+            hasUnsavedChanges = true;
         });
         reader.readAsDataURL(file);
-    }
+    });
 
-    function handleRemovePhoto() {
+    removePhotoBtn?.addEventListener("click", () => {
         photoInput.value = "";
-        photoPreview.innerHTML = '<i class="fa-solid fa-user"></i>';
-        removePhotoBtn.disabled = true;
-        clearError("profilePhoto");
+        populatePhotoPreview("");
         hasUnsavedChanges = true;
-    }
+    });
 
-    function handleCancel() {
-        if (hasUnsavedChanges) {
-            showUnsavedChangesModal();
-        } else {
-            navigateToProfile();
-        }
-    }
-
-    function handleFormSubmit(event) {
+    cancelButton?.addEventListener("click", (event) => {
         event.preventDefault();
+        if (hasUnsavedChanges) {
+            document.getElementById("unsavedModal")?.classList.add("show");
+            return;
+        }
+
+        const staffId = new URLSearchParams(window.location.search).get("id");
+        window.location.href = `staff-profile.html?id=${encodeURIComponent(staffId || "")}`;
+    });
+
+    form?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        if (!currentStaff || !currentStaff.id) {
+            showToast("Staff member not found.", true);
+            return;
+        }
 
         if (!validateForm()) {
             showToast("Please review the highlighted required fields.", true);
@@ -347,125 +446,73 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        simulateSave();
-    }
-
-    async function simulateSave() {
-        const buttons = form.querySelectorAll("button[type='submit'], .cancel-button");
-        buttons.forEach((button) => { 
-            if (button.type === "submit") button.disabled = true;
-        });
-
-        // Simulate loading delay
-        await new Promise((resolve) => window.setTimeout(resolve, 750));
-
-        buttons.forEach((button) => { 
-            if (button.type === "submit") button.disabled = false;
-        });
-
-        // Show success modal
-        showSuccessModal();
-        hasUnsavedChanges = false;
-    }
-
-    function showSuccessModal() {
-        saveModal.classList.add("show");
-    }
-
-    function handleViewProfile() {
-        saveModal.classList.remove("show");
-        if (currentStaff) {
-            window.location.href = `staff-profile.html?id=${currentStaff.id}`;
+        if (isSubmitting) {
+            return;
         }
-    }
 
-    function handleKeepEditing() {
-        unsavedModal.classList.remove("show");
-    }
+        isSubmitting = true;
+        setSavingState(true);
 
-    function handleLeaveWithoutSaving() {
-        unsavedModal.classList.remove("show");
-        if (pendingNavigation) {
-            window.location.href = pendingNavigation;
-        } else {
-            navigateToProfile();
+        try {
+            const staffId = currentStaff.id;
+            const updateData = buildEditablePayload();
+            await updateStaff(verifiedSchoolId, staffId, updateData, authenticatedUser.uid);
+
+            hasUnsavedChanges = false;
+            showToast("Staff information updated successfully.");
+
+            if (saveModal && viewProfileButton) {
+                viewProfileButton.href = `staff-profile.html?id=${encodeURIComponent(staffId)}`;
+                saveModal.classList.add("show");
+            }
+        } catch (error) {
+            console.error("Failed to update staff record.", error);
+            const message = error?.message?.includes("already in use")
+                ? "Staff number is already in use. Please enter another staff number."
+                : "Unable to update staff. Please try again.";
+            showToast(message, true);
+        } finally {
+            isSubmitting = false;
+            setSavingState(false);
         }
-    }
+    });
 
-    function navigateToProfile() {
-        if (currentStaff) {
-            window.location.href = `staff-profile.html?id=${currentStaff.id}`;
-        } else {
-            window.location.href = "staff-list.html";
+    form?.querySelectorAll("input, select, textarea").forEach((input) => {
+        if (input.id === "staffId" || input.id === "profilePhoto") {
+            return;
         }
-    }
 
-    function showUnsavedChangesModal() {
-        unsavedModal.classList.add("show");
-    }
-
-    function validateForm() {
-        const requiredFields = ["firstName", "lastName", "gender", "phone", "email", "staffType", "role", "department", "employmentDate", "employmentStatus"];
-        let valid = true;
-
-        requiredFields.forEach((id) => {
-            const input = document.getElementById(id);
-            if (!input.value.trim()) {
-                setError(id, "This field is required.");
-                valid = false;
-            } else {
-                clearError(id);
+        input.addEventListener("input", () => {
+            hasUnsavedChanges = true;
+            if (input.value.trim()) {
+                clearError(input.id);
             }
         });
 
-        const email = document.getElementById("email");
-        if (email.value.trim() && !email.validity.valid) {
-            setError("email", "Enter a valid email address.");
-            valid = false;
-        }
+        input.addEventListener("change", () => {
+            hasUnsavedChanges = true;
+            if (input.value.trim()) {
+                clearError(input.id);
+            }
+        });
+    });
 
-        const loginEmail = document.getElementById("loginEmail");
-        if (loginEmail.value.trim() && !loginEmail.validity.valid) {
-            setError("loginEmail", "Enter a valid email address.");
-            valid = false;
-        }
+    keepEditingBtn?.addEventListener("click", () => {
+        document.getElementById("unsavedModal")?.classList.remove("show");
+    });
 
-        const phone = document.getElementById("phone");
-        if (phone.value.trim() && phone.value.length < 10) {
-            setError("phone", "Enter a valid phone number.");
-            valid = false;
-        }
+    leaveBtn?.addEventListener("click", () => {
+        document.getElementById("unsavedModal")?.classList.remove("show");
+        const staffId = new URLSearchParams(window.location.search).get("id");
+        window.location.href = `staff-profile.html?id=${encodeURIComponent(staffId || "")}`;
+    });
 
-        return valid;
-    }
+    viewProfileButton?.addEventListener("click", (event) => {
+        event.preventDefault();
+        const staffId = new URLSearchParams(window.location.search).get("id");
+        window.location.href = `staff-profile.html?id=${encodeURIComponent(staffId || "")}`;
+    });
 
-    function setError(id, message) {
-        const input = document.getElementById(id);
-        const field = input?.closest(".field");
-        const error = document.querySelector(`[data-error-for="${id}"]`);
-        field?.classList.add("invalid");
-        if (error) error.textContent = message;
-    }
-
-    function clearError(id) {
-        const input = document.getElementById(id);
-        const field = input?.closest(".field");
-        const error = document.querySelector(`[data-error-for="${id}"]`);
-        field?.classList.remove("invalid");
-        if (error) error.textContent = "";
-    }
-
-    function showToast(message, isError = false) {
-        toastMessage.textContent = message;
-        toast.classList.add("show");
-        if (isError) toast.classList.add("error");
-        else toast.classList.remove("error");
-
-        window.clearTimeout(showToast.timeout);
-        showToast.timeout = window.setTimeout(() => toast.classList.remove("show"), 3600);
-    }
-
-    // Mobile menu toggle
     menuToggle?.addEventListener("click", () => {
         sidebar?.classList.toggle("show");
         overlay?.classList.toggle("active");
@@ -473,22 +520,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     overlay?.addEventListener("click", () => {
         sidebar?.classList.remove("show");
-        overlay.classList.remove("active");
-    });
-
-    // Modal close on overlay click
-    modalOverlay?.addEventListener("click", () => {
-        saveModal.classList.remove("show");
+        overlay?.classList.remove("active");
     });
 
     document.getElementById("unsavedOverlay")?.addEventListener("click", () => {
-        unsavedModal.classList.remove("show");
+        document.getElementById("unsavedModal")?.classList.remove("show");
     });
 
-    // Close modals on Escape key
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-            saveModal.classList.remove("show");
+    document.getElementById("modalOverlay")?.addEventListener("click", () => {
+        document.getElementById("saveModal")?.classList.remove("show");
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            document.getElementById("saveModal")?.classList.remove("show");
+            document.getElementById("unsavedModal")?.classList.remove("show");
         }
     });
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+    attachFormEvents();
+    await initializePage();
 });
