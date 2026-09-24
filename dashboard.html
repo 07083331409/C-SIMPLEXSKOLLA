@@ -197,6 +197,35 @@ color:#94A3B8;
 
 }
 
+.dashboard-school-code,
+.dashboard-admin-email{
+    display:block;
+    margin-top:4px;
+    color:#94A3B8;
+    font-size:11px;
+    line-height:1.4;
+}
+.dashboard-toast{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    z-index:20;
+    max-width:340px;
+    padding:14px 18px;
+    border:1px solid rgba(96,165,250,.35);
+    border-radius:12px;
+    background:#111C37;
+    color:#fff;
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
+    opacity:0;
+    pointer-events:none;
+    transform:translateY(12px);
+    transition:opacity .2s ease, transform .2s ease;
+}
+.dashboard-toast.show{
+    opacity:1;
+    transform:translateY(0);
+}
 @media(max-width:768px){
 
 .topbar{
@@ -1591,13 +1620,14 @@ height:260px;
 
             <div class="logo">
 
-                <img src="assets/images/logo.png" alt="SIMPLEXSKOLLA Logo">
+                <img id="dashboardSchoolLogo" src="assets/images/logo.png" alt="SIMPLEXSKOLLA Logo">
 
                 <div>
 
-                    <h2>SIMPLEXSKOLLA</h2>
+                    <h2 id="dashboardSchoolName">SIMPLEXSKOLLA</h2>
 
-                    <p>School ERP Platform</p>
+                    <p id="dashboardSchoolMotto">School ERP Platform</p>
+                    <small id="dashboardSchoolCode" class="dashboard-school-code">School Code</small>
 
                 </div>
 
@@ -1735,9 +1765,10 @@ height:260px;
 
                         <div>
 
-                            <h4>Administrator</h4>
+                            <h4 id="dashboardAdminName">Administrator</h4>
 
-                            <small>Super Admin</small>
+                            <small id="dashboardAdminRole">Super Admin</small>
+                            <small id="dashboardAdminEmail" class="dashboard-admin-email">admin@example.com</small>
 
                         </div>
 
@@ -1768,7 +1799,7 @@ height:260px;
 
                 <span>Total Students</span>
 
-                <h2>1,286</h2>
+                <h2 id="dashboardTotalStudents">Loading...</h2>
 
                 <small><i class="fa-solid fa-arrow-trend-up"></i> +12% this term</small>
 
@@ -1788,9 +1819,9 @@ height:260px;
 
                 <span>Teachers</span>
 
-                <h2>94</h2>
+                <h2 id="dashboardTeachers">Loading...</h2>
 
-                <small><i class="fa-solid fa-user-plus"></i> 5 New Staff</small>
+                <small><i class="fa-solid fa-user-check"></i> Active teaching staff</small>
 
             </div>
 
@@ -1876,49 +1907,9 @@ height:260px;
 
             </div>
 
-            <div class="activity-list">
+            <div class="activity-list" id="dashboardRecentActivities">
 
-                <div class="activity-item">
-
-                    <i class="fa-solid fa-user-plus"></i>
-
-                    <div>
-
-                        <h4>New Student Registered</h4>
-
-                        <p>2 minutes ago</p>
-
-                    </div>
-
-                </div>
-
-                <div class="activity-item">
-
-                    <i class="fa-solid fa-money-bill-wave"></i>
-
-                    <div>
-
-                        <h4>School Fees Paid</h4>
-
-                        <p>15 minutes ago</p>
-
-                    </div>
-
-                </div>
-
-                <div class="activity-item">
-
-                    <i class="fa-solid fa-file-circle-check"></i>
-
-                    <div>
-
-                        <h4>Results Published</h4>
-
-                        <p>1 hour ago</p>
-
-                    </div>
-
-                </div>
+                <div class="activity-item">Loading activities...</div>
 
             </div>
 
@@ -1942,17 +1933,17 @@ height:260px;
 
             <div class="quick-actions">
 
-                <button><i class="fa-solid fa-user-plus"></i> Add Student</button>
+                <button type="button" data-dashboard-action="add-student"><i class="fa-solid fa-user-plus"></i> Add Student</button>
 
-                <button><i class="fa-solid fa-chalkboard-user"></i> Add Teacher</button>
+                <button type="button" data-dashboard-action="add-teacher"><i class="fa-solid fa-chalkboard-user"></i> Add Teacher</button>
 
-                <button><i class="fa-solid fa-money-bill-wave"></i> Collect Fees</button>
+                <button type="button" data-dashboard-action="collect-fees"><i class="fa-solid fa-money-bill-wave"></i> Collect Fees</button>
 
-                <button><i class="fa-solid fa-file-circle-plus"></i> Publish Results</button>
+                <button type="button" data-dashboard-action="publish-results"><i class="fa-solid fa-file-circle-plus"></i> Publish Results</button>
 
-                <button><i class="fa-solid fa-laptop"></i> Create CBT</button>
+                <button type="button" data-dashboard-action="create-cbt"><i class="fa-solid fa-laptop"></i> Create CBT</button>
 
-                <button><i class="fa-solid fa-bullhorn"></i> Announcement</button>
+                <button type="button" data-dashboard-action="announcement"><i class="fa-solid fa-bullhorn"></i> Announcement</button>
 
             </div>
 
@@ -1968,61 +1959,19 @@ height:260px;
 
             </div>
 
-            <div class="event">
+            <div class="event upcoming-events-empty">
 
                 <div class="event-date">
 
-                    <h2>12</h2>
-
-                    <span>AUG</span>
+                    <i class="fa-solid fa-calendar-xmark" aria-hidden="true"></i>
 
                 </div>
 
                 <div>
 
-                    <h4>First Term Resumption</h4>
+                    <h4>No upcoming events yet.</h4>
 
-                    <p>All students return to school.</p>
-
-                </div>
-
-            </div>
-
-            <div class="event">
-
-                <div class="event-date">
-
-                    <h2>18</h2>
-
-                    <span>AUG</span>
-
-                </div>
-
-                <div>
-
-                    <h4>Parents Meeting</h4>
-
-                    <p>Main School Hall • 10:00 AM</p>
-
-                </div>
-
-            </div>
-
-            <div class="event">
-
-                <div class="event-date">
-
-                    <h2>26</h2>
-
-                    <span>AUG</span>
-
-                </div>
-
-                <div>
-
-                    <h4>Inter-House Sports</h4>
-
-                    <p>School Sports Complex</p>
+                    <p>Events &amp; Calendar management will be available here when the Events module is implemented.</p>
 
                 </div>
 
@@ -2036,6 +1985,8 @@ height:260px;
         </main>
 
     </div>
+
+    <div class="dashboard-toast" id="dashboardToast" role="status" aria-live="polite"></div>
 
     
     <!-- Bottom Dashboard -->
@@ -2055,55 +2006,9 @@ height:260px;
 
         </div>
 
-        <div class="student-list">
+        <div class="student-list" id="dashboardLatestAdmissions">
 
-            <div class="student-item">
-
-                <div class="avatar">AJ</div>
-
-                <div>
-
-                    <h4>Amara Johnson</h4>
-
-                    <p>SS1 Science</p>
-
-                </div>
-
-                <span class="badge success">Admitted</span>
-
-            </div>
-
-            <div class="student-item">
-
-                <div class="avatar">EO</div>
-
-                <div>
-
-                    <h4>Emeka Okafor</h4>
-
-                    <p>JSS3 Gold</p>
-
-                </div>
-
-                <span class="badge warning">Pending</span>
-
-            </div>
-
-            <div class="student-item">
-
-                <div class="avatar">UC</div>
-
-                <div>
-
-                    <h4>Uche Chukwu</h4>
-
-                    <p>Primary 5</p>
-
-                </div>
-
-                <span class="badge success">Admitted</span>
-
-            </div>
+            <div class="student-item">Loading admissions...</div>
 
         </div>
 
@@ -2219,32 +2124,6 @@ height:260px;
 <script type="module" src="js/dashboard-auth.js"></script>
 <script src="js/dashboard.js"></script>
 <script>
-  /*==================================
-Sidebar
-==================================*/
-
-const menuToggle=document.querySelector(".menu-toggle");
-
-const sidebar=document.querySelector(".sidebar");
-
-const overlay=document.querySelector(".overlay");
-
-menuToggle.addEventListener("click",()=>{
-
-sidebar.classList.toggle("show");
-
-overlay.classList.toggle("active");
-
-});
-
-overlay.addEventListener("click",()=>{
-
-sidebar.classList.remove("show");
-
-overlay.classList.remove("active");
-
-});
-
 /*==================================
 School Analytics Chart
 ==================================*/
@@ -2253,21 +2132,31 @@ const ctx=document.getElementById("schoolChart");
 
 if(ctx){
 
-new Chart(ctx,{
+const analyticsMonths=Array.from({length:7},(_,index)=>{
+const date=new Date();
+date.setDate(1);
+date.setMonth(date.getMonth()-(6-index));
+return date;
+});
+
+const analyticsLabels=analyticsMonths.map(date=>date.toLocaleString("en-US",{month:"short"}));
+const analyticsKeys=analyticsMonths.map(date=>`${date.getFullYear()}-${date.getMonth()}`);
+
+const schoolChart=new Chart(ctx,{
 
 type:"line",
 
 data:{
 
-labels:["Jan","Feb","Mar","Apr","May","Jun","Jul"],
+labels:analyticsLabels,
 
 datasets:[
 
 {
 
-label:"Admissions",
+label:"Admissions (Loading...)",
 
-data:[80,120,140,170,220,250,310],
+data:analyticsMonths.map(()=>0),
 
 borderColor:"#2563EB",
 
@@ -2281,9 +2170,9 @@ tension:.4
 
 {
 
-label:"Fee Payments",
+label:"Fee Payments (Unavailable)",
 
-data:[70,100,130,180,210,260,320],
+data:[],
 
 borderColor:"#10B981",
 
@@ -2342,6 +2231,39 @@ grid:{color:"rgba(255,255,255,.05)"}
 }
 
 });
+
+window.updateSchoolAnalyticsChart=(students,hasError=false)=>{
+const admissionsByMonth=analyticsKeys.map(()=>0);
+
+if(Array.isArray(students)){
+students.forEach(student=>{
+const admissionDate=student?.admissionDate;
+const createdAt=student?.createdAt;
+const dateValue=admissionDate || createdAt;
+let date=null;
+
+if(dateValue?.toDate instanceof Function){
+date=dateValue.toDate();
+}else if(dateValue){
+date=new Date(dateValue);
+}
+
+if(!date || Number.isNaN(date.getTime())){
+return;
+}
+
+const monthIndex=analyticsKeys.indexOf(`${date.getFullYear()}-${date.getMonth()}`);
+
+if(monthIndex !== -1){
+admissionsByMonth[monthIndex]+=1;
+}
+});
+}
+
+schoolChart.data.datasets[0].label=hasError ? "Admissions (Unavailable)" : "Admissions";
+schoolChart.data.datasets[0].data=admissionsByMonth;
+schoolChart.update();
+};
 
 }
 </script>
